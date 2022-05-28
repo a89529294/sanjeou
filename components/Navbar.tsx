@@ -21,7 +21,7 @@ const Tab = ({
   children: string;
   withIcon?: boolean;
 }) => (
-  <div className="font-medium text-xl flex gap-2 items-center">
+  <div className="flex items-center gap-2 text-xl font-medium cursor-pointer">
     {children}
     {withIcon ? (
       <Image
@@ -36,7 +36,7 @@ const Tab = ({
 
 function Navbar() {
   return (
-    <div className="grid gap-12 px-32 pt-11 pb-5">
+    <div className="grid gap-12 px-32 pb-5 pt-11">
       <div className="flex items-center">
         <Image
           src="/img/SanJeoulogo.svg"
@@ -54,7 +54,7 @@ function Navbar() {
           years
         </span>
 
-        <div className="ml-auto flex gap-8">
+        <div className="flex gap-8 ml-auto">
           <IconButton imgPath="/img/fb.svg" width={26} height={26} />
           <IconButton imgPath="/img/youtube.svg" width={30} height={22} />
           <IconButton imgPath="/img/globe.svg" width={22} height={22} />

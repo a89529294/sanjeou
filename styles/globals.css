@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: "Athelas";
-  src: url("/public/fonts/Athelas-Italic.woff") format("woff");
+  src: url("/fonts/Athelas-Italic.woff") format("woff");
   font-weight: 400;
   font-style: italic;
 }
