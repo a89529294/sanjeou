@@ -12,6 +12,7 @@ function ArrowCircleRight(props: PropTypes) {
       stroke="currentColor"
       strokeWidth={2}
       {...props}
+      style={{ WebkitTapHighlightColor: "transparent" }}
     >
       <path
         strokeLinecap="round"
