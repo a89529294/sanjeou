@@ -16,6 +16,9 @@ module.exports = {
       colors: {
         "primary-red": "#EA1833",
         primary: "#14256A",
+        bauhaus: "#404040",
+        "white-smoke": "#f5f5f5",
+        iron: "#5e5e5e",
       },
       screens: {
         "2xl": { max: "1535px" },

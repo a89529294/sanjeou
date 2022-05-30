@@ -40,7 +40,7 @@ function Navbar() {
   const [showModal, setShowModal] = useState(true);
 
   return (
-    <div className="grid gap-12 px-32 pb-5 pt-11 sm:px-4 sm:pt-4 sm:pb-4">
+    <div className="grid gap-12 px-32 pb-5 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4">
       <div className="flex items-center">
         <Image
           src="/img/SanJeoulogo.svg"
@@ -68,7 +68,7 @@ function Navbar() {
           <IconButton imgPath="/img/globe.svg" width={22} height={22} />
         </div>
       </div>
-      <div className="flex gap-16 sm:hidden">
+      <div className="flex gap-16 sm:hidden text-bauhaus">
         <Tab>公司簡介</Tab>
         <Tab withIcon>動態資訊</Tab>
         <Tab withIcon>產品</Tab>
@@ -77,8 +77,12 @@ function Navbar() {
         <Tab withIcon>工程實績</Tab>
         <Tab>聯繫我們</Tab>
       </div>
-      <Modal show={showModal} setShow={setShowModal}>
-        <div className="absolute top-0 right-0 flex flex-col content-start h-screen gap-3 py-4 bg-white w-44">
+      <Modal
+        show={showModal}
+        setShow={setShowModal}
+        className="hidden sm:block"
+      >
+        <div className="absolute top-0 right-0 flex flex-col content-start h-screen gap-3 py-4 bg-white w-44 text-bauhaus">
           <Tab>公司簡介</Tab>
           <Tab>動態資訊</Tab>
           <Tab>產品</Tab>
