@@ -1,8 +1,7 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 
-import ArrowCircleLeft from "./Icons/ArrowCircleLeft";
-import ArrowCircleRight from "./Icons/ArrowCircleRight";
+import { ArrowCircleRight, ArrowCircleLeft } from "./Icons/CarouselButton";
 
 const getImages = (i: number, imgs: string[]): number[] => {
   const left = i - 1 < 0 ? imgs.length - 1 : i - 1;

@@ -27,7 +27,7 @@ const Tab = ({
     {children}
     {withIcon ? (
       <Image
-        src="/img/chevron-down.svg"
+        src="/img/icons/chevron-down.svg"
         layout="fixed"
         width={20}
         height={10}
@@ -43,7 +43,7 @@ function Navbar() {
     <div className="grid gap-12 px-32 pb-5 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4">
       <div className="flex items-center">
         <Image
-          src="/img/SanJeoulogo.svg"
+          src="/img/icons/SanJeoulogo.svg"
           layout="intrinsic"
           height={55}
           width={411}
@@ -63,9 +63,9 @@ function Navbar() {
         />
 
         <div className="flex gap-8 ml-auto sm:hidden">
-          <IconButton imgPath="/img/fb.svg" width={26} height={26} />
-          <IconButton imgPath="/img/youtube.svg" width={30} height={22} />
-          <IconButton imgPath="/img/globe.svg" width={22} height={22} />
+          <IconButton imgPath="/img/icons/fb.svg" width={26} height={26} />
+          <IconButton imgPath="/img/icons/youtube.svg" width={30} height={22} />
+          <IconButton imgPath="/img/icons/globe.svg" width={22} height={22} />
         </div>
       </div>
       <div className="flex gap-16 sm:hidden text-bauhaus">
@@ -91,9 +91,13 @@ function Navbar() {
           <Tab>工程實績</Tab>
           <Tab>聯繫我們</Tab>
           <div className="flex justify-center gap-3 mt-auto ">
-            <IconButton imgPath="/img/fb.svg" width={26} height={26} />
-            <IconButton imgPath="/img/youtube.svg" width={30} height={22} />
-            <IconButton imgPath="/img/globe.svg" width={22} height={22} />
+            <IconButton imgPath="/img/icons/fb.svg" width={26} height={26} />
+            <IconButton
+              imgPath="/img/icons/youtube.svg"
+              width={30}
+              height={22}
+            />
+            <IconButton imgPath="/img/icons/globe.svg" width={22} height={22} />
           </div>
         </div>
       </Modal>

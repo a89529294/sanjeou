@@ -1,26 +1,49 @@
+import Image from "next/image";
 import React from "react";
 import SectionTitle from "../SectionTitle";
-import Map from "./Map";
+
+const row1 = [
+  "/img/home/partners/台灣高鐵.png",
+  "/img/home/partners/台灣鐵路.png",
+  "/img/home/partners/台北捷運.jpg",
+  "/img/home/partners/桃園捷運.jpg",
+  "/img/home/partners/台中捷運.png",
+  "/img/home/partners/高雄捷運.png",
+  "/img/home/partners/行政院.png",
+  "/img/home/partners/台中市政府.png",
+  "/img/home/partners/國立台灣美術館.png",
+  "/img/home/partners/台電.png",
+  "/img/home/partners/台灣自來水.jpg",
+];
+const row2 = [
+  "/img/home/partners/台中榮總.png",
+  "/img/home/partners/台中醫院.png",
+  "/img/home/partners/彰化醫院.png",
+  "/img/home/partners/中山醫.png",
+  "/img/home/partners/彰基醫院.png",
+  "/img/home/partners/亞大醫院.png",
+  "/img/home/partners/霧峰澄清醫院.png",
+  "/img/home/partners/勤益大學.jpg",
+  "/img/home/partners/逢甲大學.png",
+];
 
 function Partners() {
   return (
-    <div className="relative px-32 overflow-hidden pb-28">
-      <SectionTitle primary="合作夥伴" secondary="Partners" />
-      <div className="relative px-11">
-        <Map className="w-full mt-4" />
-        <div className="w-5 h-5 bg-white absolute left-[18.5%] top-[48.5%] rounded-2xl p-px">
-          <div className="grid w-full h-full cursor-pointer rounded-2xl bg-primary-red place-content-center peer">
-            <div className="w-[6px] aspect-square bg-white rounded-xl"></div>
+    <div className="px-32">
+      <SectionTitle primary="合作廠商" secondary="Partners" withDivider />
+      <div className="flex h-16 mt-10">
+        {row1.map((img) => (
+          <div key={img} className="relative flex-1">
+            <Image src={img} layout="fill" objectFit="contain"></Image>
           </div>
-          <div className="absolute top-0 flex flex-col items-center transition-all duration-300 delay-1000 origin-bottom scale-y-0 -translate-x-1/2 -translate-y-full opacity-0 peer-hover:delay-[0ms] left-1/2 peer-hover:scale-y-100 peer-hover:opacity-100 hover:opacity-100 hover:scale-y-100">
-            <div className="pt-5 text-center bg-white border-2 border-solid rounded-full w-44 aspect-square border-primary-red">
-              <p className="text-sm font-medium text-primary-red">國家/地區</p>
-              <p className="text-lg font-bold text-primary">公司名稱</p>
-              <p className="text-sm text-black">聯絡資訊</p>
-            </div>
-            <div className="h-8 border-l border-solid border-primary-red"></div>
+        ))}
+      </div>
+      <div className="flex h-16">
+        {row2.map((img) => (
+          <div key={img} className="relative flex-1">
+            <Image src={img} layout="fill" objectFit="contain"></Image>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

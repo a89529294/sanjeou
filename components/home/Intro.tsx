@@ -3,7 +3,7 @@ import MoreInfoButton from "../MoreInfoButton";
 
 function Intro() {
   return (
-    <div className="relative flex gap-10 px-32 pb-32 overflow-hidden pt-28">
+    <div className="relative flex gap-10 px-32 pb-32 pt-28">
       <video controls className="w-3/5 h-96">
         <source src="/media/cc0-videos/flower.webm" type="video/webm" />
         <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />

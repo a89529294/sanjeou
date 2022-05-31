@@ -1,6 +1,9 @@
 import Carousel from "../components/Carousel";
+import Achievements from "../components/home/Achievements";
 import Intro from "../components/home/Intro";
 import News from "../components/home/News";
+import Products from "../components/home/Products";
+import Locations from "../components/home/Locations";
 import Partners from "../components/home/Partners";
 
 const imgArray = [
@@ -16,13 +19,24 @@ const imgArray = [
   "/img/home/carousel-9.jpg",
 ];
 
+const productsArray = [
+  "/img/home/product-0.jpg",
+  "/img/home/product-1.jpg",
+  "/img/home/product-2.jpg",
+];
+
+const achievementsArray = ["/img/home/ach-0.jpg", "/img/home/ach-1.jpg"];
+
 function HomePage() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Carousel imgs={imgArray} />
       <Intro />
-      <Partners />
+      <Locations />
       <News />
+      <Products imgs={productsArray} />
+      <Achievements imgs={achievementsArray} />
+      <Partners />
     </div>
   );
 }

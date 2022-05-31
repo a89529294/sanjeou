@@ -2,11 +2,11 @@ import React from "react";
 
 function MoreInfoButton({
   className = "",
-  size = "medium",
+  size = "default",
   color = "white",
 }: {
-  className: string;
-  size?: "medium" | "small";
+  className?: string;
+  size?: "default" | "small";
   color?: "red" | "white";
 }) {
   const textColor = color === "red" ? "text-primary-red" : "text-white";
@@ -17,7 +17,7 @@ function MoreInfoButton({
     >
       <button
         className={`p-1 ${
-          size === "medium" ? "text-xl" : "text-base"
+          size === "default" ? "text-xl" : "text-base"
         } ${textColor}`}
       >
         了解更多
