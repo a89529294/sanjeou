@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 import Burger from "./Icons/Burger";
 import { Modal } from "./Modal";
@@ -19,21 +20,28 @@ const IconButton = ({ imgPath, width, height, ...props }: IconButtonProps) => (
 const Tab = ({
   children,
   withIcon,
+  to,
 }: {
   children: string;
   withIcon?: boolean;
+  to: string;
 }) => (
-  <div className="flex items-center gap-2 text-xl font-medium cursor-pointer sm:grid sm:place-content-center sm:py-2 sm:px-4 sm:text-base">
-    {children}
-    {withIcon ? (
-      <Image
-        src="/img/icons/chevron-down.svg"
-        layout="fixed"
-        width={20}
-        height={10}
-      />
-    ) : null}
-  </div>
+  <Link
+    href={to}
+    className="flex items-center gap-2 text-xl font-medium cursor-pointer sm:grid sm:place-content-center sm:py-2 sm:px-4 sm:text-base"
+  >
+    <a>
+      {children}
+      {withIcon ? (
+        <Image
+          src="/img/icons/chevron-down.svg"
+          layout="fixed"
+          width={20}
+          height={10}
+        />
+      ) : null}
+    </a>
+  </Link>
 );
 
 function Navbar() {
@@ -42,12 +50,17 @@ function Navbar() {
   return (
     <div className="grid gap-12 px-32 pb-5 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4">
       <div className="flex items-center">
-        <Image
-          src="/img/icons/SanJeoulogo.svg"
-          layout="intrinsic"
-          height={55}
-          width={411}
-        />
+        <Link href="/">
+          <a>
+            <Image
+              src="/img/icons/SanJeoulogo.svg"
+              layout="intrinsic"
+              height={55}
+              width={411}
+            />
+          </a>
+        </Link>
+
         <span className="font-athelas italic text-primary-red text-[64px] leading-[0.5] self-start ml-4 sm:text-3xl sm:leading-[0.7]">
           3
         </span>
@@ -69,13 +82,21 @@ function Navbar() {
         </div>
       </div>
       <div className="flex gap-16 sm:hidden text-bauhaus">
-        <Tab>公司簡介</Tab>
-        <Tab withIcon>動態資訊</Tab>
-        <Tab withIcon>產品</Tab>
-        <Tab withIcon>電子型錄</Tab>
-        <Tab>影片</Tab>
-        <Tab withIcon>工程實績</Tab>
-        <Tab>聯繫我們</Tab>
+        <Tab to="/about">公司簡介</Tab>
+        <Tab to="/news" withIcon>
+          動態資訊
+        </Tab>
+        <Tab to="/products" withIcon>
+          產品
+        </Tab>
+        <Tab to="/catalog" withIcon>
+          電子型錄
+        </Tab>
+        <Tab to="/videos">影片</Tab>
+        <Tab to="/acheivements" withIcon>
+          工程實績
+        </Tab>
+        <Tab to="/contact-us">聯繫我們</Tab>
       </div>
       <Modal
         show={showModal}
@@ -83,13 +104,13 @@ function Navbar() {
         className="hidden sm:block"
       >
         <div className="absolute top-0 right-0 flex flex-col content-start h-screen gap-3 py-4 bg-white w-44 text-bauhaus">
-          <Tab>公司簡介</Tab>
-          <Tab>動態資訊</Tab>
-          <Tab>產品</Tab>
-          <Tab>電子型錄</Tab>
-          <Tab>影片</Tab>
-          <Tab>工程實績</Tab>
-          <Tab>聯繫我們</Tab>
+          <Tab to="/about">公司簡介</Tab>
+          <Tab to="/news">動態資訊</Tab>
+          <Tab to="/products">產品</Tab>
+          <Tab to="/catalog">電子型錄</Tab>
+          <Tab to="/videos">影片</Tab>
+          <Tab to="/acheivements">工程實績</Tab>
+          <Tab to="/contact-us">聯繫我們</Tab>
           <div className="flex justify-center gap-3 mt-auto ">
             <IconButton imgPath="/img/icons/fb.svg" width={26} height={26} />
             <IconButton

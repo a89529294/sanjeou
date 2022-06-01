@@ -7,7 +7,7 @@ function SectionTitle({
   className = "",
 }: {
   primary: string;
-  secondary: string;
+  secondary?: string;
   withDivider?: boolean;
   className?: string;
 }) {
@@ -21,7 +21,9 @@ function SectionTitle({
           }`}
         />
       </div>
-      <h2 className="text-xl font-light text-primary-red">{secondary}</h2>
+      {secondary ? (
+        <h2 className="text-xl font-light text-primary-red">{secondary}</h2>
+      ) : null}
     </div>
   );
 }
