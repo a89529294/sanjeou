@@ -4,7 +4,7 @@ import SectionTitle from "../SectionTitle";
 
 function Hero() {
   return (
-    <div className="relative">
+    <div className="relative pb-20">
       <SectionTitle primary="三久建材工業股份有限公司" />
       <div className="flex flex-col gap-10 mt-6 mb-10 text-lg text-bauhaus">
         <p>

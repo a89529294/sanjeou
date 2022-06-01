@@ -1,10 +1,11 @@
 import Image from "next/image";
 import React from "react";
+import Certifications from "../components/about/Certifications";
 import Hero from "../components/about/Hero";
 
 function About() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <div className="relative h-96">
         <Image
           layout="fill"
@@ -14,6 +15,7 @@ function About() {
       </div>
       <div className="px-32 pt-16 pb-24">
         <Hero />
+        <Certifications />
       </div>
     </div>
   );
