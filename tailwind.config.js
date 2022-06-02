@@ -28,6 +28,9 @@ module.exports = {
         md: { max: "767px" },
         sm: { max: "639px" },
       },
+      gridTemplateColumns: {
+        "product-grid": " repeat(auto-fill, minmax(250px, 1fr))",
+      },
     },
   },
   plugins: [],

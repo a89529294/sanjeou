@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 function SectionTitle({
@@ -5,16 +6,27 @@ function SectionTitle({
   secondary,
   withDivider = false,
   className = "",
+  size = "default",
+  icon,
 }: {
   primary: string;
   secondary?: string;
   withDivider?: boolean;
   className?: string;
+  size?: "default" | "small";
+  icon?: string;
 }) {
   return (
     <div className={className}>
       <div className="flex items-center gap-3">
-        <h1 className="text-3xl font-bold text-primary ">{primary}</h1>
+        {icon ? <Image width={26} height={28} src={icon} /> : null}
+        <h1
+          className={`text-primary ${
+            size === "default" ? "text-3xl font-bold" : "text-2xl font-medium"
+          }`}
+        >
+          {primary}
+        </h1>
         <div
           className={`flex-1 border-t border-solid border-primary-red ${
             withDivider ? "block" : "hidden"
