@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import Certifications from "../components/about/Certifications";
 import Hero from "../components/about/Hero";
+import Milestones from "../components/about/Milestones";
 
 function About() {
   return (
@@ -16,6 +17,7 @@ function About() {
       <div className="px-32 pt-16 pb-24">
         <Hero />
         <Certifications />
+        <Milestones />
       </div>
     </div>
   );
