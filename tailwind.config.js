@@ -19,6 +19,7 @@ module.exports = {
         bauhaus: "#404040",
         "white-smoke": "#f5f5f5",
         iron: "#5e5e5e",
+        "stonewall-gray": "#c1c1c1",
       },
       screens: {
         "2xl": { max: "1535px" },

@@ -3,17 +3,12 @@ import React from "react";
 import Certifications from "../components/about/Certifications";
 import Hero from "../components/about/Hero";
 import Milestones from "../components/about/Milestones";
+import HeroImage from "../components/HeroImage";
 
 function About() {
   return (
     <div className="overflow-hidden">
-      <div className="relative h-96">
-        <Image
-          layout="fill"
-          objectFit="cover"
-          src="/img/about/about_hero.png"
-        />
-      </div>
+      <HeroImage text="公司簡介" />
       <div className="px-32 pt-16 pb-24">
         <Hero />
         <Certifications />
