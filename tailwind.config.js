@@ -29,7 +29,9 @@ module.exports = {
         sm: { max: "639px" },
       },
       gridTemplateColumns: {
-        "product-grid": " repeat(auto-fill, minmax(250px, 1fr))",
+        "product-grid": "repeat(auto-fill, minmax(250px, 1fr))",
+        "catalog-grid": "repeat(auto-fill, minmax(350px, 1fr))",
+        "achievement-grid": "repeat(auto-fill, minmax(500px, 1fr))",
       },
     },
   },

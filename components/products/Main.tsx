@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import ItemTitle from "../ItemTitle";
 import SectionTitle from "../SectionTitle";
 
 const products = [
@@ -96,9 +97,9 @@ const MenuList = ({
   icon: string;
 }) => (
   <div>
-    <div className="flex gap-2 text-2xl font-medium text-primary">
+    <div className="flex gap-2">
       <Image width={22} height={24} src={icon} />
-      <span>{title}</span>
+      <ItemTitle>{title}</ItemTitle>
     </div>
     <ul className="flex flex-col gap-2 mt-3">
       {items.map((item, i) => (
@@ -121,12 +122,15 @@ const ProductGrid = ({
     <SectionTitle primary={title} withDivider icon={icon} />
     <div className="grid mt-6 gap-x-5 gap-y-7 grid-cols-product-grid">
       {items.map((item, i) => (
-        <div key={i} className="relative aspect-[4/3]">
-          <Image
-            layout="fill"
-            objectFit="cover"
-            src="https://placehold.jp/300x230.png"
-          />
+        <div key={i}>
+          <div className="relative aspect-[4/3]">
+            <Image
+              layout="fill"
+              objectFit="cover"
+              src="https://placehold.jp/300x230.png"
+            />
+          </div>
+          <ItemTitle>{item}</ItemTitle>
         </div>
       ))}
     </div>
@@ -136,15 +140,18 @@ const ProductGrid = ({
 function Main() {
   return (
     <div className="flex gap-2 bg-white-smoke">
-      <div className="grid pb-24 pl-24 bg-white gap-9 pr-9 pt-9">
-        <ListItem text="全部" selected />
-        {products.map((series) => (
-          <MenuList
-            title={series.series}
-            items={series.items}
-            icon={series.icon}
-          />
-        ))}
+      <div className="bg-white">
+        <div className="grid pb-24 pl-24 gap-9 pr-9 pt-9">
+          <ListItem text="全部" selected />
+          {products.map((series, i) => (
+            <MenuList
+              title={series.series}
+              items={series.items}
+              icon={series.icon}
+              key={i}
+            />
+          ))}
+        </div>
       </div>
       <div className="flex flex-col flex-1 gap-8 bg-white pt-9 pl-11">
         {products.map((series) => (

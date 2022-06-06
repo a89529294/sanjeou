@@ -1,6 +1,9 @@
 import Image from "next/image";
 import React from "react";
+import InPageNavbar from "../InPageNavbar";
+import ItemTitle from "../ItemTitle";
 import MoreInfoButton from "../MoreInfoButton";
+import Tag from "../Tag";
 
 const news = [
   {
@@ -37,9 +40,9 @@ function NewsItem({
       <div className="flex flex-col justify-start flex-1">
         <div className="flex items-center gap-2">
           <span className="text-lg font-medium text-primary-red">{date}</span>
-          <span className="px-2 text-base text-white bg-primary">{tag}</span>
+          <Tag text={tag} />
         </div>
-        <h1 className="text-[28px] font-medium text-primary">{title}</h1>
+        <ItemTitle size="medium">{title}</ItemTitle>
         <p className="mt-3 text-lg text-iron">{body}</p>
         <MoreInfoButton color="red" className="mt-auto" />
       </div>
@@ -50,11 +53,7 @@ function NewsItem({
 function NewsList() {
   return (
     <div className="">
-      <nav className="flex gap-24 px-32 py-5 text-xl font-medium text-bauhaus bg-white-smoke">
-        <div className="cursor-pointer">全部</div>
-        <div className="cursor-pointer">活動資訊</div>
-        <div className="cursor-pointer">操作教學</div>
-      </nav>
+      <InPageNavbar items={["全部", "活動資訊", "操作教學"]} />
       <div className="grid gap-4 px-32 py-7">
         {news.map((item, i) => (
           <NewsItem key={i} item={item} />

@@ -1,0 +1,68 @@
+import Image from "next/image";
+import React from "react";
+import ChevronDown from "../Icons/ChevronDown";
+import CirclePlus from "../Icons/CirclePlus";
+
+const FormInput = ({
+  label,
+  placeholder,
+  options,
+}: {
+  label: string;
+  placeholder: string;
+  options?: Array<string>;
+}) => (
+  <label className="flex items-center pb-2 pr-5 text-xl font-medium border-b border-solid text-bauhaus placeholder:text-lg placeholder:text-stonewall-gray border-primary">
+    <span className="inline-block w-32">{label}</span>
+    <input placeholder={placeholder} />
+    {options ? (
+      <ChevronDown stroke="red" width={20} height={12} className="ml-auto" />
+    ) : null}
+  </label>
+);
+
+function Main() {
+  return (
+    <div className="grid px-32 pt-6 pb-36 gap-9">
+      <div className="flex items-start gap-16 px-8 border border-solid border-stonewall-gray py-7">
+        <div className="grid flex-1 gap-[14px]">
+          <FormInput label="公司 / 姓名" placeholder="請輸入公司 / 姓名" />
+          <FormInput label="聯絡電話" placeholder="請輸入聯絡電話" />
+          <FormInput label="電子信箱" placeholder="請輸入電子信箱" />
+          <div className="grid gap-3 mt-4">
+            <h3 className="text-xl font-medium">訊息內容</h3>
+            <textarea className="w-full h-32 border border-solid border-primary" />
+          </div>
+        </div>
+        <div className="flex-1 grid gap-[14px]">
+          <FormInput
+            label="諮詢部門"
+            placeholder="請選擇諮詢部門"
+            options={[]}
+          />
+          <div className="pl-32 mb-14">
+            <button className="py-2 text-xl border border-solid px-7 text-primary-red border-primary-red ">
+              新增型號
+            </button>
+          </div>
+
+          <FormInput
+            label="捲門系列"
+            placeholder="請選擇捲門系列"
+            options={[]}
+          />
+          <FormInput label="捲門" placeholder="請選擇捲門" options={[]} />
+          <button className="flex items-center pr-3 text-xl font-medium text-bauhaus">
+            附件檔<span className="ml-1 text-xs">(上限10MB)</span>
+            <CirclePlus className="ml-auto text-primary-red" />
+          </button>
+        </div>
+      </div>
+      <button className="px-12 py-2 text-xl border border-solid text-primary-red border-primary-red place-self-center">
+        送出
+      </button>
+    </div>
+  );
+}
+
+export default Main;

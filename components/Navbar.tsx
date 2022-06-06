@@ -93,10 +93,15 @@ function Navbar() {
           電子型錄
         </Tab>
         <Tab to="/videos">影片</Tab>
-        <Tab to="/acheivements" withIcon>
+        <Tab to="/achievements" withIcon>
           工程實績
         </Tab>
         <Tab to="/contact-us">聯繫我們</Tab>
+        <Link href="search">
+          <a className="ml-auto cursor-pointer">
+            <Image width={22} height={22} src="/img/icons/search.svg" />
+          </a>
+        </Link>
       </div>
       <Modal
         show={showModal}
@@ -109,7 +114,7 @@ function Navbar() {
           <Tab to="/products">產品</Tab>
           <Tab to="/catalog">電子型錄</Tab>
           <Tab to="/videos">影片</Tab>
-          <Tab to="/acheivements">工程實績</Tab>
+          <Tab to="/achievements">工程實績</Tab>
           <Tab to="/contact-us">聯繫我們</Tab>
           <div className="flex justify-center gap-3 mt-auto ">
             <IconButton imgPath="/img/icons/fb.svg" width={26} height={26} />
