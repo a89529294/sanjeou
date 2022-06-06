@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import Burger from "./Icons/Burger";
+import Search from "./Icons/Search";
 import { Modal } from "./Modal";
 
 interface IconButtonProps
@@ -99,7 +100,7 @@ function Navbar() {
         <Tab to="/contact-us">聯繫我們</Tab>
         <Link href="search">
           <a className="ml-auto cursor-pointer">
-            <Image width={22} height={22} src="/img/icons/search.svg" />
+            <Search />
           </a>
         </Link>
       </div>
