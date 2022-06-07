@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import ChevronDown from "../Icons/ChevronDown";
 import CirclePlus from "../Icons/CirclePlus";
+import OutlinedButton from "../OutlinedButton";
 
 const FormInput = ({
   label,
@@ -41,9 +42,7 @@ function Main() {
             options={[]}
           />
           <div className="pl-32 mb-14">
-            <button className="py-2 text-xl border border-solid px-7 text-primary-red border-primary-red ">
-              新增型號
-            </button>
+            <OutlinedButton>新增型號</OutlinedButton>
           </div>
 
           <FormInput
@@ -58,9 +57,9 @@ function Main() {
           </button>
         </div>
       </div>
-      <button className="px-12 py-2 text-xl border border-solid text-primary-red border-primary-red place-self-center">
+      <OutlinedButton className="place-self-center" size="wide">
         送出
-      </button>
+      </OutlinedButton>
     </div>
   );
 }

@@ -98,7 +98,7 @@ function Navbar() {
           工程實績
         </Tab>
         <Tab to="/contact-us">聯繫我們</Tab>
-        <Link href="search">
+        <Link href="/search">
           <a className="ml-auto cursor-pointer">
             <Search />
           </a>

@@ -46,69 +46,6 @@ const products = [
   { series: "客製化", items: [], icon: "/img/icons/door7.svg" },
 ];
 
-const ListItem = ({
-  text,
-  as = "div",
-  selected = false,
-}: {
-  text: string;
-  as?: "div" | "li";
-  selected?: boolean;
-}) => {
-  const As = as;
-  return (
-    <As className="flex gap-2 cursor-pointer">
-      <div className="flex w-[22px]">
-        {selected ? (
-          <>
-            <div className="flex-1 border-r border-solid border-primary-red" />
-            <div className="flex-1 border-l border-solid border-primary-red" />
-          </>
-        ) : null}
-      </div>
-      {as === "div" ? (
-        <span
-          className={`text-2xl font-medium ${
-            selected ? "text-primary-red" : "text-primary"
-          }`}
-        >
-          {text}
-        </span>
-      ) : (
-        <span
-          className={`text-xl ${
-            selected ? "text-primary-red" : "text-bauhaus"
-          }`}
-        >
-          {text}
-        </span>
-      )}
-    </As>
-  );
-};
-
-const MenuList = ({
-  title,
-  items,
-  icon,
-}: {
-  title: string;
-  items: string[];
-  icon: string;
-}) => (
-  <div>
-    <div className="flex gap-2">
-      <Image width={22} height={24} src={icon} />
-      <ItemTitle>{title}</ItemTitle>
-    </div>
-    <ul className="flex flex-col gap-2 mt-3">
-      {items.map((item, i) => (
-        <ListItem text={item} as="li" key={i} />
-      ))}
-    </ul>
-  </div>
-);
-
 const ProductGrid = ({
   title,
   items,
@@ -139,29 +76,15 @@ const ProductGrid = ({
 
 function Main() {
   return (
-    <div className="flex gap-2 bg-white-smoke">
-      <div className="bg-white">
-        <div className="grid pb-24 pl-24 gap-9 pr-9 pt-9">
-          <ListItem text="全部" selected />
-          {products.map((series, i) => (
-            <MenuList
-              title={series.series}
-              items={series.items}
-              icon={series.icon}
-              key={i}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="flex flex-col flex-1 gap-8 bg-white pt-9 pl-11">
-        {products.map((series) => (
-          <ProductGrid
-            title={series.series}
-            items={series.items}
-            icon={series.icon}
-          />
-        ))}
-      </div>
+    <div className="flex flex-col flex-1 gap-8 bg-white pt-9 pl-11">
+      {products.map((series, i) => (
+        <ProductGrid
+          title={series.series}
+          items={series.items}
+          icon={series.icon}
+          key={i}
+        />
+      ))}
     </div>
   );
 }

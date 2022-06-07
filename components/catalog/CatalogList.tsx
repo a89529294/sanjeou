@@ -50,7 +50,7 @@ const CatalogItem = ({
     <div className="relative mb-1 aspect-video">
       <Image layout="fill" objectFit="cover" src={img} />
     </div>
-    <Tag text={tag} className="justify-self-start" />
+    <Tag className="justify-self-start">{tag}</Tag>
     <ItemTitle className="mt-3">{title}</ItemTitle>
   </div>
 );
@@ -63,7 +63,12 @@ function CatalogList() {
       />
       <div className="grid px-32 py-7 grid-cols-catalog-grid gap-9">
         {all.map((item, i) => (
-          <CatalogItem img={item.img} tag={item.tag} title={item.title} />
+          <CatalogItem
+            img={item.img}
+            tag={item.tag}
+            title={item.title}
+            key={i}
+          />
         ))}
       </div>
     </div>

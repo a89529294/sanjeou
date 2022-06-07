@@ -1,6 +1,8 @@
 import React from "react";
 
-function X({ className = "" }) {
+interface PropsType extends React.SVGProps<SVGSVGElement> {}
+
+function X({ className = "", ...rest }: PropsType) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,6 +11,7 @@ function X({ className = "" }) {
       viewBox="0 0 24 24"
       stroke="currentColor"
       strokeWidth={2}
+      {...rest}
     >
       <path
         strokeLinecap="round"

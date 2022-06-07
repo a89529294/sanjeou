@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Circle from "../Circle";
-import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrow";
+import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
 import MoreInfoButton from "../MoreInfoButton";
 import SectionTitle from "../SectionTitle";
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import InPageNavbar from "../InPageNavbar";
 import ItemTitle from "../ItemTitle";
@@ -12,6 +13,7 @@ const news = [
     tag: "活動訊息",
     title: "與勵馨基金會一齊把愛延展到每位需要幫助的女性",
     body: "三久員工們一起體驗製作香氛蠟燭，想要獻給最親愛的媽媽，祝全天下的媽媽們母親節快樂！",
+    id: 1,
   },
   {
     img: "/img/news/news-1.jpg",
@@ -19,6 +21,7 @@ const news = [
     tag: "活動訊息",
     title: "與勵馨基金會一齊把愛延展到每位需要幫助的女性",
     body: "三久員工們一起體驗製作香氛蠟燭，想要獻給最親愛的媽媽，祝全天下的媽媽們母親節快樂！",
+    id: 2,
   },
   {
     img: "/img/news/news-2.jpg",
@@ -26,13 +29,21 @@ const news = [
     tag: "活動訊息",
     title: "與勵馨基金會一齊把愛延展到每位需要幫助的女性",
     body: "三久員工們一起體驗製作香氛蠟燭，想要獻給最親愛的媽媽，祝全天下的媽媽們母親節快樂！",
+    id: 3,
   },
 ];
 
 function NewsItem({
-  item: { img, date, tag, title, body },
+  item: { img, date, tag, title, body, id },
 }: {
-  item: { img: string; date: string; tag: string; title: string; body: string };
+  item: {
+    img: string;
+    date: string;
+    tag: string;
+    title: string;
+    body: string;
+    id: number;
+  };
 }) {
   return (
     <div className="flex py-5 border border-solid border-stonewall-gray px-7 gap-9">
@@ -40,11 +51,13 @@ function NewsItem({
       <div className="flex flex-col justify-start flex-1">
         <div className="flex items-center gap-2">
           <span className="text-lg font-medium text-primary-red">{date}</span>
-          <Tag text={tag} />
+          <Tag>{tag}</Tag>
         </div>
         <ItemTitle size="medium">{title}</ItemTitle>
         <p className="mt-3 text-lg text-iron">{body}</p>
-        <MoreInfoButton color="red" className="mt-auto" />
+        <Link href={`/news/${id}`} passHref>
+          <MoreInfoButton color="red" className="mt-auto" />
+        </Link>
       </div>
     </div>
   );

@@ -1,14 +1,14 @@
 import React from "react";
-import HeroImage from "../components/HeroImage";
 import Main from "../components/products/Main";
+import type { ReactElement } from "react";
+import ProductPageLayout from "../components/layouts/ProductPageLayout";
 
 function Products() {
-  return (
-    <div>
-      <HeroImage text="產品" />
-      <Main />
-    </div>
-  );
+  return <Main />;
 }
 
 export default Products;
+
+Products.getLayout = function getLayout(page: ReactElement) {
+  return <ProductPageLayout>{page}</ProductPageLayout>;
+};

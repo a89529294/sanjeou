@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 interface PropsType
@@ -5,16 +6,22 @@ interface PropsType
     React.HTMLAttributes<HTMLSpanElement>,
     HTMLSpanElement
   > {
-  text: string;
+  children: string;
+  icon?: string;
 }
 
-function Tag({ text, className, ...rest }: PropsType) {
+function Tag({ children, className = "", icon, ...rest }: PropsType) {
   return (
     <span
-      className={`px-2 py-1 text-base text-white bg-primary ${className}`}
+      className={`inline-flex items-center gap-1 px-2 py-1 text-base text-white bg-primary font-medium ${className}`}
       {...rest}
     >
-      {text}
+      {icon ? (
+        <div className="grid place-content-center">
+          <Image src={icon} width={22} height={24} />
+        </div>
+      ) : null}
+      <span>{children}</span>
     </span>
   );
 }

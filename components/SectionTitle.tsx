@@ -22,7 +22,9 @@ function SectionTitle({
         {icon ? <Image width={26} height={28} src={icon} /> : null}
         <h1
           className={`text-primary ${
-            size === "default" ? "text-3xl font-bold" : "text-2xl font-medium"
+            size === "default"
+              ? "text-[32px] font-bold"
+              : "text-[28px] font-medium"
           }`}
         >
           {primary}

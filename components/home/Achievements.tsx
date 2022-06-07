@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Circle from "../Circle";
-import { CircleArrowDown, CircleArrowUp } from "../Icons/CircleArrow";
+import { CircleArrowDown, CircleArrowUp } from "../Icons/CircleArrows";
 import SectionTitle from "../SectionTitle";
 
 function Card({

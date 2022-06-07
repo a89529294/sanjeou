@@ -8,7 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Noto Sans TC", ...defaultTheme.fontFamily.serif], // default font
+        sans: ["Noto Sans TC", ...defaultTheme.fontFamily.sans], // default font
+        "open-sans": ["Open Sans", "sans-serif"],
         athelas: ["Athelas", "serif"],
         playfair: ["Playfair Display", "serif"],
         notosanstc: ["Noto Sans TC", "sans-serif"],
@@ -20,6 +21,7 @@ module.exports = {
         "white-smoke": "#f5f5f5",
         iron: "#5e5e5e",
         "stonewall-gray": "#c1c1c1",
+        "silver-spoon": "#d2d2d2",
       },
       screens: {
         "2xl": { max: "1535px" },
@@ -32,6 +34,10 @@ module.exports = {
         "product-grid": "repeat(auto-fill, minmax(250px, 1fr))",
         "catalog-grid": "repeat(auto-fill, minmax(350px, 1fr))",
         "achievement-grid": "repeat(auto-fill, minmax(500px, 1fr))",
+        "news-article-image-grid": "repeat(auto-fill, minmax(350px, 400px))",
+      },
+      backgroundImage: {
+        pdf: "repeating-linear-gradient(-45deg, #000, #000 .1%, #fff .1%, #fff 1.2%)",
       },
     },
   },
