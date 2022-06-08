@@ -1,5 +1,6 @@
 import React from "react";
 import MoreInfoButton from "../MoreInfoButton";
+import VerticalBar from "../VerticalBar";
 
 function Intro() {
   return (
@@ -17,6 +18,7 @@ function Intro() {
           本公司秉持著信譽永久、品質永久、服務永久的三個永久為公司的經營宗旨。不敢一日或忘，不管時代變遷、經濟興衰，將永遠以三個永久的精神繼續奮鬥，以不負對三久公司厚愛的使用顧客與工程先進。
         </p>
         <MoreInfoButton className="mt-auto" />
+        <VerticalBar className="-top-32" />
       </div>
       <div className="absolute bottom-0 w-screen rounded-full aspect-square left-1/3 bg-primary -z-10"></div>
     </div>

@@ -13,7 +13,7 @@ const imgs = [
 function Certifications() {
   return (
     <div className="relative pb-28">
-      <SectionTitle primary="專業認證" />
+      <SectionTitle primary="專業認證" withDecoration />
       <div className="flex gap-7 mt-7">
         {imgs.map((img) => (
           <div key={img[0]} className="flex-1 ">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import Burger from "./Icons/Burger";
 import Search from "./Icons/Search";
@@ -26,30 +27,42 @@ const Tab = ({
   children: string;
   withIcon?: boolean;
   to: string;
-}) => (
-  <Link
-    href={to}
-    className="flex items-center gap-2 text-xl font-medium cursor-pointer sm:grid sm:place-content-center sm:py-2 sm:px-4 sm:text-base"
-  >
-    <a>
-      {children}
+}) => {
+  const router = useRouter();
+  const selected = router.pathname.indexOf(to);
+  return (
+    <div className="grid auto-cols-auto auto-rows-auto gap-x-1">
+      <Link href={to}>
+        <a
+          className={`w-max text-bauhaus text-xl font-medium cursor-pointer sm:grid sm:place-content-center sm:py-2 sm:px-4 sm:text-base `}
+        >
+          {children}
+        </a>
+      </Link>
       {withIcon ? (
-        <Image
-          src="/img/icons/chevron-down.svg"
-          layout="fixed"
-          width={20}
-          height={10}
-        />
+        <div className="col-start-2 row-start-1">
+          <Image
+            src="/img/icons/chevron-down.svg"
+            layout="fixed"
+            width={20}
+            height={10}
+          />
+        </div>
       ) : null}
-    </a>
-  </Link>
-);
+      <div
+        className={`h-5 ${
+          selected === 0 ? "border-b-4 border-solid border-primary-red" : ""
+        }`}
+      ></div>
+    </div>
+  );
+};
 
 function Navbar() {
   const [showModal, setShowModal] = useState(true);
 
   return (
-    <div className="grid gap-12 px-32 pb-5 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4">
+    <div className="grid gap-12 px-32 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4">
       <div className="flex items-center">
         <Link href="/">
           <a>

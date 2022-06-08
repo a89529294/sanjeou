@@ -5,7 +5,12 @@ import Map from "../Map";
 function Locations() {
   return (
     <div className="relative px-32 pb-28">
-      <SectionTitle primary="合作夥伴" secondary="Cooperation" withDivider />
+      <SectionTitle
+        primary="合作夥伴"
+        secondary="Cooperation"
+        withDivider
+        withDecoration
+      />
       <div className="relative px-11">
         <Map className="w-full mt-4" />
         <div className="w-5 h-5 bg-white absolute left-[18.5%] top-[48.5%] rounded-2xl p-px">

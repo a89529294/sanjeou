@@ -3,6 +3,7 @@ import React from "react";
 import MoreInfoButton from "../MoreInfoButton";
 import SectionTitle from "../SectionTitle";
 import Circle from "../Circle";
+import VerticalBar from "../VerticalBar";
 
 const Article = ({
   imgPath,
@@ -63,7 +64,7 @@ function News() {
       </div>
       <Circle
         className="top-0 left-0 -translate-y-40 -translate-x-7 -z-10"
-        width="w-[244px]"
+        width={244}
         bgColor="bg-white-smoke"
       />
     </div>

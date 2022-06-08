@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import SectionTitle from "../SectionTitle";
+import VerticalBar from "../VerticalBar";
 
 const row1 = [
   "/img/home/partners/台灣高鐵.png",
@@ -62,12 +63,13 @@ const imgs = [row1, row2, row3, row4];
 
 function Partners() {
   return (
-    <div className="px-32 pb-6">
+    <div className="relative px-32 pb-6">
       <SectionTitle
         primary="合作廠商"
         secondary="Partners"
         withDivider
         className="pb-6"
+        withDecoration
       />
 
       {imgs.map((row, i) => (

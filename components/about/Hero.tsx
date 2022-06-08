@@ -5,7 +5,7 @@ import SectionTitle from "../SectionTitle";
 function Hero() {
   return (
     <div className="relative pb-20">
-      <SectionTitle primary="三久建材工業股份有限公司" />
+      <SectionTitle primary="三久建材工業股份有限公司" withDecoration />
       <div className="flex flex-col gap-10 mt-6 mb-10 text-lg text-bauhaus">
         <p>
           三久建材工業股份有限公司成立於1982年，30多年以來，取得多項專利與認證。為一專業之電動防火捲門、阻熱捲門、遮煙捲簾、硬式防颱快速門、圍牆大門、防水閘門及機棚大門製作及施工之責任保證公司。
@@ -25,7 +25,7 @@ function Hero() {
         <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
         Sorry, your browser doesn't support embedded videos.
       </video>
-      <Circle width="w-[1078px]" className="right-0 top-32 translate-x-[45%]" />
+      <Circle width={1078} className="right-0 top-32 translate-x-[45%]" />
     </div>
   );
 }

@@ -6,12 +6,13 @@ function Circle({
   bgColor = "bg-white-smoke",
 }: {
   className: string;
-  width: string;
+  width: number;
   bgColor?: string;
 }) {
   return (
     <div
-      className={`absolute rounded-full aspect-square ${className} ${width} ${bgColor} -z-10`}
+      className={`absolute rounded-full aspect-square ${className} ${bgColor} -z-10`}
+      style={{ width: width + "px" }}
     />
   );
 }

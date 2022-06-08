@@ -3,6 +3,7 @@ import React from "react";
 import Circle from "../Circle";
 import { CircleArrowDown, CircleArrowUp } from "../Icons/CircleArrows";
 import SectionTitle from "../SectionTitle";
+import VerticalBar from "../VerticalBar";
 
 function Card({
   year,
@@ -42,6 +43,7 @@ function Achievements({ imgs }: { imgs: string[] }) {
       />
       <div className="relative grid grid-cols-2 grid-rows-2 gap-4">
         <div className="relative h-80">
+          <VerticalBar className="-right-5 -top-[70px]" />
           <Image layout="fill" objectFit="cover" src={imgs[0]} />
         </div>
         <Card
@@ -75,7 +77,7 @@ function Achievements({ imgs }: { imgs: string[] }) {
           <CircleArrowDown />
         </div>
       </div>
-      <Circle width="w-[580px]" className="top-3 -left-20" />
+      <Circle width={580} className="top-3 -left-20" />
     </div>
   );
 }

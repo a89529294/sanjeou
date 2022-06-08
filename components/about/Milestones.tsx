@@ -131,7 +131,7 @@ const TimelineItem = ({
 function Milestones() {
   return (
     <div className="grid gap-14 isolate">
-      <SectionTitle primary="企業沿革" withDivider />
+      <SectionTitle primary="企業沿革" withDivider withDecoration />
       <div className="flex">
         <div className="flex-1 ">
           {leftColumnItems.map((item, i) => (

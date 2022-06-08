@@ -53,7 +53,7 @@ function NewsItem({
           <span className="text-lg font-medium text-primary-red">{date}</span>
           <Tag>{tag}</Tag>
         </div>
-        <ItemTitle size="medium">{title}</ItemTitle>
+        <ItemTitle size="large">{title}</ItemTitle>
         <p className="mt-3 text-lg text-iron">{body}</p>
         <Link href={`/news/${id}`} passHref>
           <MoreInfoButton color="red" className="mt-auto" />

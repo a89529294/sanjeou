@@ -1,9 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import ItemTitle from "../ItemTitle";
 
 const achievements = [
   {
+    id: 1,
     img: "https://placehold.jp/500x300.png",
     year: 2022,
     icons: [
@@ -19,6 +21,7 @@ const achievements = [
     subText: "造門工藝與烤漆品質提升。",
   },
   {
+    id: 2,
     img: "https://placehold.jp/500x300.png",
     year: 2019,
     icons: ["/img/icons/door1.svg"],
@@ -26,6 +29,7 @@ const achievements = [
     subText: "柔性門。",
   },
   {
+    id: 3,
     img: "https://placehold.jp/500x300.png",
     year: 2020,
     icons: ["/img/icons/door3.svg"],
@@ -33,6 +37,7 @@ const achievements = [
     subText: "UL防火捲門。",
   },
   {
+    id: 4,
     img: "https://placehold.jp/500x300.png",
     year: 2020,
     icons: [
@@ -50,12 +55,14 @@ const achievements = [
 ];
 
 const AchItem = ({
+  id,
   img,
   year,
   icons,
   title,
   subText,
 }: {
+  id: number;
   img: string;
   year: number;
   icons: string[];
@@ -74,22 +81,27 @@ const AchItem = ({
         <Image width={22} height={24} src={icon} />
       ))}
     </div>
-    <ItemTitle>{title}</ItemTitle>
-    <h3 className="-mt-3 text-lg text-bauhaus">{subText}</h3>
+    <Link href={`/achievements/${id}`}>
+      <a className="grid gap-3">
+        <ItemTitle>{title}</ItemTitle>
+        <h3 className="-mt-3 text-lg text-bauhaus">{subText}</h3>
+      </a>
+    </Link>
   </div>
 );
 
 function AchievementsList() {
   return (
     <div className="grid gap-5 px-32 py-7 grid-cols-achievement-grid">
-      {achievements.map((ach, i) => (
+      {achievements.map((ach) => (
         <AchItem
-          key={i}
+          key={ach.id}
           img={ach.img}
           year={ach.year}
           icons={ach.icons}
           title={ach.title}
           subText={ach.subText}
+          id={ach.id}
         />
       ))}
     </div>

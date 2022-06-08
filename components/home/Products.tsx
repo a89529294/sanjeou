@@ -25,7 +25,7 @@ function Product({ imgPath }: { imgPath: string }) {
 function Products({ imgs }: { imgs: string[] }) {
   return (
     <div className="relative px-32">
-      <SectionTitle primary="產品資訊" secondary="Products" />
+      <SectionTitle primary="產品資訊" secondary="Products" withDecoration />
       <div className="flex gap-6 pb-24 pt-9">
         {imgs.map((img) => (
           <Product imgPath={img} key={img} />
@@ -36,7 +36,7 @@ function Products({ imgs }: { imgs: string[] }) {
         <CircleArrowRight />
       </div>
 
-      <Circle width="w-[470px]" className="-right-24 -top-7" />
+      <Circle width={470} className="-right-24 -top-7" />
     </div>
   );
 }
