@@ -78,7 +78,7 @@ const ContactInfo = ({
 function Footer() {
   return (
     <footer className="relative px-32 pt-14 bg-[url('/img/home/footer/bg.png')]">
-      <div className="flex gap-24 pb-10 border-b border-dashed border-primary">
+      <div className="flex gap-24 pb-10 border-b border-dashed border-primary xl:gap-12">
         <div>
           <FooterSectionTitle>公司簡介</FooterSectionTitle>
           <List items={["公司介紹", "影片介紹", "專業認證", "公司歷程"]} />
@@ -174,14 +174,14 @@ function Footer() {
         </div>
       </div>
       <div className="flex pb-20 pt-9">
-        <div className="relative w-56 h-32">
+        <div className="relative aspect-[56/32] max-w-[224px] flex-1 ">
           <Image
             src="/img/home/footer/logo.svg"
             layout="fill"
-            objectFit="cover"
+            objectFit="contain"
           />
         </div>
-        <div className="flex justify-center flex-1 gap-7">
+        <div className="flex justify-center flex-1 gap-7 min-w-[450px]">
           <ContactInfo
             title="總公司工廠"
             addr="41357 台中市霧峰區峰北路666號"
@@ -197,46 +197,46 @@ function Footer() {
           />
         </div>
 
-        <div className="grid gap-3 auto-cols-auto auto-rows-auto place-items-center">
-          <div className="row-span-2 w-[118px] h-[118px] relative">
+        <div className="grid flex-1 max-w-xs gap-3 grid-cols-5 grid-rows-2 place-items-center aspect-[5/2] xl:gap-1">
+          <div className="relative w-full col-span-2 col-start-1 row-span-2 row-start-1 aspect-square">
             <Image
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
               src="/img/home/footer/2022talentintaiwan.svg"
             />
           </div>
-          <div className="col-start-2 row-start-1 w-[54px] h-[54px] relative">
+          <div className="relative w-full col-start-3 row-start-1 aspect-square">
             <Image
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
               src="/img/home/footer/ISO9001_2000.svg"
             />
           </div>
-          <div className="col-start-3 row-start-1 w-[54px] h-[54px] relative">
+          <div className="relative w-full col-start-4 row-start-1 aspect-square">
             <Image
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
               src="/img/home/footer/TÜVSÜD.svg"
             />
           </div>
-          <div className="col-start-4 row-start-1 w-[51px] h-[64px] relative">
+          <div className="relative w-full col-start-5 row-start-1 aspect-square">
             <Image
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
               src="/img/home/footer/UKAS.svg"
             />
           </div>
-          <div className="col-start-2 row-start-2 w-[58px] h-[58px] relative">
+          <div className="relative w-full col-start-3 row-start-2 aspect-square">
             <Image
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
               src="/img/home/footer/UL.svg"
             />
           </div>
-          <div className="col-span-2 w-[126px] h-[58px] relative">
+          <div className="relative w-full col-span-2 aspect-[2/1]">
             <Image
               layout="fill"
-              objectFit="cover"
+              objectFit="contain"
               src="/img/home/footer/bsi.svg"
             />
           </div>

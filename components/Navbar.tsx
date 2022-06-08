@@ -34,7 +34,7 @@ const Tab = ({
     <div className="grid auto-cols-auto auto-rows-auto gap-x-1">
       <Link href={to}>
         <a
-          className={`w-max text-bauhaus text-xl font-medium cursor-pointer sm:grid sm:place-content-center sm:py-2 sm:px-4 sm:text-base `}
+          className={`w-max text-bauhaus text-xl font-medium cursor-pointer sm:grid sm:place-content-center sm:py-2 sm:px-4 sm:text-base xl:text-lg`}
         >
           {children}
         </a>
@@ -62,7 +62,7 @@ function Navbar() {
   const [showModal, setShowModal] = useState(true);
 
   return (
-    <div className="grid gap-12 px-32 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4">
+    <div className="grid gap-12 px-32 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4 ">
       <div className="flex items-center">
         <Link href="/">
           <a>
@@ -95,7 +95,7 @@ function Navbar() {
           <IconButton imgPath="/img/icons/globe.svg" width={22} height={22} />
         </div>
       </div>
-      <div className="flex gap-16 sm:hidden text-bauhaus">
+      <div className="flex gap-16 sm:hidden text-bauhaus xl:gap-8">
         <Tab to="/about">公司簡介</Tab>
         <Tab to="/news" withIcon>
           動態資訊
