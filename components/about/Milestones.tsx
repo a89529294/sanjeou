@@ -145,10 +145,11 @@ function Milestones() {
   return (
     <div className="grid gap-14 isolate">
       <SectionTitle primary="企業沿革" withDivider withDecoration />
-      <div className="flex flex-wrap">
+      <div className="relative flex flex-wrap">
         {items.map((item, i) => (
           <TimelineItem key={i} year={item.year} texts={item.texts} index={i} />
         ))}
+        <div className="absolute h-full left-1/2 -z-10 outline outline-1 outline-primary-red before:content-[''] before:w-5 before:aspect-square before:rounded-full before:border before:border-primary-red before:border-solid before:absolute before:right-0 before:top-0 before:translate-x-1/2 before:-translate-y-1/2 before:bg-white" />
       </div>
     </div>
   );
