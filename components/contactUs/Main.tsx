@@ -13,7 +13,7 @@ const FormInput = ({
   placeholder: string;
   options?: Array<string>;
 }) => (
-  <label className="flex items-center pb-2 pr-5 text-xl font-medium border-b border-solid text-bauhaus placeholder:text-lg placeholder:text-stonewall-gray border-primary">
+  <label className="flex items-center pb-2 text-xl font-medium border-b border-solid text-bauhaus placeholder:text-lg placeholder:text-stonewall-gray border-primary">
     <span className="inline-block w-32">{label}</span>
     <input placeholder={placeholder} />
     {options ? (
@@ -25,8 +25,8 @@ const FormInput = ({
 function Main() {
   return (
     <div className="grid px-32 pt-6 pb-36 gap-9">
-      <div className="flex items-start gap-16 px-8 border border-solid border-stonewall-gray py-7">
-        <div className="grid flex-1 gap-[14px]">
+      <div className="flex items-start px-8 border border-solid border-stonewall-gray py-7 ">
+        <div className="grid flex-1 gap-[14px] pr-8 border-r border-solid border-stonewall-gray">
           <FormInput label="公司 / 姓名" placeholder="請輸入公司 / 姓名" />
           <FormInput label="聯絡電話" placeholder="請輸入聯絡電話" />
           <FormInput label="電子信箱" placeholder="請輸入電子信箱" />
@@ -35,7 +35,7 @@ function Main() {
             <textarea className="w-full h-32 border border-solid border-primary" />
           </div>
         </div>
-        <div className="flex-1 grid gap-[14px]">
+        <div className="flex-1 grid gap-[14px] pl-8">
           <FormInput
             label="諮詢部門"
             placeholder="請選擇諮詢部門"

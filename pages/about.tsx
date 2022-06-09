@@ -7,7 +7,7 @@ import HeroImage from "../components/HeroImage";
 
 function About() {
   return (
-    <div className="overflow-hidden">
+    <div>
       <HeroImage text="公司簡介" />
       <div className="px-32 pt-16 pb-24">
         <Hero />

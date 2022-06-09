@@ -24,8 +24,8 @@ const ImgGrid = ({ children }: { children: React.ReactNode }) => (
 );
 
 const PDF = ({ title }: { title: string }) => (
-  <div>
-    <div className="w-96 aspect-[402/178] grid place-items-center font-open-sans font-bold text-5xl bg-pdf mt-5 mb-2">
+  <div className="flex-1">
+    <div className="aspect-[402/178] grid place-items-center font-open-sans font-bold text-5xl bg-pdf mt-5 mb-2">
       PDF
     </div>
     <h3 className="text-2xl font-medium text-primary">{title}</h3>
@@ -84,7 +84,7 @@ function ProductDetails() {
       </TitledParagraphs>
       <div>
         <SectionTitle primary="型錄下載" withDivider />
-        <div className="flex gap-5">
+        <div className="flex gap-5 pr-10 xl:pr-5 xl:gap-3 whitespace-nowrap">
           <PDF title="一般型、防颱型電動捲門" />
           <PDF title="一般型、防颱型電動捲門" />
         </div>

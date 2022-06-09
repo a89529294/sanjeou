@@ -5,7 +5,7 @@ import NewsList from "../components/news/NewsList";
 
 function News() {
   return (
-    <div className="overflow-hidden">
+    <div>
       <HeroImage text="動態資訊" />
       <NewsList />
     </div>

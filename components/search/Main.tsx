@@ -10,7 +10,11 @@ const ListItem = ({
   children: string;
   selected?: boolean;
 }) => (
-  <li className={`text-2xl ${selected ? "text-primary-red" : "text-bauhaus"}`}>
+  <li
+    className={`text-2xl ${
+      selected ? "text-primary-red" : "text-bauhaus"
+    } xl:text-lg`}
+  >
     {children}
   </li>
 );
@@ -42,10 +46,12 @@ const SearchBar = ({
           <Search size="large" />
         </div>
       </div>
-      <div className="flex items-center">
-        <div className="font-medium text-[28px] text-primary">搜尋結果</div>
-        <div className="translate-y-[2px] border-r-2 border-solid h-4/6 ml-7 border-primary" />
-        <ul className="flex pl-6 gap-14">
+      <div className="flex items-center whitespace-nowrap">
+        <div className="font-medium text-[28px] text-primary xl:text-xl">
+          搜尋結果
+        </div>
+        <div className="translate-y-[2px] border-r-2 border-solid h-4/6 ml-6 border-primary xl:ml-5" />
+        <ul className="flex pl-6 gap-14 xl:pl-5 xl:gap-10">
           <ListItem selected>全部(4)</ListItem>
           <ListItem>動態資訊(0)</ListItem>
           <ListItem>產品(1)</ListItem>

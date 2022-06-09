@@ -29,7 +29,7 @@ const achievementsArray = ["/img/home/ach-0.jpg", "/img/home/ach-1.jpg"];
 
 function HomePage() {
   return (
-    <div className="overflow-hidden">
+    <div>
       <Carousel imgs={imgArray} />
       <Intro />
       <Locations />

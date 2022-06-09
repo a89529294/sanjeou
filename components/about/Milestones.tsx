@@ -98,9 +98,13 @@ const rightColumnItems = [
 const l = Math.max(leftColumnItems.length, rightColumnItems.length);
 const items: { year: number; texts: string[] }[] = [];
 new Array(l).fill(0).forEach((item, i) => {
-  items.push(leftColumnItems[i]);
-  items.push(rightColumnItems[i]);
+  leftColumnItems[i] && items.push(leftColumnItems[i]);
+  rightColumnItems[i] && items.push(rightColumnItems[i]);
 });
+const lengthIsEven = items.length % 2 === 0;
+lengthIsEven
+  ? items.push({ year: -99, texts: [] })
+  : items.push({ year: -98, texts: [] }, { year: -100, texts: [] });
 
 const TimelineItem = ({
   year,
@@ -110,46 +114,54 @@ const TimelineItem = ({
   year: number;
   texts: string[];
   index: number;
-}) => (
-  <div
-    className={`basis-1/2 flex flex-col justify-center py-10 ${
-      index % 2 ? "items-start" : "items-end"
-    } `}
-    style={{
-      transform: index % 2 ? "translateY(50%)" : "none",
-    }}
-  >
+}) => {
+  return year === -98 ? (
+    <div className="h-0 basis-1/2"></div>
+  ) : year === -99 ? (
+    <div className="h-60 basis-1/2"></div>
+  ) : year === -100 ? (
+    <div className="h-20 basis-1/2"></div>
+  ) : (
     <div
-      className={`relative pb-2 text-5xl font-thin border-b border-gray-300 border-solid text-primary/70 after:content-[''] after:w-3 after:aspect-square after:bg-gray-300 after:rounded-full after:block after:absolute ${
-        index % 2
-          ? "pl-9 after:left-0 after:bottom-0 after:-translate-x-1/2 after:translate-y-1/2"
-          : "pr-10 after:right-0 after:bottom-0 after:translate-x-1/2 after:translate-y-1/2"
+      className={`basis-1/2 flex flex-col justify-center pt-10 ${
+        index % 2 ? "items-start" : "items-end"
       }`}
+      style={{
+        transform: index % 2 ? "translateY(50%)" : "none",
+      }}
     >
-      {year}
-    </div>
-    {texts.map((text, i) => (
       <div
-        className={`pl-2 mt-2 text-lg leading-none border-l border-solid border-primary-red ${
-          index % 2 ? "ml-10" : "pr-10"
+        className={`relative pb-2 text-5xl font-thin border-b border-gray-300 border-solid text-primary/70 after:content-[''] after:w-3 after:aspect-square after:bg-gray-300 after:rounded-full after:block after:absolute ${
+          index % 2
+            ? "pl-9 after:left-0 after:bottom-0 after:-translate-x-1/2 after:translate-y-1/2"
+            : "pr-10 after:right-0 after:bottom-0 after:translate-x-1/2 after:translate-y-1/2"
         }`}
-        key={i}
       >
-        {text}
+        {year}
       </div>
-    ))}
-  </div>
-);
+      {texts.map((text, i) => (
+        <div
+          className={`pl-2 mt-2 text-lg leading-none border-l border-solid border-primary-red ${
+            index % 2 ? "ml-10" : "pr-10"
+          }`}
+          key={i}
+        >
+          {text}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 function Milestones() {
   return (
     <div className="grid gap-14 isolate">
       <SectionTitle primary="企業沿革" withDivider withDecoration />
-      <div className="relative flex flex-wrap">
+      <div className="relative flex flex-wrap ">
         {items.map((item, i) => (
           <TimelineItem key={i} year={item.year} texts={item.texts} index={i} />
         ))}
-        <div className="absolute h-full left-1/2 -z-10 outline outline-1 outline-primary-red before:content-[''] before:w-5 before:aspect-square before:rounded-full before:border before:border-primary-red before:border-solid before:absolute before:right-0 before:top-0 before:translate-x-1/2 before:-translate-y-1/2 before:bg-white" />
+        <div className="absolute h-full left-1/2 -z-10 outline outline-1 outline-primary-red before:content-[''] before:w-5 before:aspect-square before:rounded-full before:border before:border-primary-red before:border-solid before:absolute before:right-0 before:top-0 before:translate-x-1/2 before:-translate-y-1/2 before:bg-white after:content-[''] after:block after:w-6 after:border-b-2 after:border-primary-red after:aspect-square after:absolute after:-bottom-[2px] after:-translate-y-1/2 after:skew-y-[-45deg]" />
       </div>
     </div>
   );
