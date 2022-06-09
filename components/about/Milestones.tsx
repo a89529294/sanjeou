@@ -2,7 +2,10 @@ import React from "react";
 import SectionTitle from "../SectionTitle";
 
 const leftColumnItems = [
-  { year: 1982, texts: ["創立三久捲門實業有限公司。"] },
+  {
+    year: 1982,
+    texts: ["創立三久捲門實業有限公司。", "國內首先開發鏈條式電動單軌大門。"],
+  },
   { year: 1984, texts: ["國內首先開發鏈條式電動單軌大門。"] },
   { year: 1988, texts: ["新廠落成，並由台中市遷移至現址。"] },
   { year: 1991, texts: ["與日本OMATA捲門株式會社簽定技術合作協議。"] },
@@ -92,25 +95,35 @@ const rightColumnItems = [
   },
 ];
 
+const l = Math.max(leftColumnItems.length, rightColumnItems.length);
+const items: { year: number; texts: string[] }[] = [];
+new Array(l).fill(0).forEach((item, i) => {
+  items.push(leftColumnItems[i]);
+  items.push(rightColumnItems[i]);
+});
+
 const TimelineItem = ({
   year,
   texts,
-  dir = "right",
+  index,
 }: {
   year: number;
   texts: string[];
-  dir?: "left" | "right";
+  index: number;
 }) => (
   <div
-    className={`flex flex-col justify-center py-10 ${
-      dir === "right" ? "items-end" : "items-start"
-    }`}
+    className={`basis-1/2 flex flex-col justify-center py-10 ${
+      index % 2 ? "items-start" : "items-end"
+    } `}
+    style={{
+      transform: index % 2 ? "translateY(50%)" : "none",
+    }}
   >
     <div
       className={`relative pb-2 text-5xl font-thin border-b border-gray-300 border-solid text-primary/70 after:content-[''] after:w-3 after:aspect-square after:bg-gray-300 after:rounded-full after:block after:absolute ${
-        dir === "right"
-          ? "pr-10 after:right-0 after:bottom-0 after:translate-x-1/2 after:translate-y-1/2"
-          : "pl-9 after:left-0 after:bottom-0 after:-translate-x-1/2 after:translate-y-1/2"
+        index % 2
+          ? "pl-9 after:left-0 after:bottom-0 after:-translate-x-1/2 after:translate-y-1/2"
+          : "pr-10 after:right-0 after:bottom-0 after:translate-x-1/2 after:translate-y-1/2"
       }`}
     >
       {year}
@@ -118,7 +131,7 @@ const TimelineItem = ({
     {texts.map((text, i) => (
       <div
         className={`pl-2 mt-2 text-lg leading-none border-l border-solid border-primary-red ${
-          dir === "right" ? "pr-10" : "ml-10"
+          index % 2 ? "ml-10" : "pr-10"
         }`}
         key={i}
       >
@@ -132,6 +145,11 @@ function Milestones() {
   return (
     <div className="grid gap-14 isolate">
       <SectionTitle primary="企業沿革" withDivider withDecoration />
+      <div className="flex flex-wrap">
+        {items.map((item, i) => (
+          <TimelineItem key={i} year={item.year} texts={item.texts} index={i} />
+        ))}
+      </div>
     </div>
   );
 }
