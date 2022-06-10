@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import VerticalBar from "./VerticalBar";
 
 function SectionTitle({
@@ -10,6 +10,7 @@ function SectionTitle({
   size = "default",
   icon,
   withDecoration = false,
+  id,
 }: {
   primary: string;
   secondary?: string;
@@ -18,9 +19,10 @@ function SectionTitle({
   size?: "default" | "small";
   icon?: string;
   withDecoration?: boolean;
+  id?: string;
 }) {
   return (
-    <div className={`relative ${className} isolate`}>
+    <div className={`relative ${className} isolate`} id={id}>
       <div className="flex items-center gap-3">
         {icon ? <Image width={26} height={28} src={icon} /> : null}
         <h1

@@ -1,8 +1,18 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import products from "../data/products";
 
-const FooterSectionTitle = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="mb-4 text-base font-bold text-bauhaus">{children}</h2>
+const FooterSectionTitle = ({
+  children,
+  path,
+}: {
+  children: React.ReactNode;
+  path: string;
+}) => (
+  <Link href={path}>
+    <a className="mb-4 text-base font-bold text-bauhaus">{children}</a>
+  </Link>
 );
 
 const List = ({
@@ -10,19 +20,25 @@ const List = ({
   gap = false,
   highLightFirstChild = false,
 }: {
-  items: string[];
+  items: ({ path: string; text: string } | string)[];
   gap?: boolean;
   highLightFirstChild?: boolean;
 }) => (
   <ul className="grid gap-3">
-    {items.map((item) => (
+    {items.map((item, i) => (
       <li
-        key={item}
+        key={i}
         className={`cursor-pointer text-sm font-light text-bauhaus ${
           highLightFirstChild ? "first:text-primary-red first:font-medium" : ""
         } ${gap ? "ml-2" : ""}`}
       >
-        {item}
+        {typeof item !== "string" ? (
+          <Link href={item.path}>
+            <a>{item.text}</a>
+          </Link>
+        ) : (
+          item
+        )}
       </li>
     ))}
   </ul>
@@ -80,40 +96,50 @@ function Footer() {
     <footer className="relative px-32 pt-14 bg-[url('/img/home/footer/bg.png')]">
       <div className="flex gap-24 pb-10 border-b border-dashed border-primary xl:gap-12">
         <div>
-          <FooterSectionTitle>公司簡介</FooterSectionTitle>
-          <List items={["公司介紹", "影片介紹", "專業認證", "公司歷程"]} />
+          <FooterSectionTitle path="/about">公司簡介</FooterSectionTitle>
+          <List
+            items={[
+              { path: "/about#about-intro", text: "公司介紹" },
+              { path: "/about#about-video", text: "影片介紹" },
+              { path: "/about#about-certs", text: "專業認證" },
+              { path: "/about#about-milestones", text: "公司歷程" },
+            ]}
+          />
         </div>
         <div>
-          <FooterSectionTitle>動態資訊</FooterSectionTitle>
+          <FooterSectionTitle path="/news">動態資訊</FooterSectionTitle>
           <h3 className="mb-3 text-sm font-bold text-primary">全部</h3>
-          <List items={["工程實績", "專業認證", "公司歷程"]} gap />
+          <List
+            items={[
+              { path: "/news#activities", text: "活動訊息" },
+              { path: "/news#lessons", text: "操作教學" },
+            ]}
+            gap
+          />
         </div>
         <div className="flex-1">
-          <FooterSectionTitle>產品</FooterSectionTitle>
+          <FooterSectionTitle path="/products">產品</FooterSectionTitle>
           <h3 className="mb-3 text-sm font-bold text-primary">全部</h3>
           <div className="grid items-start grid-cols-3">
             <div className="grid gap-6">
               <List
                 items={[
-                  "防火防煙捲門系列",
-                  "防火捲門",
-                  "阻熱捲門",
-                  "阻熱遮煙捲門",
-                  "遮煙捲幕",
+                  products[0].series,
+                  ...products[0].items.map((item) => ({
+                    path: `/products/${item.id}#product-details`,
+                    text: item.name,
+                  })),
                 ]}
                 gap
                 highLightFirstChild
               />
               <List
                 items={[
-                  "防水防洪門系列",
-                  "防水捲門",
-                  "新式手動插板水閘門",
-                  "電動遊壓水閘門",
-                  "扇形水閘門",
-                  "手動扇形水密門",
-                  "電動扇形水密門",
-                  "電動橫移水密門",
+                  products[1].series,
+                  ...products[1].items.map((item) => ({
+                    path: `/products/${item.id}#product-details`,
+                    text: item.name,
+                  })),
                 ]}
                 gap
                 highLightFirstChild
@@ -121,30 +147,48 @@ function Footer() {
             </div>
             <div className="grid gap-6">
               <List
-                items={["防火防煙捲門系列", "防颱捲門", "重型防颱捲門"]}
-                gap
-                highLightFirstChild
-              />
-              <List
                 items={[
-                  "廠辦管制門",
-                  "密閉式捲門",
-                  "花格式捲門",
-                  "側開式 PVC 捲門",
-                  "uniflow",
+                  products[2].series,
+                  ...products[2].items.map((item) => ({
+                    path: `/products/${item.id}#product-details`,
+                    text: item.name,
+                  })),
                 ]}
                 gap
                 highLightFirstChild
               />
               <List
-                items={["圍牆大門", "單段式大門", "多段式大門", "伸縮大門"]}
+                items={[
+                  products[3].series,
+                  ...products[3].items.map((item) => ({
+                    path: `/products/${item.id}#product-details`,
+                    text: item.name,
+                  })),
+                ]}
+                gap
+                highLightFirstChild
+              />
+              <List
+                items={[
+                  products[4].series,
+                  ...products[4].items.map((item) => ({
+                    path: `/products/${item.id}#product-details`,
+                    text: item.name,
+                  })),
+                ]}
                 gap
                 highLightFirstChild
               />
             </div>
             <div className="grid gap-6">
               <List
-                items={["機庫門", "伸縮大門", "橫移式機庫門"]}
+                items={[
+                  products[5].series,
+                  ...products[5].items.map((item) => ({
+                    path: `/products/${item.id}#product-details`,
+                    text: item.name,
+                  })),
+                ]}
                 gap
                 highLightFirstChild
               />
@@ -154,21 +198,23 @@ function Footer() {
         </div>
         <div className="grid content-start gap-16">
           <div>
-            <FooterSectionTitle>電子型錄</FooterSectionTitle>
+            <FooterSectionTitle path="/catalog">電子型錄</FooterSectionTitle>
             <List items={["型錄列表"]} />
           </div>
           <div>
-            <FooterSectionTitle>影片</FooterSectionTitle>
+            <FooterSectionTitle path="/videos">影片</FooterSectionTitle>
             <List items={["影片列表"]} />
           </div>
         </div>
         <div className="grid content-start gap-16">
           <div>
-            <FooterSectionTitle>工程實績</FooterSectionTitle>
+            <FooterSectionTitle path="/achievements">
+              工程實績
+            </FooterSectionTitle>
             <List items={["實績列表"]} />
           </div>
           <div>
-            <FooterSectionTitle>聯繫我們</FooterSectionTitle>
+            <FooterSectionTitle path="/contact-us">聯繫我們</FooterSectionTitle>
             <List items={["Google Map", "影片列表"]} />
           </div>
         </div>

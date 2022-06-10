@@ -78,7 +78,7 @@ const AchItem = ({
       <div className="flex-1 border-t border-solid border-primary"></div>
 
       {icons.map((icon, i) => (
-        <Image width={22} height={24} src={icon} />
+        <Image width={22} height={24} src={icon} key={i} />
       ))}
     </div>
     <Link href={`/achievements/${id}`}>

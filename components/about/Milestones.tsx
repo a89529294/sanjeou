@@ -156,7 +156,12 @@ const TimelineItem = ({
 function Milestones() {
   return (
     <div className="grid gap-14 isolate">
-      <SectionTitle primary="企業沿革" withDivider withDecoration />
+      <SectionTitle
+        primary="企業沿革"
+        withDivider
+        withDecoration
+        id="about-milestones"
+      />
       <div className="relative flex flex-wrap ">
         {items.map((item, i) => (
           <TimelineItem key={i} year={item.year} texts={item.texts} index={i} />

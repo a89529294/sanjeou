@@ -13,8 +13,6 @@ const ListItem = ({
   as?: "div" | "li";
 }) => {
   const router = useRouter();
-  console.log(router.pathname);
-  console.log(typeof router.query.pid);
   const [selectedId, setSelectedId] = useState(() => {
     if (router.pathname === "/products") return 0;
     else return +router.query.pid!;
@@ -22,7 +20,11 @@ const ListItem = ({
   const As = as;
 
   useEffect(() => {
-    setSelectedId((id) => (router.query.pid ? +router.query.pid : id));
+    console.log(router.query.pid);
+    let r;
+    if (typeof router.query.pid === "string") r = +router.query.pid ?? 0;
+    else r = 0;
+    setSelectedId(r);
   }, [router.query.pid]);
 
   return (
@@ -40,7 +42,7 @@ const ListItem = ({
           className={`text-2xl font-medium ${
             selectedId === item.id ? "text-primary-red" : "text-primary"
           }`}
-          onClick={() => router.push("/products")}
+          onClick={() => router.push("/products#product-details")}
         >
           {item.name}
         </span>
@@ -49,7 +51,7 @@ const ListItem = ({
           className={`text-xl ${
             selectedId === item.id ? "text-primary-red" : "text-bauhaus"
           }`}
-          onClick={() => router.push(`/products/${item.id}`)}
+          onClick={() => router.push(`/products/${item.id}#product-details`)}
         >
           {item.name}
         </span>
@@ -84,7 +86,7 @@ function ProductPageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <HeroImage text="產品" />
-      <div className="flex gap-2 bg-white-smoke">
+      <div className="flex gap-2 bg-white-smoke" id="product-details">
         <div className="bg-white">
           <div className="grid pb-24 pl-24 gap-9 pr-9 pt-9">
             <ListItem item={{ id: 0, name: "全部" }} />
