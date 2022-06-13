@@ -57,7 +57,7 @@ const CatalogItem = ({
 
 function CatalogList() {
   return (
-    <div>
+    <div id="catalog-all">
       <InPageNavbar
         items={["全部文件", "捲門系列", "大門系列", "水閘門系列", "飛速門系列"]}
       />

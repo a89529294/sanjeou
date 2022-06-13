@@ -25,7 +25,7 @@ const MoreInfoButton = forwardRef<HTMLAnchorElement, PropsType>(
     const borderColor = color === "red" ? "border-primary-red" : "border-white";
     return (
       <a
-        className={`border-b ${borderColor} border-solid relative ${className}`}
+        className={`border-b border-solid relative group overflow-hidden ${borderColor} ${className}`}
         onClick={onClick}
         href={href}
         ref={ref}
@@ -40,6 +40,7 @@ const MoreInfoButton = forwardRef<HTMLAnchorElement, PropsType>(
         <div
           className={`absolute bottom-0 right-0 w-4 h-4 border-r ${borderColor} border-solid skew-x-[45deg] -translate-x-2`}
         />
+        {/* <div className="absolute top-0 w-1/12 h-full -translate-x-full group-hover:translate-x-[1200%]"></div> */}
       </a>
     );
   }

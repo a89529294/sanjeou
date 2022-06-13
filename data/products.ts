@@ -1,5 +1,3 @@
-import { stringify } from "querystring";
-
 const products: {
   series: string;
   items: { id: number; name: string }[];

@@ -37,7 +37,10 @@ const ProductGrid = ({
 
 function Main() {
   return (
-    <div className="flex flex-col flex-1 gap-8 pr-32 bg-white pt-9 pl-11">
+    <div
+      className="flex flex-col flex-1 gap-8 pr-32 bg-white pt-9 pl-11"
+      id="products-all"
+    >
       {products.map((series, i) => (
         <ProductGrid
           title={series.series}

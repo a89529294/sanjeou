@@ -92,7 +92,10 @@ const AchItem = ({
 
 function AchievementsList() {
   return (
-    <div className="grid gap-5 px-32 py-7 grid-cols-achievement-grid">
+    <div
+      className="grid gap-5 px-32 py-7 grid-cols-achievement-grid"
+      id="achievements-all"
+    >
       {achievements.map((ach) => (
         <AchItem
           key={ach.id}

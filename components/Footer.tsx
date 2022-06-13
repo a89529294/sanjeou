@@ -108,7 +108,10 @@ function Footer() {
         </div>
         <div>
           <FooterSectionTitle path="/news">動態資訊</FooterSectionTitle>
-          <h3 className="mb-3 text-sm font-bold text-primary">全部</h3>
+          <Link href="/news#news-all">
+            <a className="block mb-3 text-sm font-bold text-primary">全部</a>
+          </Link>
+
           <List
             items={[
               { path: "/news#activities", text: "活動訊息" },
@@ -119,7 +122,10 @@ function Footer() {
         </div>
         <div className="flex-1">
           <FooterSectionTitle path="/products">產品</FooterSectionTitle>
-          <h3 className="mb-3 text-sm font-bold text-primary">全部</h3>
+          <Link href="/products#products-all">
+            <a className="block mb-3 text-sm font-bold text-primary">全部</a>
+          </Link>
+
           <div className="grid items-start grid-cols-3">
             <div className="grid gap-6">
               <List
@@ -199,11 +205,13 @@ function Footer() {
         <div className="grid content-start gap-16">
           <div>
             <FooterSectionTitle path="/catalog">電子型錄</FooterSectionTitle>
-            <List items={["型錄列表"]} />
+            <List
+              items={[{ path: "/catalog#catalog-all", text: "型錄列表" }]}
+            />
           </div>
           <div>
             <FooterSectionTitle path="/videos">影片</FooterSectionTitle>
-            <List items={["影片列表"]} />
+            <List items={[{ path: "/videos#videos-all", text: "影片列表" }]} />
           </div>
         </div>
         <div className="grid content-start gap-16">
@@ -211,11 +219,20 @@ function Footer() {
             <FooterSectionTitle path="/achievements">
               工程實績
             </FooterSectionTitle>
-            <List items={["實績列表"]} />
+            <List
+              items={[
+                { path: "/achievements#achievements-all", text: "實績列表" },
+              ]}
+            />
           </div>
           <div>
             <FooterSectionTitle path="/contact-us">聯繫我們</FooterSectionTitle>
-            <List items={["Google Map", "影片列表"]} />
+            <List
+              items={[
+                { path: "/contact-us#contact-us-map", text: "Google Map" },
+                { path: "/contact-us#contact-us-form", text: "聯繫表" },
+              ]}
+            />
           </div>
         </div>
       </div>

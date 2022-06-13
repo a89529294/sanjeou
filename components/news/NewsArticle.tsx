@@ -6,62 +6,74 @@ import OutlinedButton from "../OutlinedButton";
 import SectionTitle from "../SectionTitle";
 import Tag from "../Tag";
 
-const BottomNavbar = () => (
+import news from "../../data/news";
+import { useRouter } from "next/router";
+
+const BottomNavbar = ({ hideLeftRightNav = false }) => (
   <nav className="flex items-center justify-between mt-4">
-    <CircleArrowLeft />
-    <Link href={"/news"}>
+    {hideLeftRightNav ? <span /> : <CircleArrowLeft />}
+    <Link href={"/news#news-all"}>
       <a>
         <OutlinedButton>回到列表</OutlinedButton>
       </a>
     </Link>
-    <CircleArrowRight />
+    {hideLeftRightNav ? <span /> : <CircleArrowRight />}
   </nav>
 );
 
 function NewsArticle() {
+  const router = useRouter();
+  const nid = router.query.nid;
+  let newsItem: typeof news[number] | undefined = news.find(
+    (n) => n.id === +nid!
+  );
+
   return (
-    <div className="px-32 py-10">
+    <div className="px-32 py-10" id="news-article-top">
       <div>
-        <span className="mr-3 font-medium text-primary-red">2022.05.08</span>
-        <Tag>活動訊息</Tag>
+        <span className="mr-3 font-medium text-primary-red">
+          {newsItem ? newsItem.date : "9999-99-99"}
+        </span>
+        <Tag>{newsItem ? newsItem.tag : "不存在"}</Tag>
       </div>
       <SectionTitle
-        primary="造門工藝與烤漆品質更上一層樓的廠辦大門"
+        primary={newsItem ? newsItem.title : "標題不存在"}
         size="small"
         className="pt-2 pb-4"
       />
+
       <div className="grid gap-8 pb-5 text-lg border-t border-b border-solid pt-7 border-silver-spoon text-iron">
         <div className="grid gap-6 grid-cols-3 auto-rows-[290px]">
-          <div className="relative">
-            <Image
-              src="https://placehold.jp/500x300.png"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-
-          <div className="relative">
-            <Image
-              src="https://placehold.jp/500x300.png"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
-          <div className="relative">
-            <Image
-              src="https://placehold.jp/500x300.png"
-              layout="fill"
-              objectFit="cover"
-            />
-          </div>
+          {newsItem ? (
+            newsItem.innerPageImgs.map((img, i) => (
+              <div className="relative" key={i}>
+                <Image src={img} layout="fill" objectFit="cover" />
+              </div>
+            ))
+          ) : (
+            <div className="relative">
+              <Image
+                src={"https://placehold.jp/500x300.png"}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
+          )}
         </div>
+        {newsItem ? (
+          newsItem.body.map((text, i) => <p key={i}>{text}</p>)
+        ) : (
+          <p>文章不存在</p>
+        )}
         <p>
-          長度達到17.8米。雙軌道抗風壓結構，具減少磨損的緩啟動及緩停止功能，讓大門既安全又耐用！
-          同時透過幾何造型烤漆管料的搭配展現高雅氣派，讓美觀程度直接加倍。三久的造門工藝與烤漆品質更上一層樓。
+          {newsItem
+            ? newsItem.hashTags.map((hashTag, i) => (
+                <span key={i}>#{hashTag} </span>
+              ))
+            : "#不存在"}
         </p>
-        <p>#門體設計客製化 #為您量身訂做的三久大門</p>
       </div>
-      <BottomNavbar />
+      <BottomNavbar hideLeftRightNav={!newsItem} />
     </div>
   );
 }
