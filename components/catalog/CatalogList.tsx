@@ -60,7 +60,16 @@ function CatalogList() {
   return (
     <div id="catalog-all">
       <InPageNavbar
-        items={["全部文件", "捲門系列", "大門系列", "水閘門系列", "飛速門系列"]}
+        items={[
+          "全部文件",
+          "防火捲門",
+          "防水防洪門系列",
+          "抗風防颱捲門系列",
+          "廠辦管制門系列",
+          "圍牆大門",
+          "機庫門",
+          "客製化",
+        ]}
       />
       <div className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9">
         {all.map((item, i) => (
