@@ -1,4 +1,4 @@
-type newsItems = {
+export type NewsItems = {
   id: number;
   date: string;
   tag: "活動資訊" | "操作教學";
@@ -10,7 +10,7 @@ type newsItems = {
   hashTags: string[];
 };
 
-const news: newsItems[] = [
+const news: NewsItems[] = [
   {
     id: 1,
     date: "2022-05-11",

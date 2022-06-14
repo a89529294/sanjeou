@@ -4,6 +4,7 @@ import React from "react";
 import ItemTitle from "../ItemTitle";
 import SectionTitle from "../SectionTitle";
 import products from "../../data/products";
+import TopCircle from "../TopCircle";
 
 const ProductGrid = ({
   title,
@@ -38,7 +39,7 @@ const ProductGrid = ({
 function Main() {
   return (
     <div
-      className="flex flex-col flex-1 gap-8 pr-32 bg-white pt-9 pl-11"
+      className="relative flex flex-col flex-1 gap-8 pr-32 bg-white pt-9 pl-11"
       id="products-all"
     >
       {products.map((series, i) => (
@@ -49,6 +50,7 @@ function Main() {
           key={i}
         />
       ))}
+      <TopCircle to="/products" />
     </div>
   );
 }

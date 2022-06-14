@@ -1,8 +1,10 @@
-const products: {
+export type ProductItem = {
   series: string;
   items: { id: number; name: string }[];
   icon: string;
-}[] = [
+};
+
+const products: ProductItem[] = [
   {
     series: "防火防煙捲門系列",
     items: [

@@ -1,8 +1,17 @@
 import React from "react";
 
-function CircleArrow({ children }: { children: React.ReactNode }) {
+function CircleArrow({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick: () => void;
+}) {
   return (
-    <div className="grid border border-solid rounded-full cursor-pointer text-primary-red h-9 w-9 border-primary-red place-content-center hover:text-white hover:border-white hover:bg-hotter-than-hell active:bg-primary-red">
+    <div
+      className="grid border border-solid rounded-full cursor-pointer text-primary-red h-9 w-9 border-primary-red place-content-center hover:text-white hover:border-white hover:bg-hotter-than-hell active:bg-primary-red"
+      onClick={onClick}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="w-6 h-6"
@@ -17,33 +26,33 @@ function CircleArrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-function CircleArrowLeft() {
+function CircleArrowLeft({ onClick = () => {} }) {
   return (
-    <CircleArrow>
+    <CircleArrow onClick={onClick}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
     </CircleArrow>
   );
 }
 
-function CircleArrowRight() {
+function CircleArrowRight({ onClick = () => {} }) {
   return (
-    <CircleArrow>
+    <CircleArrow onClick={onClick}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
     </CircleArrow>
   );
 }
 
-function CircleArrowUp() {
+function CircleArrowUp({ onClick = () => {} }) {
   return (
-    <CircleArrow>
+    <CircleArrow onClick={onClick}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
     </CircleArrow>
   );
 }
 
-function CircleArrowDown() {
+function CircleArrowDown({ onClick = () => {} }) {
   return (
-    <CircleArrow>
+    <CircleArrow onClick={onClick}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
     </CircleArrow>
   );

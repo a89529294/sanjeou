@@ -1,5 +1,6 @@
 import React from "react";
 import SectionTitle from "../SectionTitle";
+import TopCircle from "../TopCircle";
 
 const leftColumnItems = [
   {
@@ -155,7 +156,7 @@ const TimelineItem = ({
 
 function Milestones() {
   return (
-    <div className="grid gap-14 isolate">
+    <div className="relative grid gap-14 isolate">
       <SectionTitle
         primary="企業沿革"
         withDivider
@@ -168,6 +169,7 @@ function Milestones() {
         ))}
         <div className="absolute h-full left-1/2 -z-10 outline outline-1 outline-primary-red before:content-[''] before:w-5 before:aspect-square before:rounded-full before:border before:border-primary-red before:border-solid before:absolute before:right-0 before:top-0 before:translate-x-1/2 before:-translate-y-1/2 before:bg-white after:content-[''] after:block after:w-6 after:border-b-2 after:border-primary-red after:aspect-square after:absolute after:-bottom-[2px] after:-translate-y-1/2 after:skew-y-[-45deg]" />
       </div>
+      <TopCircle to="/about" className="right-0 top-28" />
     </div>
   );
 }

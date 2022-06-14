@@ -7,6 +7,7 @@ import MoreInfoButton from "../MoreInfoButton";
 import Tag from "../Tag";
 
 import news from "../../data/news";
+import TopCircle from "../TopCircle";
 
 // const news = [
 //   {
@@ -50,9 +51,9 @@ function NewsItem({
         </div>
         <ItemTitle size="large">{title}</ItemTitle>
         <p className="mt-3 text-lg text-iron">{desc}</p>
-        <Link href={`/news/${id}#news-article-top`} passHref>
-          <MoreInfoButton color="red" className="mt-auto" />
-        </Link>
+        {/* <Link href={`/news/${id}#news-article-top`} passHref> */}
+        <MoreInfoButton color="red" className="mt-auto" />
+        {/* </Link> */}
       </div>
     </div>
   );
@@ -62,10 +63,11 @@ function NewsList() {
   return (
     <div id="news-all">
       <InPageNavbar items={["全部", "活動資訊", "操作教學"]} />
-      <div className="grid gap-4 px-32 py-7">
+      <div className="relative grid gap-4 px-32 py-7">
         {news.map((item, i) => (
           <NewsItem key={i} item={item} />
         ))}
+        <TopCircle to="/news" />
       </div>
     </div>
   );

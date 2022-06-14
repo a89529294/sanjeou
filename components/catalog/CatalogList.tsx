@@ -3,6 +3,7 @@ import React from "react";
 import InPageNavbar from "../InPageNavbar";
 import ItemTitle from "../ItemTitle";
 import Tag from "../Tag";
+import TopCircle from "../TopCircle";
 
 const all = [
   {
@@ -61,7 +62,7 @@ function CatalogList() {
       <InPageNavbar
         items={["全部文件", "捲門系列", "大門系列", "水閘門系列", "飛速門系列"]}
       />
-      <div className="grid px-32 py-7 grid-cols-catalog-grid gap-9">
+      <div className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9">
         {all.map((item, i) => (
           <CatalogItem
             img={item.img}
@@ -70,6 +71,7 @@ function CatalogList() {
             key={i}
           />
         ))}
+        <TopCircle to="/catalog" />
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import React from "react";
 import ChevronDown from "../Icons/ChevronDown";
 import CirclePlus from "../Icons/CirclePlus";
 import OutlinedButton from "../OutlinedButton";
+import TopCircle from "../TopCircle";
 
 const FormInput = ({
   label,
@@ -24,7 +25,7 @@ const FormInput = ({
 
 function Main() {
   return (
-    <div className="grid px-32 pt-6 pb-36 gap-9" id="contact-us-form">
+    <div className="relative grid px-32 pt-6 pb-36 gap-9" id="contact-us-form">
       <div className="flex items-start px-8 border border-solid border-stonewall-gray py-7 ">
         <div className="grid flex-1 gap-[14px] pr-8 border-r border-solid border-stonewall-gray">
           <FormInput label="公司 / 姓名" placeholder="請輸入公司 / 姓名" />
@@ -60,6 +61,7 @@ function Main() {
       <OutlinedButton className="place-self-center" size="wide">
         送出
       </OutlinedButton>
+      <TopCircle to="/contact-us" />
     </div>
   );
 }

@@ -1,9 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { Achievement } from "../../data/achievements";
 import Circle from "../Circle";
 import { CircleArrowDown, CircleArrowUp } from "../Icons/CircleArrows";
 import SectionTitle from "../SectionTitle";
+import TopCircle from "../TopCircle";
 import VerticalBar from "../VerticalBar";
 
 function Card({
@@ -11,30 +13,41 @@ function Card({
   title,
   icons,
   desc,
-  className,
+  className = "",
+  id,
 }: {
   year: number;
   title: string;
   icons: string[];
   desc: string;
-  className: string;
+  className?: string;
+  id: number;
 }) {
   return (
     <div className={`flex flex-col justify-end ${className}`}>
-      <h2 className="text-xl text-primary-red">{year}</h2>
-      <h1 className="text-3xl font-medium text-bauhaus">{title}</h1>
-      <div className="flex items-center gap-3 mt-2 mb-4">
-        {icons.map((icon) => (
-          <Image width={22} height={24} src={icon} key={icon} />
-        ))}
-        <div className="flex-1 border-t border-solid border-primary" />
-      </div>
-      <p className="text-lg text-iron">{desc}</p>
+      <Link href={`/achievements/${id}`}>
+        <a>
+          <h2 className="text-xl text-primary-red">{year}</h2>
+          <h1 className="text-3xl font-medium text-bauhaus">{title}</h1>
+          <div className="flex items-center gap-3 mt-2 mb-4">
+            {icons.map((icon) => (
+              <Image width={22} height={24} src={icon} key={icon} />
+            ))}
+            <div className="flex-1 border-t border-solid border-primary" />
+          </div>
+          <p className="text-lg text-iron">{desc}</p>
+        </a>
+      </Link>
     </div>
   );
 }
 
-function Achievements({ imgs }: { imgs: string[] }) {
+function Achievements({ achievements }: { achievements: Achievement[] }) {
+  const [startingIndex, setStartingIndex] = useState(0);
+  const length = achievements.length;
+  const firstAch = achievements[startingIndex];
+  const secondAch =
+    achievements[startingIndex === length - 1 ? 0 : startingIndex + 1];
   return (
     <div className="relative pb-20 pr-32 pl-36">
       <SectionTitle
@@ -45,43 +58,39 @@ function Achievements({ imgs }: { imgs: string[] }) {
       <div className="relative grid grid-cols-2 grid-rows-2 gap-4">
         <div className="relative h-80">
           <VerticalBar className="-right-5 -top-[70px]" />
-          <Image layout="fill" objectFit="cover" src={imgs[0]} />
+          <Image layout="fill" objectFit="cover" src={firstAch.img} />
         </div>
         <Card
-          year={2022}
-          title="標題"
-          icons={[
-            "/img/icons/door1.svg",
-            "/img/icons/door2.svg",
-            "/img/icons/door3.svg",
-            "/img/icons/door4.svg",
-            "/img/icons/door5.svg",
-            "/img/icons/door6.svg",
-            "/img/icons/door7.svg",
-          ]}
-          desc="造門工藝與烤漆品質提升。"
-          className=""
+          year={firstAch.year}
+          title={firstAch.title}
+          icons={firstAch.icons}
+          desc={firstAch.subText}
+          id={firstAch.id}
         />
         <div className="relative h-80">
-          <Image layout="fill" objectFit="cover" src={imgs[1]} />
+          <Image layout="fill" objectFit="cover" src={secondAch.img} />
         </div>
         <Card
-          year={2022}
-          title="標題"
-          icons={["/img/icons/door1.svg"]}
-          desc="造門工藝與烤漆品質提升。"
-          className=""
+          year={secondAch.year}
+          title={secondAch.title}
+          icons={secondAch.icons}
+          desc={secondAch.subText}
+          id={secondAch.id}
         />
         <div className="absolute flex flex-col gap-8 -translate-y-1/2 top-1/2 -translate-x-[200%]">
-          <CircleArrowUp />
-          <CircleArrowDown />
+          <CircleArrowUp
+            onClick={() =>
+              setStartingIndex((i) => (i > 0 ? i - 1 : length - 1))
+            }
+          />
+          <CircleArrowDown
+            onClick={() => setStartingIndex((i) => (i < length - 1 ? ++i : 0))}
+          />
         </div>
-        <Link href="/">
-          <a className="absolute top-0 right-0 flex flex-col items-center justify-center w-24 text-2xl text-white translate-x-full translate-y-full rounded-full hover:bg-hotter-than-hell aspect-square bg-primary-red">
-            <div className="relative border-r-2 border-white border-solid h-7 before:content-[''] before:block before:w-3 before:border-t-2 before:border-solid before:border-white before:absolute before:skew-y-[45deg] before:top-1 "></div>
-            <span>TOP</span>
-          </a>
-        </Link>
+        <TopCircle
+          to="/"
+          className="top-0 right-0 translate-x-full translate-y-full"
+        />
       </div>
       <Circle width={580} className="top-3 -left-20" />
     </div>

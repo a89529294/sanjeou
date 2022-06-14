@@ -1,5 +1,6 @@
 import React from "react";
 import ItemTitle from "../ItemTitle";
+import TopCircle from "../TopCircle";
 
 const videos = [
   { src: "/videos/sample.mp4", title: "一般型、防颱型電動捲門" },
@@ -23,12 +24,13 @@ const VideoItem = ({ src, title }: { src: string; title: string }) => (
 function VideoList() {
   return (
     <div
-      className="grid px-32 py-7 grid-cols-catalog-grid gap-9"
+      className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9"
       id="videos-all"
     >
       {videos.map((video, i) => (
         <VideoItem key={i} src={video.src} title={video.title} />
       ))}
+      <TopCircle to="/videos" />
     </div>
   );
 }
