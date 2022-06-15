@@ -24,18 +24,27 @@ function Card({
   id: number;
 }) {
   return (
-    <div className={`flex flex-col justify-end ${className}`}>
+    <div className={`flex flex-col justify-end ${className} `}>
       <Link href={`/achievements/${id}`}>
-        <a>
-          <h2 className="text-xl text-primary-red">{year}</h2>
-          <h1 className="text-3xl font-medium text-bauhaus">{title}</h1>
-          <div className="flex items-center gap-3 mt-2 mb-4">
+        <a className="sm:flex-col sm:gap-1 sm:flex">
+          <h2 className="text-xl text-primary-red sm:text-xs">{year}</h2>
+          <h1 className="text-3xl font-medium text-bauhaus sm:truncate sm:text-base">
+            {title.length > 10 ? title.slice(0, 11) + "..." : title}
+          </h1>
+          <div className="flex items-center gap-3 mt-2 mb-4 sm:my-0">
             {icons.map((icon) => (
-              <Image width={22} height={24} src={icon} key={icon} />
+              <div className="relative w-[22px] h-6 sm:w-[10.3px] sm:h-[11.1px]">
+                <Image
+                  layout="fill"
+                  objectFit="contain"
+                  src={icon}
+                  key={icon}
+                />
+              </div>
             ))}
             <div className="flex-1 border-t border-solid border-primary" />
           </div>
-          <p className="text-lg text-iron">{desc}</p>
+          <p className="text-lg text-iron sm:text-xs">{desc}</p>
         </a>
       </Link>
     </div>
@@ -49,14 +58,14 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
   const secondAch =
     achievements[startingIndex === length - 1 ? 0 : startingIndex + 1];
   return (
-    <div className="relative pb-20 pr-32 pl-36">
+    <div className="relative pb-20 pr-32 pl-36 sm:px-7">
       <SectionTitle
         primary="工程實績"
         secondary="Achievements"
         className="ml-[52%]"
       />
-      <div className="relative grid grid-cols-2 grid-rows-2 gap-4">
-        <div className="relative h-80">
+      <div className="relative grid grid-cols-2 grid-rows-2 gap-4 sm:grid-cols-[125px_1fr] sm:grid-rows-none">
+        <div className="relative h-80 sm:h-24">
           <VerticalBar className="-right-5 -top-[70px]" />
           <Image layout="fill" objectFit="cover" src={firstAch.img} />
         </div>
@@ -67,7 +76,7 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
           desc={firstAch.subText}
           id={firstAch.id}
         />
-        <div className="relative h-80">
+        <div className="relative h-80 sm:h-24">
           <Image layout="fill" objectFit="cover" src={secondAch.img} />
         </div>
         <Card

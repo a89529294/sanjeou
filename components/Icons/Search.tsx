@@ -1,6 +1,10 @@
 import React from "react";
 
-function Search({ size = "small" }: { size?: "small" | "large" }) {
+interface PropsType extends React.SVGProps<SVGSVGElement> {
+  size?: "small" | "large";
+}
+
+function Search({ size = "small", ...props }: PropsType) {
   const sizeObj = {
     small: "w-6 h-6",
     large: "w-7 h-7",
@@ -8,11 +12,12 @@ function Search({ size = "small" }: { size?: "small" | "large" }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={sizeObj[size]}
+      className={`sizeObj[size]`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
       strokeWidth={2}
+      {...props}
     >
       <path
         strokeLinecap="round"

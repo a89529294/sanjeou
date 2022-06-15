@@ -63,7 +63,7 @@ const imgs = [row1, row2, row3, row4];
 
 function Partners() {
   return (
-    <div className="relative px-32 pb-6">
+    <div className="relative px-32 pb-6 sm:px-7">
       <SectionTitle
         primary="合作廠商"
         secondary="Partners"

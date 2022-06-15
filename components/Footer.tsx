@@ -2,6 +2,17 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import products from "../data/products";
+import ChevronDown from "./Icons/ChevronDown";
+
+const listItems = [
+  "公司簡介",
+  "動態資訊",
+  "產品",
+  "工程實績",
+  "電子型錄",
+  "聯繫我們",
+  "影片",
+];
 
 const FooterSectionTitle = ({
   children,
@@ -91,10 +102,16 @@ const ContactInfo = ({
   </div>
 );
 
+const MobileFooterListItem = ({ children }: { children: string }) => (
+  <li className="flex justify-between py-3 text-sm font-medium border-b border-white border-solid text-bauhaus">
+    {children} <ChevronDown />
+  </li>
+);
+
 function Footer() {
   return (
-    <footer className="relative px-32 pt-14 bg-[url('/img/home/footer/bg.png')]">
-      <div className="flex gap-24 pb-10 border-b border-dashed border-primary xl:gap-12">
+    <footer className="relative px-32 pt-14 bg-[url('/img/home/footer/bg.png')] sm:px-7">
+      <div className="flex gap-24 pb-10 border-b border-dashed border-primary xl:gap-12 sm:hidden">
         <div>
           <FooterSectionTitle path="/about">公司簡介</FooterSectionTitle>
           <List
@@ -236,15 +253,20 @@ function Footer() {
           </div>
         </div>
       </div>
-      <div className="flex pb-20 pt-9">
-        <div className="relative aspect-[56/32] max-w-[224px] flex-1 ">
+      <ul className="hidden sm:block">
+        {listItems.map((n, i) => (
+          <MobileFooterListItem key={i}>{n}</MobileFooterListItem>
+        ))}
+      </ul>
+      <div className="flex pb-20 pt-9 sm:flex-col sm:items-center sm:border-t sm:border-dashed sm:border-primary sm:pt-6 sm:gap-9">
+        <div className="relative aspect-[56/32] max-w-[224px] flex-1 sm:w-[224px]">
           <Image
             src="/img/home/footer/logo.svg"
             layout="fill"
             objectFit="contain"
           />
         </div>
-        <div className="flex justify-center flex-1 gap-7 min-w-[450px]">
+        <div className="flex justify-center flex-1 gap-7 min-w-[450px] sm:flex-col sm:min-w-full sm:px-7">
           <ContactInfo
             title="總公司工廠"
             addr="41357 台中市霧峰區峰北路666號"
@@ -260,7 +282,7 @@ function Footer() {
           />
         </div>
 
-        <div className="grid flex-1 max-w-xs gap-3 grid-cols-5 grid-rows-2 place-items-center aspect-[5/2] xl:gap-1">
+        <div className="grid flex-1 max-w-xs gap-3 grid-cols-5 grid-rows-2 place-items-center aspect-[5/2] xl:gap-1 sm:w-full sm:gap-5 sm:border-t sm:border-primary sm:border-dashed sm:pt-3 ">
           <div className="relative w-full col-span-2 col-start-1 row-span-2 row-start-1 aspect-square">
             <Image
               layout="fill"

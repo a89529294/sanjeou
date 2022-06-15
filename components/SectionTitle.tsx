@@ -28,7 +28,7 @@ function SectionTitle({
         <h1
           className={`text-primary ${
             size === "default"
-              ? "text-[32px] font-bold"
+              ? "text-[32px] font-bold sm:text-2xl"
               : "text-[28px] font-medium"
           }`}
         >
@@ -41,10 +41,12 @@ function SectionTitle({
         />
       </div>
       {secondary ? (
-        <h2 className="text-xl font-light text-primary-red">{secondary}</h2>
+        <h2 className="text-xl font-light text-primary-red sm:text-xs">
+          {secondary}
+        </h2>
       ) : null}
       {withDecoration ? (
-        <VerticalBar className="-translate-x-[82%] -translate-y-[72px] top-0 -z-10" />
+        <VerticalBar className="-translate-x-[82%] -translate-y-[72px] top-0 -z-10 sm:-translate-y-[40px]" />
       ) : null}
     </div>
   );

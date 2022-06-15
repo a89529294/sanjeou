@@ -23,6 +23,7 @@ module.exports = {
         iron: "#5e5e5e",
         "stonewall-gray": "#c1c1c1",
         "silver-spoon": "#d2d2d2",
+        "petro-blue": "#E5E5E5",
       },
       screens: {
         "2xl": { max: "1535px" },

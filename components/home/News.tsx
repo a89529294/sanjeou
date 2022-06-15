@@ -35,24 +35,28 @@ const Article = ({
     },
   };
   const gap = {
-    default: "mt-1 mb-4",
+    default: "mt-1 mb-4 sm:mb-1",
     small: "mb-1",
   };
   return (
-    <div className={`flex gap-4 ${className}`}>
-      <div className={`w-7/12 h-full relative`}>
+    <div className={`flex gap-4 ${className} sm:gap-2`}>
+      <div className={`w-7/12 h-full relative sm:w-28 sm:h-auto`}>
         <Image layout="fill" objectFit="cover" src={imgPath} />
       </div>
-      <div className="flex flex-col w-5/12">
-        <h2 className={`font-medium text-primary-red ${fontSizes[size].date}`}>
+      <div className="flex flex-col w-5/12 sm:flex-1">
+        <h2
+          className={`font-medium text-primary-red ${fontSizes[size].date} sm:text-xs`}
+        >
           {date.replaceAll("-", ".")}
         </h2>
         <h1
-          className={`font-medium text-bauhaus truncate ${fontSizes[size].title} ${gap[size]}`}
+          className={`font-medium text-bauhaus truncate ${fontSizes[size].title} ${gap[size]} sm:text-sm`}
         >
           {title}
         </h1>
-        <p className={`text-iron truncate-text-2 ${fontSizes[size].body}`}>
+        <p
+          className={`text-iron truncate-text-2 ${fontSizes[size].body} sm:text-xs`}
+        >
           {desc}
         </p>
         <MoreInfoButton
@@ -68,10 +72,10 @@ const Article = ({
 
 function News({ newsArticles = [] }: { newsArticles: NewsItems[] }) {
   return (
-    <div className="relative px-32">
+    <div className="relative px-32 sm:px-7 sm:pb-14">
       <SectionTitle primary="動態資訊" secondary="News" withDivider />
-      <div className="pb-24 pt-9">
-        <div className="grid gap-x-5 gap-y-2 h-72 grid-cols-[.57fr_.43fr] grid-rows-[1fr_1fr]">
+      <div className="pb-24 pt-9 sm:pt-4 sm:pb-0">
+        <div className="grid gap-x-5 gap-y-2 h-72 grid-cols-[.57fr_.43fr] grid-rows-[1fr_1fr] sm:flex-col sm:flex sm:h-auto">
           {newsArticles.map((n, i) => (
             <Article
               imgPath={n.mainImg}

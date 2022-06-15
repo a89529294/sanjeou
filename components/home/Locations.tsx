@@ -1,10 +1,11 @@
 import React from "react";
 import SectionTitle from "../SectionTitle";
 import Map from "../Map";
+import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
 
 function Locations() {
   return (
-    <div className="relative px-32 pb-28">
+    <div className="relative px-32 pb-28 sm:px-7 sm:pb-14">
       <SectionTitle
         primary="合作夥伴"
         secondary="Cooperation"
@@ -12,7 +13,11 @@ function Locations() {
         withDecoration
       />
       <div className="relative px-11">
-        <Map className="w-full mt-4" />
+        <Map className="w-full mt-4 sm:w-[1188px]" />
+        <div className="hidden gap-6 mx-auto sm:flex w-fit">
+          <CircleArrowLeft />
+          <CircleArrowRight />
+        </div>
         <div className="w-5 h-5 bg-white absolute left-[18.5%] top-[48.5%] rounded-2xl p-px">
           <div className="grid w-full h-full cursor-pointer rounded-2xl bg-primary-red place-content-center peer">
             <div className="w-[6px] aspect-square bg-white rounded-xl"></div>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Burger from "./Icons/Burger";
 import Search from "./Icons/Search";
 import { Modal } from "./Modal";
@@ -34,7 +34,7 @@ const Tab = ({
     <div className="grid auto-cols-auto auto-rows-auto gap-x-1">
       <Link href={to}>
         <a
-          className={`w-max text-bauhaus text-xl font-medium cursor-pointer sm:grid sm:place-content-center sm:py-2 sm:px-4 sm:text-base xl:text-lg`}
+          className={`w-max text-bauhaus text-xl font-medium cursor-pointer xl:text-lg`}
         >
           {children}
         </a>
@@ -58,34 +58,71 @@ const Tab = ({
   );
 };
 
+const MobileTabLink = ({
+  to,
+  children,
+  Icon,
+}: {
+  to: string;
+  children: React.ReactNode;
+  Icon?: React.FunctionComponent<{ className: string }>;
+}) => (
+  <Link href={to}>
+    <a className="flex items-center gap-3">
+      {Icon ? (
+        <Icon className="w-5 aspect-square" />
+      ) : (
+        <div className="w-5 aspect-square" />
+      )}
+      {children}
+    </a>
+  </Link>
+);
+
+const MobileTab = ({ children }: { children: React.ReactNode }) => (
+  <div className="px-4 py-4 text-base border-b border-solid text-bauhaus border-petro-blue last:border-none">
+    {children}
+  </div>
+);
+
 function Navbar() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    showModal &&
+      document
+        .getElementsByTagName("html")[0]
+        .classList.add("h-full", "overflow-hidden");
+    !showModal &&
+      document
+        .getElementsByTagName("html")[0]
+        .classList.remove("h-full", "overflow-hidden");
+  }, [showModal]);
 
   return (
-    <div className="grid gap-12 px-32 bg-white pt-11 sm:px-4 sm:pt-4 sm:pb-4 ">
+    <div className="relative grid gap-12 px-32 bg-white pt-11 sm:px-4 sm:py-5 ">
       <div className="flex items-center">
         <Link href="/">
-          <a>
+          <a className="w-[411px] h-[55px] relative sm:w-[181px] sm:h-6">
             <Image
               src="/img/icons/SanJeoulogo.svg"
-              layout="intrinsic"
-              height={55}
-              width={411}
+              layout="fill"
+              objectFit="contain"
             />
           </a>
         </Link>
 
-        <span className="font-athelas italic text-primary-red text-[64px] leading-[0.5] self-start ml-4 sm:text-3xl sm:leading-[0.7]">
+        <span className="font-athelas italic text-primary-red text-[64px] leading-[0.5] self-start ml-4 sm:text-2xl sm:leading-[0.7]">
           3
         </span>
-        <span className="font-athelas italic text-primary-red text-6xl leading-[0.6] self-start sm:text-3xl sm:leading-[0.7]">
+        <span className="font-athelas italic text-primary-red text-6xl leading-[0.6] self-start sm:text-2xl sm:leading-[0.7]">
           0
         </span>
-        <span className="font-playfair italic text-[28px] text-primary -translate-x-7 sm:text-base sm:-translate-x-4">
+        <span className="font-playfair italic text-[28px] text-primary -translate-x-7 sm:text-xs sm:-translate-x-4 sm:translate-y-1">
           years
         </span>
         <Burger
-          className="hidden sm:block"
+          className="hidden ml-auto sm:block"
           onClick={() => setShowModal(true)}
         />
 
@@ -122,15 +159,59 @@ function Navbar() {
         setShow={setShowModal}
         className="hidden sm:block"
       >
-        <div className="absolute top-0 right-0 flex flex-col content-start h-screen gap-3 py-4 bg-white w-44 text-bauhaus">
-          <Tab to="/about">公司簡介</Tab>
-          <Tab to="/news">動態資訊</Tab>
-          <Tab to="/products">產品</Tab>
-          <Tab to="/catalog">電子型錄</Tab>
-          <Tab to="/videos">影片</Tab>
-          <Tab to="/achievements">工程實績</Tab>
-          <Tab to="/contact-us">聯繫我們</Tab>
-          <div className="flex justify-center gap-3 mt-auto ">
+        <div className="absolute top-0 right-0 flex flex-col gap-3 pt-4 bg-white w-44 text-bauhaus">
+          <MobileTab>
+            <div className="flex gap-3">
+              <Image src="/img/icons/fb.svg" width={26} height={26} />
+              <Image src="/img/icons/youtube.svg" width={26} height={26} />
+            </div>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink
+              to="/"
+              Icon={({ className }) => (
+                <div className={`relative ${className}`}>
+                  <Image
+                    src="/img/icons/globe.svg"
+                    layout="fill"
+                    objectFit="contain"
+                  />
+                </div>
+              )}
+            >
+              CN
+            </MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink
+              to="/search"
+              Icon={({ className }) => <Search className={className} />}
+            >
+              搜尋...
+            </MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink to="/about">公司簡介</MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink to="/news">動態資訊</MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink to="/products">產品</MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink to="/catalog">電子型錄</MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink to="/videos">影片</MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink to="/achievements">工程實績</MobileTabLink>
+          </MobileTab>
+          <MobileTab>
+            <MobileTabLink to="/contact-us">聯繫我們</MobileTabLink>
+          </MobileTab>
+          {/* <div className="flex justify-center gap-3 mt-auto ">
             <IconButton imgPath="/img/icons/fb.svg" width={26} height={26} />
             <IconButton
               imgPath="/img/icons/youtube.svg"
@@ -138,7 +219,7 @@ function Navbar() {
               height={22}
             />
             <IconButton imgPath="/img/icons/globe.svg" width={22} height={22} />
-          </div>
+          </div> */}
         </div>
       </Modal>
     </div>

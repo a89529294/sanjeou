@@ -46,9 +46,9 @@ function Products({ products }: { products: ProductItem["items"] }) {
   const filteredProducts = helper(products, startingIndex, length);
 
   return (
-    <div className="relative px-32">
+    <div className="relative px-32 sm:px-7">
       <SectionTitle primary="產品資訊" secondary="Products" withDecoration />
-      <div className="flex gap-6 pb-24 pt-9">
+      <div className="flex gap-6 pb-24 pt-9 sm:flex-col">
         {filteredProducts.map((p) => (
           <Product
             imgPath={`https://picsum.photos/id/${p.id}/200`}
@@ -58,7 +58,7 @@ function Products({ products }: { products: ProductItem["items"] }) {
           />
         ))}
       </div>
-      <div className="absolute flex right-48 top-5 gap-7">
+      <div className="absolute flex right-48 top-5 gap-7 sm:right-7 sm:top-0">
         <CircleArrowLeft
           onClick={() => {
             setStartingIndex((i) => (--i < 0 ? length - 1 : i));

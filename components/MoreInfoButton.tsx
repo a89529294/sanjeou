@@ -19,7 +19,7 @@ const MoreInfoButton = ({
         <button
           className={`p-1 ${
             size === "default" ? "text-xl" : "text-base"
-          } ${textColor}`}
+          } ${textColor} sm:text-xs`}
         >
           了解更多
         </button>

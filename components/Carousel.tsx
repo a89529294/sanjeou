@@ -74,7 +74,7 @@ function Carousel({ imgs }: { imgs: string[] }) {
   }, [isAutoPlaying]);
 
   return (
-    <div className="relative w-full h-[640px] overflow-hidden sm:h-96">
+    <div className="relative w-full h-[640px] overflow-hidden sm:h-44">
       <div
         className={`flex h-full min-w-max ${
           position === -1 ? "" : "transition-transform duration-1000"
