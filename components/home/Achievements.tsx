@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Achievement } from "../../data/achievements";
+import { shimmer, toBase64 } from "../BlurredImage";
 import Circle from "../Circle";
 import { CircleArrowDown, CircleArrowUp } from "../Icons/CircleArrows";
 import SectionTitle from "../SectionTitle";
@@ -24,14 +25,14 @@ function Card({
   id: number;
 }) {
   return (
-    <div className={`flex flex-col justify-end ${className} `}>
+    <div className={`flex flex-col justify-end ${className}`}>
       <Link href={`/achievements/${id}`}>
         <a className="sm:flex-col sm:gap-1 sm:flex">
           <h2 className="text-xl text-primary-red sm:text-xs">{year}</h2>
           <h1 className="text-3xl font-medium text-bauhaus sm:truncate sm:text-base">
-            {title.length > 10 ? title.slice(0, 11) + "..." : title}
+            {title.length > 6 ? title.slice(0, 7) + "..." : title}
           </h1>
-          <div className="flex items-center gap-3 mt-2 mb-4 sm:my-0">
+          <div className="flex items-center gap-3 mt-2 mb-4 sm:my-0 sm:gap-1">
             {icons.map((icon) => (
               <div className="relative w-[22px] h-6 sm:w-[10.3px] sm:h-[11.1px]">
                 <Image
@@ -42,7 +43,7 @@ function Card({
                 />
               </div>
             ))}
-            <div className="flex-1 border-t border-solid border-primary" />
+            <div className="flex-1 border-t border-solid border-primary sm:hidden" />
           </div>
           <p className="text-lg text-iron sm:text-xs">{desc}</p>
         </a>
@@ -58,16 +59,24 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
   const secondAch =
     achievements[startingIndex === length - 1 ? 0 : startingIndex + 1];
   return (
-    <div className="relative pb-20 pr-32 pl-36 sm:px-7">
+    <div className="relative pb-20 pr-32 pl-36 sm:pl-14 sm:pr-7 sm:pb-15">
       <SectionTitle
         primary="工程實績"
         secondary="Achievements"
-        className="ml-[52%]"
+        className="ml-[52%] sm:ml-[46%] sm:mb-[10px]"
       />
-      <div className="relative grid grid-cols-2 grid-rows-2 gap-4 sm:grid-cols-[125px_1fr] sm:grid-rows-none">
+      <div className="relative grid grid-cols-2 grid-rows-2 gap-4 sm:grid-cols-[125px_1fr] sm:grid-rows-none sm:gap-x-[6px] sm:gap-y-3">
         <div className="relative h-80 sm:h-24">
-          <VerticalBar className="-right-5 -top-[70px]" />
-          <Image layout="fill" objectFit="cover" src={firstAch.img} />
+          <VerticalBar className="-right-10 -top-[70px] sm:-right-1 sm:-top-[50px]" />
+          <Image
+            layout="fill"
+            objectFit="cover"
+            src={firstAch.img}
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(
+              shimmer(500, 500)
+            )}`}
+          />
         </div>
         <Card
           year={firstAch.year}
@@ -77,7 +86,15 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
           id={firstAch.id}
         />
         <div className="relative h-80 sm:h-24">
-          <Image layout="fill" objectFit="cover" src={secondAch.img} />
+          <Image
+            layout="fill"
+            objectFit="cover"
+            src={secondAch.img}
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(
+              shimmer(500, 500)
+            )}`}
+          />
         </div>
         <Card
           year={secondAch.year}
@@ -86,7 +103,7 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
           desc={secondAch.subText}
           id={secondAch.id}
         />
-        <div className="absolute flex flex-col gap-8 -translate-y-1/2 top-1/2 -translate-x-[200%]">
+        <div className="absolute flex flex-col gap-8 -translate-y-1/2 top-1/2 -translate-x-[200%] sm:-translate-x-full sm:-left-[6px]">
           <CircleArrowUp
             onClick={() =>
               setStartingIndex((i) => (i > 0 ? i - 1 : length - 1))
@@ -101,7 +118,8 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
           className="top-0 right-0 translate-x-full translate-y-full"
         />
       </div>
-      <Circle width={580} className="top-3 -left-20" />
+      <Circle width={580} className="top-3 -left-20 sm:hidden" />
+      <Circle width={218} className="top-0 hidden -left-20 sm:block" />
     </div>
   );
 }
