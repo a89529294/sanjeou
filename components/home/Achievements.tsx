@@ -33,8 +33,11 @@ function Card({
             {title.length > 6 ? title.slice(0, 7) + "..." : title}
           </h1>
           <div className="flex items-center gap-3 mt-2 mb-4 sm:my-0 sm:gap-1">
-            {icons.map((icon) => (
-              <div className="relative w-[22px] h-6 sm:w-[10.3px] sm:h-[11.1px]">
+            {icons.map((icon, i) => (
+              <div
+                className="relative w-[22px] h-6 sm:w-[10.3px] sm:h-[11.1px]"
+                key={i}
+              >
                 <Image
                   layout="fill"
                   objectFit="contain"

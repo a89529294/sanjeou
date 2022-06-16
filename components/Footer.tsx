@@ -110,7 +110,7 @@ const MobileFooterListItem = ({ children }: { children: string }) => (
 
 function Footer() {
   return (
-    <footer className="relative px-32 pt-14 bg-[url('/img/home/footer/bg.png')] sm:px-7">
+    <footer className="relative px-32 pt-14 bg-[url('/img/home/footer/bg.png')] sm:px-7 sm:pt-0">
       <div className="flex gap-24 pb-10 border-b border-dashed border-primary xl:gap-12 sm:hidden">
         <div>
           <FooterSectionTitle path="/about">公司簡介</FooterSectionTitle>

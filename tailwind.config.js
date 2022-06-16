@@ -41,6 +41,9 @@ module.exports = {
       backgroundImage: {
         pdf: "repeating-linear-gradient(-45deg, #000, #000 .1%, #fff .1%, #fff 1.2%)",
       },
+      maxHeight: {
+        "mobile-menu": "min(587px, calc(100vh - 80px))",
+      },
     },
   },
   plugins: [],

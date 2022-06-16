@@ -9,8 +9,7 @@ function Intro({ title = "", body = "" }) {
         controls
         className="w-3/5 sm:h-auto h-96 sm:order-2 sm:w-full sm:aspect-video"
       >
-        <source src="/media/cc0-videos/flower.webm" type="video/webm" />
-        <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
+        <source src="/videos/sample.mp4" type="video/mp4" />
         Sorry, your browser doesn't support embedded videos.
       </video>
       <div className="relative flex flex-col text-white basis-2/5 sm:order-1 sm:isolate">

@@ -63,17 +63,17 @@ const imgs = [row1, row2, row3, row4];
 
 function Partners() {
   return (
-    <div className="relative px-32 pb-6 sm:px-7">
+    <div className="relative px-32 pb-6 sm:px-7 sm:pb-1">
       <SectionTitle
         primary="合作廠商"
         secondary="Partners"
         withDivider
-        className="pb-6"
+        className="pb-6 sm:pb-1"
         withDecoration
       />
 
       {imgs.map((row, i) => (
-        <div className="flex h-16" key={i}>
+        <div className="flex h-16 sm:h-8" key={i}>
           {row.map((img) => (
             <div key={img} className="relative flex-1">
               <Image src={img} layout="fill" objectFit="contain" />

@@ -80,7 +80,7 @@ const MobileTabLink = ({
 );
 
 const MobileTab = ({ children }: { children: React.ReactNode }) => (
-  <div className="px-4 py-4 text-base border-b border-solid text-bauhaus border-petro-blue last:border-none">
+  <div className="flex-1 px-4 py-2 text-base border-b border-solid text-bauhaus border-petro-blue last:border-none">
     {children}
   </div>
 );
@@ -159,7 +159,7 @@ function Navbar() {
         setShow={setShowModal}
         className="hidden sm:block"
       >
-        <div className="absolute top-0 right-0 flex flex-col gap-3 pt-4 bg-white w-44 text-bauhaus">
+        <div className="absolute top-0 right-0 flex flex-col h-screen pt-4 bg-white w-44 text-bauhaus max-h-mobile-menu">
           <MobileTab>
             <div className="flex gap-3">
               <Image src="/img/icons/fb.svg" width={26} height={26} />
