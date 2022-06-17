@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import { useSwipeable } from "react-swipeable";
 
 import { ArrowCircleRight, ArrowCircleLeft } from "./Icons/CarouselButton";
 
@@ -16,7 +17,21 @@ function Carousel({ imgs }: { imgs: string[] }) {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const carouselBodyRef = useRef<HTMLDivElement>(null);
 
+  const swipeLeft = () => {
+    if (inTransition) return;
+    setPosition(-2);
+    setIsAutoPlaying(false);
+  };
+  const swipeRight = () => {
+    if (inTransition) return;
+    setPosition(0);
+    setIsAutoPlaying(false);
+  };
   const imagesArray = getImages(displayImageIndex, imgs);
+  const handlers = useSwipeable({
+    onSwipedLeft: swipeLeft,
+    onSwipedRight: swipeRight,
+  });
 
   const transitionStartListener = () => {
     setInTransition(true);
@@ -74,10 +89,15 @@ function Carousel({ imgs }: { imgs: string[] }) {
   }, [isAutoPlaying]);
 
   return (
-    <div className="relative w-full h-[640px] overflow-hidden sm:h-44">
+    <div
+      className="relative w-full h-[640px] overflow-hidden sm:h-44"
+      {...handlers}
+    >
       <div
         className={`flex h-full min-w-max ${
-          position === -1 ? "" : "transition-transform duration-1000"
+          position === -1
+            ? ""
+            : "transition-transform duration-1000 sm:duration-500"
         }`}
         style={{ transform: `translateX(${position * 100 + "vw"})` }}
         ref={carouselBodyRef}
@@ -100,20 +120,12 @@ function Carousel({ imgs }: { imgs: string[] }) {
         )}
       </div>
       <ArrowCircleLeft
-        className="absolute w-12 h-12 text-gray-100 -translate-y-1/2 cursor-pointer top-1/2 left-3 sm:w-8 sm:h-8"
-        onClick={() => {
-          if (inTransition) return;
-          setPosition(-2);
-          setIsAutoPlaying(false);
-        }}
+        className="absolute w-12 h-12 text-gray-100 -translate-y-1/2 cursor-pointer top-1/2 left-3 sm:hidden"
+        onClick={swipeLeft}
       />
       <ArrowCircleRight
-        className="absolute w-12 h-12 text-gray-100 -translate-y-1/2 cursor-pointer top-1/2 right-3 sm:w-8 sm:h-8"
-        onClick={() => {
-          if (inTransition) return;
-          setPosition(0);
-          setIsAutoPlaying(false);
-        }}
+        className="absolute w-12 h-12 text-gray-100 -translate-y-1/2 cursor-pointer top-1/2 right-3 sm:hidden"
+        onClick={swipeRight}
       />
     </div>
   );

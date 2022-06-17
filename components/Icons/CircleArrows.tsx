@@ -9,7 +9,7 @@ function CircleArrow({
 }) {
   return (
     <div
-      className="grid border border-solid rounded-full cursor-pointer text-primary-red h-9 w-9 border-primary-red place-content-center hover:text-white hover:border-white hover:bg-hotter-than-hell active:bg-primary-red"
+      className="grid border border-solid rounded-full cursor-pointer text-primary-red h-9 w-9 border-primary-red place-content-center active:text-white active:border-white active:bg-hotter-than-hell hover-hover:hover:text-white hover-hover:hover::border-white hover-hover:hover:bg-hotter-than-hell hover-hover:active:bg-primary-red "
       onClick={onClick}
     >
       <svg

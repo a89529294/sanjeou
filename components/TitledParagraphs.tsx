@@ -12,8 +12,10 @@ function TitledParagraphs({
 }) {
   return (
     <div className={`grid gap-3 ${className}`}>
-      <SectionTitle primary={title} withDivider />
-      <div className="grid gap-6 text-lg text-bauhaus">{children}</div>
+      <SectionTitle primary={title} withDivider size="small" />
+      <div className="grid gap-6 text-lg text-bauhaus sm:text-xs sm:leading-5">
+        {children}
+      </div>
     </div>
   );
 }

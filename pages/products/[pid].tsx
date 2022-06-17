@@ -9,31 +9,31 @@ import TitledParagraphs from "../../components/TitledParagraphs";
 const TagAndTitle = () => (
   <div className="z-20 isolate">
     <Tag icon="/img/icons/door1_white.svg">防火防煙捲門系列</Tag>
-    <div className="flex items-center gap-6">
-      <SectionTitle primary="電動防火/防颱捲門" />
-      <span className="text-3xl text-primary-red">|</span>
-      <SectionTitle primary="型號:SJ-302" />
-    </div>{" "}
+    <div className="flex items-center gap-6 sm:mt-4 sm:gap-[10px]">
+      <SectionTitle primary="電動防火/防颱捲門" size="product-title" />
+      <span className="text-3xl text-primary-red sm:text-xl">|</span>
+      <SectionTitle primary="型號:SJ-302" size="product-title" />
+    </div>
   </div>
 );
 
 const ImgGrid = ({ children }: { children: React.ReactNode }) => (
-  <div className="px-2 grid grid-cols-3 auto-rows-[180px] gap-2 isolate z-20">
+  <div className="px-2 grid grid-cols-3 auto-rows-[180px] gap-2 isolate z-20 sm:auto-rows-[63px] sm:px-0 sm:gap-1 sm:-mt-4">
     {children}
   </div>
 );
 
 const PDF = ({ title }: { title: string }) => (
-  <div className="flex-1">
+  <div className="flex-1 sm:basis-full">
     <div className="aspect-[402/178] grid place-items-center font-open-sans font-bold text-5xl bg-pdf mt-5 mb-2">
       PDF
     </div>
-    <h3 className="text-2xl font-medium text-primary">{title}</h3>
+    <h3 className="text-2xl font-medium text-primary sm:text-sm">{title}</h3>
   </div>
 );
 function ProductDetails() {
   return (
-    <div className="relative grid content-start flex-1 gap-8 pl-16 bg-white pt-9 pr-36 pb-7 isolate">
+    <div className="relative grid content-start flex-1 gap-8 pl-16 bg-white pt-9 pr-36 pb-7 isolate sm:px-8 sm:pt-4 sm:pb-8 sm:gap-6">
       <TagAndTitle />
       <ImgGrid>
         <div className="relative col-span-3 row-span-3">
@@ -83,13 +83,17 @@ function ProductDetails() {
         <p>中柱及背撐使用不銹鋼方管60*60*2.0mm</p>
       </TitledParagraphs>
       <div>
-        <SectionTitle primary="型錄下載" withDivider />
-        <div className="flex gap-5 pr-10 xl:pr-5 xl:gap-3 whitespace-nowrap">
+        <SectionTitle primary="型錄下載" withDivider size="small" />
+        <div className="flex gap-5 pr-10 sm:flex-wrap sm:pr-0 xl:pr-5 xl:gap-3 whitespace-nowrap ">
           <PDF title="一般型、防颱型電動捲門" />
           <PDF title="一般型、防颱型電動捲門" />
         </div>
       </div>
-      <Circle width={587} className="z-10 top-20 -right-14" />
+      <Circle width={587} className="z-10 top-20 -right-14 sm:hidden" />
+      <Circle
+        width={320}
+        className="right-0 hidden translate-x-1/2 sm:block top-14"
+      />
     </div>
   );
 }

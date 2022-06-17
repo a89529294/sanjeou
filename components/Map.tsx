@@ -1,9 +1,25 @@
 import React from "react";
+import { useSwipeable } from "react-swipeable";
 
-function Map({ className }: { className: string }) {
+interface MapPropsType
+  extends React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLDivElement>,
+    HTMLDivElement
+  > {
+  dispatch: React.Dispatch<"inc" | "dec">;
+}
+
+function Map({ className, dispatch, ...rest }: MapPropsType) {
+  const handlers = useSwipeable({
+    onSwipedLeft: () => dispatch("inc"),
+    onSwipedRight: () => dispatch("dec"),
+  });
+
   return (
     <div
       className={`relaitve w-full sm:w-fit ${className} flex justify-center sm:block`}
+      {...rest}
+      {...handlers}
     >
       <img
         src="/img/home/globalMap.svg"

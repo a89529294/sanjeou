@@ -87,6 +87,7 @@ const MobileTab = ({ children }: { children: React.ReactNode }) => (
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     showModal &&
@@ -98,6 +99,10 @@ function Navbar() {
         .getElementsByTagName("html")[0]
         .classList.remove("h-full", "overflow-hidden");
   }, [showModal]);
+
+  useEffect(() => {
+    setShowModal(false);
+  }, [router.pathname]);
 
   return (
     <div className="relative grid gap-12 px-32 bg-white pt-11 sm:px-4 sm:py-5 ">
@@ -123,7 +128,7 @@ function Navbar() {
         </span>
         <Burger
           className="hidden ml-auto sm:block"
-          onClick={() => setShowModal(true)}
+          onClick={() => setShowModal((s) => !s)}
         />
 
         <div className="flex gap-8 ml-auto sm:hidden">

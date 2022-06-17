@@ -13,7 +13,7 @@ interface PropsType
 function Tag({ children, className = "", icon, ...rest }: PropsType) {
   return (
     <span
-      className={`inline-flex items-center gap-1 px-2 py-1 text-base text-white bg-primary font-medium ${className}`}
+      className={`inline-flex items-center gap-[10px] px-2 py-1 text-base text-white bg-primary font-medium sm:text-xs ${className}`}
       {...rest}
     >
       {icon ? (

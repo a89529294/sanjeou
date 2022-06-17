@@ -2,6 +2,12 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import VerticalBar from "./VerticalBar";
 
+const sizes = {
+  default: "text-[32px] font-bold sm:text-2xl",
+  small: "text-[28px] font-medium sm:text-base",
+  "product-title": "text-[32px] font-bold sm:text-base",
+};
+
 function SectionTitle({
   primary,
   secondary,
@@ -16,7 +22,7 @@ function SectionTitle({
   secondary?: string;
   withDivider?: boolean;
   className?: string;
-  size?: "default" | "small";
+  size?: keyof typeof sizes;
   icon?: string;
   withDecoration?: boolean;
   id?: string;
@@ -25,15 +31,7 @@ function SectionTitle({
     <div className={`relative ${className} isolate`} id={id}>
       <div className="flex items-center gap-3">
         {icon ? <Image width={26} height={28} src={icon} /> : null}
-        <h1
-          className={`text-primary ${
-            size === "default"
-              ? "text-[32px] font-bold sm:text-2xl"
-              : "text-[28px] font-medium"
-          }`}
-        >
-          {primary}
-        </h1>
+        <h1 className={`text-primary ${sizes[size]}`}>{primary}</h1>
         <div
           className={`flex-1 border-t border-solid border-primary-red ${
             withDivider ? "block" : "hidden"

@@ -43,6 +43,7 @@ function Locations() {
       <div className="relative px-11 sm:px-0">
         <Map
           className={`mt-4 transition-transform duration-300 ${mapPositionClass[mapPosition]}`}
+          dispatch={dispatch}
         />
         <div className="hidden gap-6 mx-auto sm:flex w-fit">
           <CircleArrowLeft onClick={() => dispatch("inc")} />

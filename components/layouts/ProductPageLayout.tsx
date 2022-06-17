@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import ItemTitle from "../ItemTitle";
 import HeroImage from "../HeroImage";
 import products from "../../data/products";
+import Burger from "../Icons/Burger";
 
 const ListItem = ({
   item,
@@ -86,7 +87,7 @@ function ProductPageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       <HeroImage text="產品" />
-      <div className="flex gap-2 bg-white-smoke" id="product-details">
+      <div className="flex gap-2 sm:hidden bg-white-smoke" id="product-details">
         <div className="bg-white">
           <div className="grid pb-24 pl-24 gap-9 pr-9 pt-9">
             <ListItem item={{ id: 0, name: "全部" }} />
@@ -99,6 +100,13 @@ function ProductPageLayout({ children }: { children: React.ReactNode }) {
               />
             ))}
           </div>
+        </div>
+        {children}
+      </div>
+      <div className="hidden sm:block">
+        <div className="flex items-center gap-4 px-8 py-4 bg-white-smoke">
+          <Burger />
+          <h2 className="text-sm font-medium text-bauhaus">商品列表</h2>
         </div>
         {children}
       </div>

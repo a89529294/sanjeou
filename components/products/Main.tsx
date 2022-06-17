@@ -16,8 +16,8 @@ const ProductGrid = ({
   icon: string;
 }) => (
   <div>
-    <SectionTitle primary={title} withDivider icon={icon} />
-    <div className="grid mt-6 gap-x-5 gap-y-7 grid-cols-product-grid">
+    <SectionTitle primary={title} withDivider icon={icon} size="small" />
+    <div className="grid mt-6 gap-x-5 gap-y-7 grid-cols-product-grid sm:mt-4 sm:grid-cols-product-grid-mobile sm:gap-2">
       {items.map((item, i) => (
         <div key={i}>
           <Link href={`/products/${item.id}`}>
@@ -39,7 +39,7 @@ const ProductGrid = ({
 function Main() {
   return (
     <div
-      className="relative flex flex-col flex-1 gap-8 pr-32 bg-white pt-9 pl-11"
+      className="relative flex flex-col flex-1 gap-8 pr-32 bg-white pt-9 pl-11 sm:px-8 sm:pt-4 sm:pb-7 sm:gap-6"
       id="products-all"
     >
       {products.map((series, i) => (

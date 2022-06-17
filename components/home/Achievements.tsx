@@ -79,6 +79,7 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(500, 500)
             )}`}
+            key={firstAch.img}
           />
         </div>
         <Card
@@ -97,6 +98,7 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(500, 500)
             )}`}
+            key={firstAch.img}
           />
         </div>
         <Card

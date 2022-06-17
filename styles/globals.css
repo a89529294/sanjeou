@@ -21,3 +21,9 @@
 html {
   scroll-behavior: smooth;
 }
+
+*,
+*::before,
+*::after {
+  -webkit-tap-highlight-color: transparent;
+}

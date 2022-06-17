@@ -6,6 +6,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      "2xl": { max: "1535px" },
+      xl: { max: "1279px" },
+      lg: { max: "1023px" },
+      md: { max: "767px" },
+      sm: { max: "639px" },
+      "hover-hover": { raw: "(hover: hover)" },
+    },
     extend: {
       fontFamily: {
         sans: ["Noto Sans TC", ...defaultTheme.fontFamily.sans], // default font
@@ -25,15 +33,9 @@ module.exports = {
         "silver-spoon": "#d2d2d2",
         "petro-blue": "#E5E5E5",
       },
-      screens: {
-        "2xl": { max: "1535px" },
-        xl: { max: "1279px" },
-        lg: { max: "1023px" },
-        md: { max: "767px" },
-        sm: { max: "639px" },
-      },
       gridTemplateColumns: {
         "product-grid": "repeat(auto-fill, minmax(250px, 1fr))",
+        "product-grid-mobile": "repeat(auto-fill, minmax(150px, 1fr))",
         "catalog-grid": "repeat(auto-fill, minmax(350px, 1fr))",
         "achievement-grid": "repeat(auto-fill, minmax(500px, 1fr))",
         "news-article-image-grid": "repeat(auto-fill, minmax(350px, 400px))",
