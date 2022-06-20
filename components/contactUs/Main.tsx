@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import ChevronDown from "../Icons/ChevronDown";
+import Chevron from "../Icons/Chevron";
 import CirclePlus from "../Icons/CirclePlus";
 import OutlinedButton from "../OutlinedButton";
 import TopCircle from "../TopCircle";
@@ -18,7 +18,12 @@ const FormInput = ({
     <span className="inline-block w-32">{label}</span>
     <input placeholder={placeholder} />
     {options ? (
-      <ChevronDown stroke="red" width={20} height={12} className="ml-auto" />
+      <Chevron
+        width={20}
+        height={12}
+        className="ml-auto text-primary-red"
+        type="down"
+      />
     ) : null}
   </label>
 );

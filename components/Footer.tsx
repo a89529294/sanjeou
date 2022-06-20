@@ -1,10 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useReducer } from "react";
 import products from "../data/products";
-import ChevronDown from "./Icons/ChevronDown";
+import DesktopFooterNav from "./footer/DesktopFooterNav";
+import MobileFooterNav from "./footer/MobileFooterNav";
 
-const listItems = [
+export const categories = [
   "公司簡介",
   "動態資訊",
   "產品",
@@ -12,48 +13,40 @@ const listItems = [
   "電子型錄",
   "聯繫我們",
   "影片",
+] as const;
+
+export type Categories = typeof categories[number];
+export type ProductCategories = typeof products[number]["series"];
+
+export const subMenu = [
+  [
+    { path: "/about#about-intro", text: "公司介紹" },
+    { path: "/about#about-video", text: "影片介紹" },
+    { path: "/about#about-certs", text: "專業認證" },
+    { path: "/about#about-milestones", text: "公司歷程" },
+  ],
+  [
+    { path: "/news#activities", text: "活動訊息" },
+    { path: "/news#lessons", text: "操作教學" },
+  ],
+  [{ path: "/catalog#catalog-all", text: "型錄列表" }],
+  [{ path: "/videos#videos-all", text: "影片列表" }],
+  [{ path: "/achievements#achievements-all", text: "實績列表" }],
+  [
+    { path: "/contact-us#contact-us-map", text: "Google Map" },
+    { path: "/contact-us#contact-us-form", text: "聯繫表" },
+  ],
 ];
 
-const FooterSectionTitle = ({
-  children,
-  path,
-}: {
-  children: React.ReactNode;
-  path: string;
-}) => (
-  <Link href={path}>
-    <a className="mb-4 text-base font-bold text-bauhaus">{children}</a>
-  </Link>
-);
-
-const List = ({
-  items,
-  gap = false,
-  highLightFirstChild = false,
-}: {
-  items: ({ path: string; text: string } | string)[];
-  gap?: boolean;
-  highLightFirstChild?: boolean;
-}) => (
-  <ul className="grid gap-3">
-    {items.map((item, i) => (
-      <li
-        key={i}
-        className={`cursor-pointer text-sm font-light text-bauhaus ${
-          highLightFirstChild ? "first:text-primary-red first:font-medium" : ""
-        } ${gap ? "ml-2" : ""}`}
-      >
-        {typeof item !== "string" ? (
-          <Link href={item.path}>
-            <a>{item.text}</a>
-          </Link>
-        ) : (
-          item
-        )}
-      </li>
-    ))}
-  </ul>
-);
+export const productsSubMenu = products.map((p) => ({
+  series: p.series,
+  items: [
+    ...p.items.map((item) => ({
+      path: `/products/${item.id}#product-details`,
+      text: item.name,
+    })),
+  ],
+}));
 
 const ContactInfoListItem = ({
   icon,
@@ -102,162 +95,55 @@ const ContactInfo = ({
   </div>
 );
 
-const MobileFooterListItem = ({ children }: { children: string }) => (
-  <li className="flex justify-between py-3 text-sm font-medium border-b border-white border-solid text-bauhaus">
-    {children} <ChevronDown />
-  </li>
-);
+const reducer = (state: Categories[], category: Categories | "reset") => {
+  if (category === "reset") return [];
+  const indexOfCategory = state.indexOf(category);
+  const newState = state.slice();
+  if (indexOfCategory !== -1) {
+    newState.splice(indexOfCategory, 1);
+    return newState;
+  } else return [...state, category];
+};
+
+const productCategoryReducer = (
+  state: ProductCategories[],
+  productCategory: ProductCategories | "reset"
+) => {
+  if (productCategory === "reset") return [];
+  const indexOfCategory = state.indexOf(productCategory);
+  const newState = state.slice();
+  if (indexOfCategory !== -1) {
+    newState.splice(indexOfCategory, 1);
+    return newState;
+  } else return [...state, productCategory];
+};
 
 function Footer() {
+  const router = useRouter();
+  const [expandedCategories, dispatch] = useReducer(reducer, []);
+  const [expandedProductCategories, dispatchProductCategories] = useReducer(
+    productCategoryReducer,
+    []
+  );
+  const isCategoryExpanded = (category: Categories) =>
+    expandedCategories.indexOf(category) !== -1;
+  const isProductCategoryExpanded = (productCategory: ProductCategories) =>
+    expandedProductCategories.indexOf(productCategory) !== -1;
+
+  useEffect(() => {
+    dispatch("reset");
+    dispatchProductCategories("reset");
+  }, [router.pathname, router.query]);
+
   return (
     <footer className="relative px-32 pt-14 bg-[url('/img/home/footer/bg.png')] sm:px-7 sm:pt-0">
-      <div className="flex gap-24 pb-10 border-b border-dashed border-primary xl:gap-12 sm:hidden">
-        <div>
-          <FooterSectionTitle path="/about">公司簡介</FooterSectionTitle>
-          <List
-            items={[
-              { path: "/about#about-intro", text: "公司介紹" },
-              { path: "/about#about-video", text: "影片介紹" },
-              { path: "/about#about-certs", text: "專業認證" },
-              { path: "/about#about-milestones", text: "公司歷程" },
-            ]}
-          />
-        </div>
-        <div>
-          <FooterSectionTitle path="/news">動態資訊</FooterSectionTitle>
-          <Link href="/news#news-all">
-            <a className="block mb-3 text-sm font-bold text-primary">全部</a>
-          </Link>
-
-          <List
-            items={[
-              { path: "/news#activities", text: "活動訊息" },
-              { path: "/news#lessons", text: "操作教學" },
-            ]}
-            gap
-          />
-        </div>
-        <div className="flex-1">
-          <FooterSectionTitle path="/products">產品</FooterSectionTitle>
-          <Link href="/products#products-all">
-            <a className="block mb-3 text-sm font-bold text-primary">全部</a>
-          </Link>
-
-          <div className="grid items-start grid-cols-3">
-            <div className="grid gap-6">
-              <List
-                items={[
-                  products[0].series,
-                  ...products[0].items.map((item) => ({
-                    path: `/products/${item.id}#product-details`,
-                    text: item.name,
-                  })),
-                ]}
-                gap
-                highLightFirstChild
-              />
-              <List
-                items={[
-                  products[1].series,
-                  ...products[1].items.map((item) => ({
-                    path: `/products/${item.id}#product-details`,
-                    text: item.name,
-                  })),
-                ]}
-                gap
-                highLightFirstChild
-              />
-            </div>
-            <div className="grid gap-6">
-              <List
-                items={[
-                  products[2].series,
-                  ...products[2].items.map((item) => ({
-                    path: `/products/${item.id}#product-details`,
-                    text: item.name,
-                  })),
-                ]}
-                gap
-                highLightFirstChild
-              />
-              <List
-                items={[
-                  products[3].series,
-                  ...products[3].items.map((item) => ({
-                    path: `/products/${item.id}#product-details`,
-                    text: item.name,
-                  })),
-                ]}
-                gap
-                highLightFirstChild
-              />
-              <List
-                items={[
-                  products[4].series,
-                  ...products[4].items.map((item) => ({
-                    path: `/products/${item.id}#product-details`,
-                    text: item.name,
-                  })),
-                ]}
-                gap
-                highLightFirstChild
-              />
-            </div>
-            <div className="grid gap-6">
-              <List
-                items={[
-                  products[5].series,
-                  ...products[5].items.map((item) => ({
-                    path: `/products/${item.id}#product-details`,
-                    text: item.name,
-                  })),
-                ]}
-                gap
-                highLightFirstChild
-              />
-              <List items={["客製化"]} gap highLightFirstChild />
-            </div>
-          </div>
-        </div>
-        <div className="grid content-start gap-16">
-          <div>
-            <FooterSectionTitle path="/catalog">電子型錄</FooterSectionTitle>
-            <List
-              items={[{ path: "/catalog#catalog-all", text: "型錄列表" }]}
-            />
-          </div>
-          <div>
-            <FooterSectionTitle path="/videos">影片</FooterSectionTitle>
-            <List items={[{ path: "/videos#videos-all", text: "影片列表" }]} />
-          </div>
-        </div>
-        <div className="grid content-start gap-16">
-          <div>
-            <FooterSectionTitle path="/achievements">
-              工程實績
-            </FooterSectionTitle>
-            <List
-              items={[
-                { path: "/achievements#achievements-all", text: "實績列表" },
-              ]}
-            />
-          </div>
-          <div>
-            <FooterSectionTitle path="/contact-us">聯繫我們</FooterSectionTitle>
-            <List
-              items={[
-                { path: "/contact-us#contact-us-map", text: "Google Map" },
-                { path: "/contact-us#contact-us-form", text: "聯繫表" },
-              ]}
-            />
-          </div>
-        </div>
-      </div>
-      <ul className="hidden sm:block">
-        {listItems.map((n, i) => (
-          <MobileFooterListItem key={i}>{n}</MobileFooterListItem>
-        ))}
-      </ul>
+      <DesktopFooterNav />
+      <MobileFooterNav
+        isCategoryExpanded={isCategoryExpanded}
+        isProductCategoryExpanded={isProductCategoryExpanded}
+        dispatch={dispatch}
+        dispatchProductCategories={dispatchProductCategories}
+      />
       <div className="flex pb-20 pt-9 sm:flex-col sm:items-center sm:border-t sm:border-dashed sm:border-primary sm:pt-6 sm:gap-9">
         <div className="relative aspect-[56/32] max-w-[224px] flex-1 sm:w-[224px]">
           <Image
