@@ -6,6 +6,7 @@ const sizes = {
   default: "text-[32px] font-bold sm:text-2xl",
   small: "text-[28px] font-medium sm:text-base",
   "product-title": "text-[32px] font-bold sm:text-base",
+  "about-title": "text-[32px] font-bold sm:text-xl",
 };
 
 function SectionTitle({

@@ -12,7 +12,9 @@ function ItemTitle({
   return (
     <h2
       className={`font-medium text-primary ${
-        size === "large" ? "text-[28px]" : "text-2xl sm:text-sm sm:leading-7"
+        size === "large"
+          ? "text-[28px] sm:text-lg"
+          : "text-2xl sm:text-sm sm:leading-7"
       } ${className}`}
     >
       {children}

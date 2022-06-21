@@ -4,13 +4,14 @@ import SectionTitle from "../SectionTitle";
 
 function Hero() {
   return (
-    <div className="relative pb-20">
+    <div className="relative pb-20 sm:pb-12">
       <SectionTitle
         primary="三久建材工業股份有限公司"
+        size="about-title"
         id="about-intro"
         withDecoration
       />
-      <div className="flex flex-col gap-10 mt-6 mb-10 text-lg text-bauhaus">
+      <div className="flex flex-col gap-10 mt-6 mb-10 text-lg text-bauhaus sm:text-xs sm:leading-5 sm:gap-4">
         <p>
           三久建材工業股份有限公司成立於1982年，30多年以來，取得多項專利與認證。為一專業之電動防火捲門、阻熱捲門、遮煙捲簾、硬式防颱快速門、圍牆大門、防水閘門及機棚大門製作及施工之責任保證公司。
         </p>
@@ -24,12 +25,19 @@ function Hero() {
           本公司秉持著信譽永久、品質永久、服務永久的三個永久為公司的經營宗旨。不敢一日或忘，不管時代變遷、經濟興衰，將永遠以三個永久的精神繼續奮鬥，以不負對三久公司厚愛的使用顧客與工程先進。
         </p>
       </div>
-      <video controls className="w-full h-[680px]" id="about-video">
+      <video controls className="w-full aspect-video " id="about-video">
         <source src="/media/cc0-videos/flower.webm" type="video/webm" />
         <source src="/media/cc0-videos/flower.mp4" type="video/mp4" />
         Sorry, your browser doesn't support embedded videos.
       </video>
-      <Circle width={1078} className="right-0 top-32 translate-x-[45%]" />
+      <Circle
+        width={1078}
+        className="right-0 top-32 translate-x-[45%] sm:hidden"
+      />
+      <Circle
+        width={320}
+        className="right-0 hidden translate-x-1/2 top-16 sm:block"
+      />
     </div>
   );
 }

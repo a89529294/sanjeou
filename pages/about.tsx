@@ -9,7 +9,7 @@ function About() {
   return (
     <div>
       <HeroImage text="公司簡介" />
-      <div className="px-32 pt-16 pb-24">
+      <div className="px-32 pt-16 pb-24 sm:px-7 sm:pt-4 sm:pb-8">
         <Hero />
         <Certifications />
         <Milestones />

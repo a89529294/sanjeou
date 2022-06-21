@@ -119,7 +119,7 @@ const TimelineItem = ({
   return year === -98 ? (
     <div className="h-0 basis-1/2"></div>
   ) : year === -99 ? (
-    <div className="h-60 basis-1/2"></div>
+    <div className="h-60 basis-1/2 sm:h-72"></div>
   ) : year === -100 ? (
     <div className="h-20 basis-1/2"></div>
   ) : (
@@ -136,7 +136,7 @@ const TimelineItem = ({
           index % 2
             ? "pl-9 after:left-0 after:bottom-0 after:-translate-x-1/2 after:translate-y-1/2"
             : "pr-10 after:right-0 after:bottom-0 after:translate-x-1/2 after:translate-y-1/2"
-        }`}
+        } sm:text-2xl`}
       >
         {year}
       </div>
@@ -144,7 +144,7 @@ const TimelineItem = ({
         <div
           className={`pl-2 mt-2 text-lg leading-none border-l border-solid border-primary-red ${
             index % 2 ? "ml-10" : "pr-10"
-          }`}
+          } sm:text-sm`}
           key={i}
         >
           {text}
@@ -162,6 +162,7 @@ function Milestones() {
         withDivider
         withDecoration
         id="about-milestones"
+        size="about-title"
       />
       <div className="relative flex flex-wrap ">
         {items.map((item, i) => (
