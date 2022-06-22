@@ -6,13 +6,13 @@ interface PropsType extends React.SVGProps<SVGSVGElement> {
 
 function Search({ size = "small", ...props }: PropsType) {
   const sizeObj = {
-    small: "w-6 h-6",
-    large: "w-7 h-7",
+    small: "w-6",
+    large: "w-7 sm:w-4",
   };
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`sizeObj[size]`}
+      className={`aspect-square ${sizeObj[size]}`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

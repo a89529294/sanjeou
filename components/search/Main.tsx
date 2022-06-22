@@ -13,7 +13,7 @@ const ListItem = ({
   <li
     className={`text-2xl ${
       selected ? "text-primary-red" : "text-bauhaus"
-    } xl:text-lg`}
+    } xl:text-lg sm:text-base`}
   >
     {children}
   </li>
@@ -27,12 +27,12 @@ const SearchBar = ({
   setInput: (arg: string) => void;
 }) => {
   return (
-    <div className="grid px-32 pt-12 pb-6 gap-9 bg-white-smoke">
+    <div className="grid px-32 pt-12 pb-6 gap-9 bg-white-smoke sm:px-7 sm:gap-4 sm:pt-6 sm:pb-3">
       <div className="flex gap-4">
         <div className="relative flex-1">
           <input
             type="text"
-            className="w-full h-full text-3xl font-medium border-b border-solid outline-none text-bauhaus border-primary bg-white-smoke"
+            className="w-full h-full text-3xl font-medium border-b border-solid outline-none text-bauhaus border-primary bg-white-smoke sm:text-base"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
@@ -42,12 +42,12 @@ const SearchBar = ({
           />
         </div>
 
-        <div className="px-6 pt-5 pb-4 border border-solid cursor-pointer text-primary-red border-primary-red">
+        <div className="px-6 py-5 border border-solid cursor-pointer text-primary-red border-primary-red sm:px-3 sm:py-2">
           <Search size="large" />
         </div>
       </div>
-      <div className="flex items-center whitespace-nowrap">
-        <div className="font-medium text-[28px] text-primary xl:text-xl">
+      <div className="flex items-center overflow-x-auto overflow-y-hidden whitespace-nowrap">
+        <div className="font-medium text-[28px] text-primary xl:text-xl sm:text-lg">
           搜尋結果
         </div>
         <div className="translate-y-[2px] border-r-2 border-solid h-4/6 ml-6 border-primary xl:ml-5" />
@@ -65,13 +65,13 @@ const SearchBar = ({
 };
 
 const SearchItem = ({ category, item }: { category: string; item: string }) => (
-  <li className="border-b border-solid py-7 border-stonewall-gray">
+  <li className="border-b border-solid py-7 border-stonewall-gray sm:py-4">
     {category}｜{item}
   </li>
 );
 
 const SearchResult = () => (
-  <ul className="px-32 pb-16 text-2xl font-medium text-bauhaus">
+  <ul className="px-32 pb-16 text-2xl font-medium text-bauhaus sm:px-7 sm:text-lg sm:pb-8">
     <SearchItem category="產品" item="電動防火/防颱捲門" />
     <SearchItem category="電子型錄" item="廠辦大門" />
     <SearchItem category="影片" item="一般型、防颱型電動捲門" />
@@ -83,10 +83,10 @@ function Main() {
   const [input, setInput] = useState("");
 
   return (
-    <div>
+    <>
       <SearchBar input={input} setInput={setInput} />
       <SearchResult />
-    </div>
+    </>
   );
 }
 

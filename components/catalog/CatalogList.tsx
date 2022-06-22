@@ -52,7 +52,7 @@ const CatalogItem = ({
       <Image layout="fill" objectFit="cover" src={img} />
     </div>
     <Tag className="justify-self-start">{tag}</Tag>
-    <ItemTitle className="mt-3">{title}</ItemTitle>
+    <ItemTitle className="mt-3 sm:mt-1">{title}</ItemTitle>
   </div>
 );
 
@@ -71,7 +71,7 @@ function CatalogList() {
           "客製化",
         ]}
       />
-      <div className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9">
+      <div className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9 sm:px-7 sm:auto-rows-auto sm:gap-4">
         {all.map((item, i) => (
           <CatalogItem
             img={item.img}

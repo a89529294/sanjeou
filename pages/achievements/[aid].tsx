@@ -29,12 +29,14 @@ const Title = ({
   text: string;
   icons: Array<string>;
 }) => (
-  <div className="grid gap-3">
-    <h4 className="text-xl font-medium text-primary-red">{year}</h4>
-    <ItemTitle>{text}</ItemTitle>
-    <div className="flex gap-[14px]">
+  <div className="grid gap-3 sm:gap-1">
+    <h4 className="text-xl font-medium text-primary-red sm:text-xs">{year}</h4>
+    <ItemTitle size="large">{text}</ItemTitle>
+    <div className="flex gap-[14px] sm:gap-2">
       {icons.map((icon, i) => (
-        <Image src={icon} width={22} height={24} key={i} />
+        <div className="relative w-6 aspect-square sm:w-4">
+          <Image src={icon} layout="fill" objectFit="cover" key={i} />
+        </div>
       ))}
     </div>
   </div>
@@ -48,7 +50,7 @@ function AchievementArticle() {
   return (
     <div>
       <HeroImage text="工程實績" />
-      <div className="relative grid px-32 pt-6 pb-14 gap-9">
+      <div className="relative grid px-32 pt-6 pb-14 gap-9 sm:px-7 sm:gap-4 sm:py-6">
         <Title
           year={2022}
           text="廠辦大門廠辦大門廠辦大門廠辦大門廠辦大門廠辦大門"
@@ -60,7 +62,7 @@ function AchievementArticle() {
             layout="fill"
             objectFit="cover"
           />
-          <div className="absolute grid -translate-x-[150%] -translate-y-1/2 gap-14 top-1/2">
+          <div className="absolute grid -translate-x-[150%] -translate-y-1/2 gap-14 top-1/2 sm:-right-4 sm:translate-x-full">
             <CircleArrowUp />
             <CircleArrowDown />
           </div>

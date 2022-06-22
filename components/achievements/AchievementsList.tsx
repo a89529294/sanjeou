@@ -21,7 +21,7 @@ const AchItem = ({
   title: string;
   subText: string;
 }) => (
-  <div className="grid gap-3">
+  <div className="grid gap-3 sm:gap-1">
     <div className="aspect-[58/35] relative">
       <Image layout="fill" objectFit="cover" src={img} />
     </div>
@@ -35,8 +35,8 @@ const AchItem = ({
     </div>
     <Link href={`/achievements/${id}`}>
       <a className="grid gap-3">
-        <ItemTitle>{title}</ItemTitle>
-        <h3 className="-mt-3 text-lg text-bauhaus">{subText}</h3>
+        <ItemTitle size="large">{title}</ItemTitle>
+        <h3 className="-mt-3 text-lg text-bauhaus sm:text-xs">{subText}</h3>
       </a>
     </Link>
   </div>
@@ -45,7 +45,7 @@ const AchItem = ({
 function AchievementsList() {
   return (
     <div
-      className="relative grid gap-5 px-32 py-7 grid-cols-achievement-grid"
+      className="relative grid gap-5 px-32 py-7 grid-cols-achievement-grid sm:px-7"
       id="achievements-all"
     >
       {achievements.map((ach) => (

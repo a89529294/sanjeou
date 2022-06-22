@@ -24,7 +24,7 @@ const VideoItem = ({ src, title }: { src: string; title: string }) => (
 function VideoList() {
   return (
     <div
-      className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9"
+      className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9 sm:px-7 sm:gap-4"
       id="videos-all"
     >
       {videos.map((video, i) => (

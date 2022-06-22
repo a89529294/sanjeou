@@ -29,7 +29,7 @@ function NewsArticle() {
   );
 
   return (
-    <div className="px-32 py-10" id="news-article-top">
+    <div className="px-32 py-10 sm:px-7" id="news-article-top">
       <div>
         <span className="mr-3 font-medium text-primary-red">
           {newsItem ? newsItem.date : "9999-99-99"}
@@ -42,8 +42,8 @@ function NewsArticle() {
         className="pt-2 pb-4"
       />
 
-      <div className="grid gap-8 pb-5 text-lg border-t border-b border-solid pt-7 border-silver-spoon text-iron">
-        <div className="grid gap-6 grid-cols-3 auto-rows-[290px]">
+      <div className="grid gap-8 pb-5 text-lg border-t border-b border-solid pt-7 border-silver-spoon text-iron sm:text-xs sm:leading-5">
+        <div className="grid gap-6 grid-cols-3 auto-rows-[290px] sm:grid-cols-none sm:auto-rows-[200px]">
           {newsItem ? (
             newsItem.innerPageImgs.map((img, i) => (
               <div className="relative" key={i}>

@@ -30,7 +30,7 @@ function NewsItem({
         <p className="mt-3 text-lg text-iron sm:text-sm sm:truncate-text-3 sm:my-2">
           {desc}
         </p>
-        <MoreInfoButton color="red" className="mt-auto" />
+        <MoreInfoButton color="red" className="mt-auto" href={`/news/${id}`} />
       </div>
     </div>
   );

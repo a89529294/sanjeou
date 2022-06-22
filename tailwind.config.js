@@ -36,8 +36,8 @@ module.exports = {
       gridTemplateColumns: {
         "product-grid": "repeat(auto-fill, minmax(250px, 1fr))",
         "product-grid-mobile": "repeat(auto-fill, minmax(150px, 1fr))",
-        "catalog-grid": "repeat(auto-fill, minmax(350px, 1fr))",
-        "achievement-grid": "repeat(auto-fill, minmax(500px, 1fr))",
+        "catalog-grid": "repeat(auto-fill, minmax( min(100%,350px), 1fr))",
+        "achievement-grid": "repeat(auto-fill, minmax(min(100%,500px), 1fr))",
         "news-article-image-grid": "repeat(auto-fill, minmax(350px, 400px))",
       },
       backgroundImage: {

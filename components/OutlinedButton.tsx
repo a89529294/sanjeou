@@ -13,8 +13,8 @@ function OutlinedButton({
 }) {
   return (
     <button
-      className={`py-2 text-xl border border-solid ${
-        size === "wide" ? "px-12" : "px-7"
+      className={`sm:text-base sm:py-1 py-2 text-xl border border-solid ${
+        size === "wide" ? "px-12 sm:px-8" : "px-7 sm:px-5"
       } text-primary-red border-primary-red ${className}`}
       onClick={onClick}
     >
