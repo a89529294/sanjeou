@@ -80,7 +80,7 @@ const MobileTabLink = ({
 );
 
 const MobileTab = ({ children }: { children: React.ReactNode }) => (
-  <div className="flex-1 px-4 py-2 text-base border-b border-solid text-bauhaus border-petro-blue last:border-none">
+  <div className="grid content-center flex-1 px-4 py-2 text-base border-b border-solid text-bauhaus border-petro-blue last:border-none">
     {children}
   </div>
 );

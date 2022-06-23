@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
+import { shimmer, toBase64 } from "../BlurredImage";
 import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
 import SectionTitle from "../SectionTitle";
 
@@ -73,7 +74,15 @@ function Certifications() {
               className="basis-[calc((100%-84px)/4)] shrink-0 sm:basis-8/12"
             >
               <div className="relative h-80 sm:aspect-square sm:h-auto sm:w-full">
-                <Image layout="fill" objectFit="cover" src={img[0]} />
+                <Image
+                  layout="fill"
+                  objectFit="cover"
+                  src={img[0]}
+                  placeholder="blur"
+                  blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                    shimmer(500, 500)
+                  )}`}
+                />
               </div>
               <h2 className="text-xl font-medium text-bauhaus sm:text-base">
                 {img[1]}
