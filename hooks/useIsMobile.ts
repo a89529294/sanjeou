@@ -7,5 +7,5 @@ export function useIsMobile() {
     mql.matches && setIsMobile(true);
   }, []);
 
-  return [isMobile, setIsMobile];
+  return isMobile;
 }

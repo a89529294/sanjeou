@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
+import { useIsMobile } from "../../hooks/useIsMobile";
 import { shimmer, toBase64 } from "../BlurredImage";
 import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
 import SectionTitle from "../SectionTitle";
@@ -25,10 +26,10 @@ function reducer(state: number, action: "left" | "right") {
 
 function watchScreen(
   setDistance: (num: number) => void,
-  setOffset: (num: number) => void
+  setOffset: (num: number) => void,
+  isMobile: boolean
 ) {
-  const mql = window.matchMedia("(max-width: 640px)");
-  if (mql.matches) {
+  if (isMobile) {
     setDistance(74);
     setOffset(0);
   } else {
@@ -41,15 +42,16 @@ function Certifications() {
   const [position, setPosition] = useReducer(reducer, 0);
   const [distance, setDistance] = useState(25);
   const [offset, setOffset] = useState(7);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
-    watchScreen(setDistance, setOffset);
+    watchScreen(setDistance, setOffset, isMobile);
     const fn = () => {
-      watchScreen(setDistance, setOffset);
+      watchScreen(setDistance, setOffset, isMobile);
     };
     window.addEventListener("resize", fn);
     return () => window.removeEventListener("resize", fn);
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="relative pb-28 sm:pb-6">

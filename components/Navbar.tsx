@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { LanguageContext } from "../contexts/languageContext";
+import { useLangContext } from "../hooks/useLangContext";
 import Burger from "./Icons/Burger";
 import Search from "./Icons/Search";
 import { Modal } from "./Modal";
@@ -11,13 +13,50 @@ interface IconButtonProps
   imgPath: string;
   width: number;
   height: number;
+  showLang?: boolean;
+  setShowLang?: (arg: boolean) => void;
 }
 
-const IconButton = ({ imgPath, width, height, ...props }: IconButtonProps) => (
-  <button {...props}>
-    <Image src={imgPath} width={width} height={height}></Image>
-  </button>
-);
+const IconButton = ({
+  imgPath,
+  width,
+  height,
+  className,
+  showLang,
+  setShowLang,
+  // onClick,
+  ...props
+}: IconButtonProps) => {
+  const [lang, setLang] = useLangContext();
+  const isEngSelected = lang === "en";
+  const isCNSelected = lang === "cn";
+
+  return (
+    <button className={`relative ${className}`} {...props}>
+      <Image src={imgPath} width={width} height={height} />
+      {showLang ? (
+        <ul className="absolute flex gap-1 -translate-x-1/2 whitespace-nowrap left-1/2">
+          <li
+            className={`${isEngSelected ? "text-red-500" : ""}`}
+            onClick={(e) => setLang("en")}
+          >
+            English
+          </li>
+          <li
+            className={`${isCNSelected ? "text-red-500" : ""}`}
+            onClick={() => setLang("cn")}
+          >
+            中文
+          </li>
+        </ul>
+      ) : null}
+      {/* <div
+        className="fixed top-0 left-0 z-10 w-full h-full cursor-default"
+        onClick={() => setShowLang && setShowLang(false)}
+      /> */}
+    </button>
+  );
+};
 
 const Tab = ({
   children,
@@ -87,6 +126,7 @@ const MobileTab = ({ children }: { children: React.ReactNode }) => (
 
 function Navbar() {
   const [showModal, setShowModal] = useState(false);
+  const [showLang, setShowLang] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -134,7 +174,14 @@ function Navbar() {
         <div className="flex gap-8 ml-auto sm:hidden">
           <IconButton imgPath="/img/icons/fb.svg" width={26} height={26} />
           <IconButton imgPath="/img/icons/youtube.svg" width={30} height={22} />
-          <IconButton imgPath="/img/icons/globe.svg" width={22} height={22} />
+          <IconButton
+            imgPath="/img/icons/globe.svg"
+            width={22}
+            height={22}
+            onClick={() => setShowLang((s) => !s)}
+            showLang={showLang}
+            setShowLang={setShowLang}
+          />
         </div>
       </div>
       <div className="flex gap-16 sm:hidden text-bauhaus xl:gap-8">

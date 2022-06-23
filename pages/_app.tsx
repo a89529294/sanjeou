@@ -6,6 +6,7 @@ import type { AppProps } from "next/app";
 import Layout from "../components/layouts/Layout";
 
 import "../styles/globals.css";
+import { LanguageContextProvider } from "../contexts/languageContext";
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -29,7 +30,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     }
   });
   const getLayout = Component.getLayout ?? ((page) => page);
-  return <Layout>{getLayout(<Component {...pageProps} />)}</Layout>;
+  return (
+    <LanguageContextProvider>
+      <Layout>{getLayout(<Component {...pageProps} />)}</Layout>
+    </LanguageContextProvider>
+  );
 }
 
 export default MyApp;

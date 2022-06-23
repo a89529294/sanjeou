@@ -30,7 +30,7 @@ function NewsItem({
 }: {
   item: typeof news[number];
 }) {
-  const [isMobile, setIsMobile] = useIsMobile();
+  const isMobile = useIsMobile();
 
   return (
     <div className="flex py-5 border border-solid border-stonewall-gray px-7 gap-9 sm:flex-col sm:gap-4">

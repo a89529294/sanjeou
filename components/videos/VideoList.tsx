@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import ItemTitle from "../ItemTitle";
 import TopCircle from "../TopCircle";
 
@@ -12,13 +13,18 @@ const videos = [
 ];
 
 const VideoItem = ({ src, title }: { src: string; title: string }) => (
-  <div className="grid gap-2">
-    <video controls className="w-full aspect-video">
-      <source src={src} type="video/mp4" />
-      Sorry, your browser doesn't support embedded videos.
-    </video>
+  <a className="grid gap-2" href="https://google.com" target="_blank">
+    <div className="relative w-full aspect-video">
+      <Image
+        src={`https://picsum.photos/seed/${Math.floor(
+          Math.random() * 1000
+        )}/500/300`}
+        layout="fill"
+        objectFit="cover"
+      />
+    </div>
     <ItemTitle>{title}</ItemTitle>
-  </div>
+  </a>
 );
 
 function VideoList() {
