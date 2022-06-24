@@ -1,25 +1,64 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { forwardRef } from "react";
 import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
 import OutlinedButton from "../OutlinedButton";
 import SectionTitle from "../SectionTitle";
 import Tag from "../Tag";
 
+// (property) JSX.IntrinsicElements.a: React.DetailedHTMLProps<React.AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>
+
 import news from "../../data/news";
 import { useRouter } from "next/router";
 
-const BottomNavbar = ({ hideLeftRightNav = false }) => (
-  <nav className="flex items-center justify-between mt-4">
-    {hideLeftRightNav ? <span /> : <CircleArrowLeft />}
-    <Link href={"/news#news-all"}>
-      <a>
-        <OutlinedButton>回到列表</OutlinedButton>
-      </a>
-    </Link>
-    {hideLeftRightNav ? <span /> : <CircleArrowRight />}
-  </nav>
+const CircleLink = forwardRef<HTMLAnchorElement, { children: React.ReactNode }>(
+  ({ children }, ref) => (
+    <a className="flex items-center gap-2" ref={ref}>
+      {children}
+    </a>
+  )
 );
+
+const BottomNavbar = ({
+  hideLeftRightNav = false,
+  newsId,
+}: {
+  hideLeftRightNav: boolean;
+  newsId: number;
+}) => {
+  const newsIndex = news.findIndex((newsArticle) => newsArticle.id === newsId);
+  const leftIndex = newsIndex > 0 ? newsIndex - 1 : news.length - 1;
+  const rightIndex = newsIndex < news.length - 1 ? newsIndex + 1 : 0;
+  return (
+    <nav className="flex items-center justify-between mt-4">
+      {hideLeftRightNav ? (
+        <span />
+      ) : (
+        <Link href={`/news/${news[leftIndex].id}`} passHref>
+          <CircleLink>
+            <CircleArrowLeft />
+            {news[leftIndex].title}
+          </CircleLink>
+        </Link>
+      )}
+      <Link href={"/news#news-all"} passHref>
+        <a className="flex justify-center flex-1">
+          <OutlinedButton>回到列表</OutlinedButton>
+        </a>
+      </Link>
+      {hideLeftRightNav ? (
+        <span />
+      ) : (
+        <Link href={`/news/${news[rightIndex].id}`}>
+          <CircleLink>
+            {news[rightIndex].title}
+            <CircleArrowRight />
+          </CircleLink>
+        </Link>
+      )}
+    </nav>
+  );
+};
 
 function NewsArticle() {
   const router = useRouter();
@@ -73,7 +112,10 @@ function NewsArticle() {
             : "#不存在"}
         </p>
       </div>
-      <BottomNavbar hideLeftRightNav={!newsItem} />
+      <BottomNavbar
+        hideLeftRightNav={!newsItem}
+        newsId={newsItem ? newsItem.id : news[0].id}
+      />
     </div>
   );
 }
