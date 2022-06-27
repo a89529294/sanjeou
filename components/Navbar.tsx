@@ -150,7 +150,7 @@ function Navbar() {
         </Link>
 
         <span className="font-athelas italic text-primary-red text-[64px] leading-[0.5] self-start ml-4 sm:text-2xl sm:leading-[0.7]">
-          3
+          4
         </span>
         <span className="font-athelas italic text-primary-red text-6xl leading-[0.6] self-start sm:text-2xl sm:leading-[0.7]">
           0
