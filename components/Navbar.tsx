@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext } from "react";
 import { LanguageContext } from "../contexts/languageContext";
+import { useDisableScroll } from "../hooks/useDisableScroll";
 import { useLangContext } from "../hooks/useLangContext";
 import Burger from "./Icons/Burger";
 import Search from "./Icons/Search";
@@ -129,16 +130,7 @@ function Navbar() {
   const [showLang, setShowLang] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    showModal &&
-      document
-        .getElementsByTagName("html")[0]
-        .classList.add("h-full", "overflow-hidden");
-    !showModal &&
-      document
-        .getElementsByTagName("html")[0]
-        .classList.remove("h-full", "overflow-hidden");
-  }, [showModal]);
+  useDisableScroll(showModal);
 
   useEffect(() => {
     setShowModal(false);
