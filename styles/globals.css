@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .marquee-left-shade {
+    @apply before:content-[''] before:left-0 before:w-1/6 before:h-full before:absolute before:bg-gradient-to-r before:from-white before:to-[rgba(255_255_255_/_0)];
+  }
+
+  .marquee-right-shade {
+    @apply after:content-[''] after:right-0 after:w-1/6 after:h-full after:absolute after:bg-gradient-to-r after:from-[rgba(255_255_255_/_0)] after:to-white;
+  }
+}
+
 @layer utilities {
   .truncate-text-2 {
     display: -webkit-box;

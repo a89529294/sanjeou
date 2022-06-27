@@ -21,7 +21,6 @@ const ListItem = ({
   const As = as;
 
   useEffect(() => {
-    console.log(router.query.pid);
     let r;
     if (typeof router.query.pid === "string") r = +router.query.pid ?? 0;
     else r = 0;

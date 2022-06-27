@@ -1,0 +1,30 @@
+import React, { useState } from "react";
+import Image, { StaticImageData } from "next/image";
+
+function MarqueeImage({
+  src,
+  height,
+}: {
+  src: StaticImageData;
+  height: string;
+}) {
+  const [imgWidth, setImageWidth] = useState("200px");
+  return (
+    <div
+      className={`relative ml-7 last:mr-7 ${height}`}
+      style={{ width: imgWidth }}
+    >
+      <Image
+        src={src}
+        layout="fill"
+        objectFit="contain"
+        onLoadingComplete={({ naturalWidth, naturalHeight }) => {
+          setImageWidth((naturalWidth / naturalHeight) * 64 + "px");
+        }}
+        priority
+      />
+    </div>
+  );
+}
+
+export default MarqueeImage;

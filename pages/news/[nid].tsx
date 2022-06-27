@@ -6,7 +6,6 @@ import NewsArticle from "../../components/news/NewsArticle";
 function NewsInnerPage() {
   const router = useRouter();
   const { nid } = router.query;
-  console.log(nid);
 
   return (
     <div>

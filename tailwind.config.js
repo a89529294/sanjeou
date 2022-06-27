@@ -46,6 +46,28 @@ module.exports = {
       maxHeight: {
         "mobile-menu": "min(587px, calc(100vh - 80px))",
       },
+      animation: {
+        "scroll-left": "scroll-left linear infinite",
+        "scroll-right": "scroll-right linear infinite",
+      },
+      keyframes: {
+        "scroll-left": {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(-100%)",
+          },
+        },
+        "scroll-right": {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
+      },
     },
   },
   plugins: [],

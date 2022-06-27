@@ -45,7 +45,6 @@ const Title = ({
 function AchievementArticle() {
   const router = useRouter();
   const aid = router.query.aid;
-  console.log(aid);
 
   return (
     <div>

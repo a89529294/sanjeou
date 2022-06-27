@@ -11,13 +11,26 @@ import Tag from "../Tag";
 import news from "../../data/news";
 import { useRouter } from "next/router";
 
-const CircleLink = forwardRef<HTMLAnchorElement, { children: React.ReactNode }>(
-  ({ children }, ref) => (
-    <a className="flex items-center gap-2" ref={ref}>
-      {children}
-    </a>
-  )
-);
+const CircleLink = forwardRef<
+  HTMLAnchorElement,
+  {
+    children: React.ReactNode;
+    onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+    href?: string;
+    position: "left" | "right";
+  }
+>(({ children, onClick, href, position }, ref) => (
+  <a
+    className={`absolute flex items-center gap-2 ${
+      position === "left" ? "left-0" : "right-0"
+    }`}
+    ref={ref}
+    href={href}
+    onClick={onClick}
+  >
+    {children}
+  </a>
+));
 
 const BottomNavbar = ({
   hideLeftRightNav = false,
@@ -30,27 +43,30 @@ const BottomNavbar = ({
   const leftIndex = newsIndex > 0 ? newsIndex - 1 : news.length - 1;
   const rightIndex = newsIndex < news.length - 1 ? newsIndex + 1 : 0;
   return (
-    <nav className="flex items-center justify-between mt-4">
+    <nav className="relative flex items-center justify-between mt-4">
       {hideLeftRightNav ? (
         <span />
       ) : (
         <Link href={`/news/${news[leftIndex].id}`} passHref>
-          <CircleLink>
+          <CircleLink position="left">
             <CircleArrowLeft />
-            {news[leftIndex].title}
+            {news[leftIndex].title.trim()}
           </CircleLink>
         </Link>
       )}
-      <Link href={"/news#news-all"} passHref>
-        <a className="flex justify-center flex-1">
-          <OutlinedButton>回到列表</OutlinedButton>
-        </a>
-      </Link>
+      <div className="flex justify-center flex-1">
+        <Link href={"/news#news-all"}>
+          <a className="">
+            <OutlinedButton>回到列表</OutlinedButton>
+          </a>
+        </Link>
+      </div>
+
       {hideLeftRightNav ? (
         <span />
       ) : (
-        <Link href={`/news/${news[rightIndex].id}`}>
-          <CircleLink>
+        <Link href={`/news/${news[rightIndex].id}`} passHref>
+          <CircleLink position="right">
             {news[rightIndex].title}
             <CircleArrowRight />
           </CircleLink>
