@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import Chevron from "../Icons/Chevron";
 import CirclePlus from "../Icons/CirclePlus";
@@ -29,13 +29,18 @@ const FormInput = ({
 );
 
 function Main() {
+  const reRef = useRef<ReCAPTCHA>(null);
+  const [reCaptchaToken, setReCaptchaToken] = useState("");
   return (
     <form
       className="relative grid px-32 pt-6 pb-36 gap-9 sm:px-7 sm:py-6"
       id="contact-us-form"
       onSubmit={(e) => {
         e.preventDefault();
-        console.log(e);
+        if (!reCaptchaToken) return;
+
+        reRef.current?.reset();
+        setReCaptchaToken("");
       }}
     >
       <div className="flex items-start px-8 border border-solid border-stonewall-gray py-7 sm:flex-col sm:p-0 sm:px-2 sm:gap-8">
@@ -72,11 +77,14 @@ function Main() {
       </div>
       <ReCAPTCHA
         sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
-        onChange={(e) => {
-          console.log(e);
+        onChange={(token) => {
+          console.log(token);
+          setReCaptchaToken(token ?? "");
         }}
+        ref={reRef}
         className="flex justify-center"
       />
+
       <OutlinedButton className="place-self-center" size="wide">
         送出
       </OutlinedButton>
