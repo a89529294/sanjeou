@@ -1,5 +1,5 @@
-import Image from "next/image";
 import React from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import Chevron from "../Icons/Chevron";
 import CirclePlus from "../Icons/CirclePlus";
 import OutlinedButton from "../OutlinedButton";
@@ -30,9 +30,13 @@ const FormInput = ({
 
 function Main() {
   return (
-    <div
+    <form
       className="relative grid px-32 pt-6 pb-36 gap-9 sm:px-7 sm:py-6"
       id="contact-us-form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        console.log(e);
+      }}
     >
       <div className="flex items-start px-8 border border-solid border-stonewall-gray py-7 sm:flex-col sm:p-0 sm:px-2 sm:gap-8">
         <div className="grid flex-1 gap-[14px] pr-8 border-r border-solid border-stonewall-gray sm:pr-0 sm:w-full sm:pt-[14px] sm:border-0">
@@ -66,11 +70,18 @@ function Main() {
           </button>
         </div>
       </div>
+      <ReCAPTCHA
+        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+        onChange={(e) => {
+          console.log(e);
+        }}
+        className="flex justify-center"
+      />
       <OutlinedButton className="place-self-center" size="wide">
         送出
       </OutlinedButton>
       <TopCircle to="/contact-us" />
-    </div>
+    </form>
   );
 }
 
