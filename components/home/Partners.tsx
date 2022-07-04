@@ -27,7 +27,7 @@ import img19 from "../../assets/勤益大學.jpg";
 import img20 from "../../assets/逢甲大學.png";
 
 import img21 from "../../assets/IKEA.png";
-import img22 from "../../assets/DECATHLON.png";
+import img22 from "../../assets/Decathlon.png";
 import img23 from "../../assets/costco.jpg";
 import img24 from "../../assets/新光三越.jpg";
 import img25 from "../../assets/板橋大遠百.png";
