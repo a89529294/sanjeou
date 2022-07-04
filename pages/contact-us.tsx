@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 import Main from "../components/contactUs/Main";
 import HeroImage from "../components/HeroImage";
@@ -5,6 +6,9 @@ import HeroImage from "../components/HeroImage";
 function ContactUs() {
   return (
     <div>
+      <Head>
+        <title>聯絡我們</title>
+      </Head>
       <HeroImage text="聯繫我們" />
       <iframe
         id="contact-us-map"

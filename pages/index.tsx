@@ -12,6 +12,7 @@ import Products from "../components/home/Products";
 import Locations from "../components/home/Locations";
 import Partners from "../components/home/Partners";
 import achievements from "../data/achievements";
+import Head from "next/head";
 
 const imgArray = [
   "/img/home/carousel-0.jpg",
@@ -33,6 +34,9 @@ function HomePage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
+      <Head>
+        <title>三久建材</title>
+      </Head>
       <Carousel imgs={imgArray} />
       <Intro title={about.title} body={about.body} />
       <Locations />

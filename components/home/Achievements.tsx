@@ -70,7 +70,7 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
       />
       <div className="relative grid grid-cols-2 grid-rows-2 gap-4 sm:grid-cols-[125px_1fr] sm:grid-rows-none sm:gap-x-[6px] sm:gap-y-3">
         <div className="relative h-80 sm:h-24">
-          <VerticalBar className="-right-10 -top-[70px] sm:-right-1 sm:-top-[50px]" />
+          <VerticalBar className="-right-3 -top-[70px] sm:-right-1 sm:-top-[50px]" />
           <Image
             layout="fill"
             objectFit="cover"

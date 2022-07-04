@@ -5,6 +5,7 @@ import ItemTitle from "../ItemTitle";
 import HeroImage from "../HeroImage";
 import products from "../../data/products";
 import Burger from "../Icons/Burger";
+import Head from "next/head";
 
 const ListItem = ({
   item,
@@ -85,6 +86,9 @@ const MenuList = ({
 function ProductPageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div>
+      <Head>
+        <title>產品</title>
+      </Head>
       <HeroImage text="產品" />
       <div className="flex gap-2 sm:hidden bg-white-smoke" id="product-details">
         <div className="bg-white">
