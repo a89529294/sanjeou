@@ -28,6 +28,7 @@ const imgArray = [
 ];
 
 function HomePage({
+  carouselImgArray,
   index: { about },
   news,
   achievements,
@@ -37,7 +38,7 @@ function HomePage({
       <Head>
         <title>三久建材</title>
       </Head>
-      <Carousel imgs={imgArray} />
+      <Carousel imgs={carouselImgArray} />
       <Intro title={about.title} body={about.body} />
       <Locations />
       <News newsArticles={news.slice(0, 3)} />
@@ -54,8 +55,33 @@ function HomePage({
 }
 
 export async function getStaticProps() {
+  const res = await fetch(
+    "https://miku-officical-api.caprover.credot-web.com/api/homepage?populate[Carousel][populate]=image&populate=partners"
+  );
+  const data = await res.json();
+  // console.log(data.data.attributes.Carousel[0].image.data.url);
+  console.log(data.data.attributes.Carousel);
+  data.data.attributes.Carousel.forEach((img: any) =>
+    console.log(img.image.data.attributes.url)
+  );
+  const carouselImgArray = data.data.attributes.Carousel.map(
+    (img: any) => img.image.data.attributes.url
+  );
+  // const carouselImgArray = [
+  //   "/img/home/carousel-0.jpg",
+  //   "/img/home/carousel-1.jpg",
+  //   "/img/home/carousel-2.jpg",
+  //   "/img/home/carousel-3.jpg",
+  //   "/img/home/carousel-4.jpg",
+  //   "/img/home/carousel-5.jpg",
+  //   "/img/home/carousel-6.jpg",
+  //   "/img/home/carousel-7.jpg",
+  //   "/img/home/carousel-8.jpg",
+  //   "/img/home/carousel-9.jpg",
+  // ];
   return {
     props: {
+      carouselImgArray,
       index,
       news,
       products,
