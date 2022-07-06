@@ -1,7 +1,7 @@
 import { InferGetStaticPropsType } from "next";
 
 // import index from "../data";
-import news from "../data/news";
+// import news from "../data/news";
 import products, { ProductItem } from "../data/products";
 
 import Carousel from "../components/Carousel";
@@ -16,6 +16,13 @@ import Head from "next/head";
 
 export type Partners = {
   [type: string]: string[];
+};
+export type News = {
+  id: number;
+  title: string;
+  content: string;
+  createdAt: string;
+  imgURL: string;
 };
 
 function HomePage({
@@ -35,7 +42,7 @@ function HomePage({
       <Carousel imgs={carouselImgArray} />
       <Intro title={title} body={body} />
       <Locations />
-      <News newsArticles={news.slice(0, 3)} />
+      <News newsArticles={news} />
       <Products
         products={products.reduce<ProductItem["items"]>(
           (acc, val) => acc.concat(val.items),
@@ -50,20 +57,23 @@ function HomePage({
 
 export async function getStaticProps() {
   const baseURL = process.env.REACT_APP_API_HOST;
-  // const res = await fetch(
-  //   `${baseURL}/api/homepage?populate[Carousel][populate]=image&populate=partners`
-  // );
+
   const resArr = await Promise.allSettled([
     fetch(
       `${baseURL}/api/homepage?populate[Carousel][populate]=image&populate=partners`
     ),
     fetch(`${baseURL}/api/partners?populate=image`),
+    fetch(
+      `${baseURL}/api/informations?populate=*&pagination[start]=0&pagination[limit]=3`
+    ),
   ]);
 
   const data =
     resArr[0].status === "fulfilled" ? await resArr[0].value.json() : {};
   const partnersData =
     resArr[1].status === "fulfilled" ? await resArr[1].value.json() : {};
+  const newsData =
+    resArr[2].status === "fulfilled" ? await resArr[2].value.json() : {};
 
   const carouselImgArray = data.data.attributes.Carousel.map(
     (img: any) => img.image.data.attributes.url
@@ -72,6 +82,7 @@ export async function getStaticProps() {
   const body = data.data.attributes.content;
 
   const partners: Partners = {};
+  const news: News[] = [];
 
   partnersData.data.forEach((p: any) => {
     partners[p.attributes.type] = p.attributes.image.data.map(
@@ -79,8 +90,15 @@ export async function getStaticProps() {
     );
   });
 
-  console.log(partners);
-
+  newsData.data.forEach((n: any) => {
+    news.push({
+      id: n.id,
+      title: n.attributes.title,
+      content: n.attributes.content,
+      createdAt: n.attributes.createdAt.slice(0, 10),
+      imgURL: n.attributes.image.data.attributes.url,
+    });
+  });
   return {
     props: {
       carouselImgArray,

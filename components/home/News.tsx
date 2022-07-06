@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { NewsItems } from "../../data/news";
+import { News } from "../../pages/index";
 import MoreInfoButton from "../MoreInfoButton";
 import SectionTitle from "../SectionTitle";
 import Circle from "../Circle";
@@ -70,7 +71,7 @@ const Article = ({
   );
 };
 
-function News({ newsArticles = [] }: { newsArticles: NewsItems[] }) {
+function News({ newsArticles = [] }: { newsArticles: News[] }) {
   return (
     <div className="relative px-32 sm:px-7 sm:pb-14">
       <SectionTitle primary="動態資訊" secondary="News" withDivider />
@@ -78,10 +79,10 @@ function News({ newsArticles = [] }: { newsArticles: NewsItems[] }) {
         <div className="grid gap-x-5 gap-y-2 h-72 grid-cols-[.57fr_.43fr] grid-rows-[1fr_1fr] sm:flex-col sm:flex sm:h-auto">
           {newsArticles.map((n, i) => (
             <Article
-              imgPath={n.mainImg}
-              date={n.date}
+              imgPath={n.imgURL}
+              date={n.createdAt}
               title={n.title}
-              desc={n.desc}
+              desc={n.content}
               className={!i ? "row-span-2" : ""}
               size={!i ? "default" : "small"}
               key={n.id}
