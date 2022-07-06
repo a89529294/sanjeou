@@ -5,7 +5,8 @@ function MarqueeImage({
   src,
   height,
 }: {
-  src: StaticImageData;
+  // src: StaticImageData;
+  src: string;
   height: string;
 }) {
   const [imgWidth, setImageWidth] = useState("200px");
