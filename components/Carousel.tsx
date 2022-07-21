@@ -71,16 +71,17 @@ function Carousel({ imgs }: { imgs: string[] }) {
   }, [carouselBodyRef.current, displayImageIndex, position]);
 
   useEffect(() => {
+    const duration = 5000;
     let intervalTimerId: ReturnType<typeof setInterval>;
     let timeoutTimerId: ReturnType<typeof setTimeout>;
     if (isAutoPlaying)
       intervalTimerId = setInterval(() => {
         setPosition(-2);
-      }, 3000);
+      }, duration);
     else
       timeoutTimerId = setTimeout(() => {
         setIsAutoPlaying(true);
-      }, 3000);
+      }, duration);
 
     return () => {
       clearInterval(intervalTimerId);
@@ -91,8 +92,7 @@ function Carousel({ imgs }: { imgs: string[] }) {
   return (
     <div
       className="relative w-full h-[640px] overflow-hidden sm:h-44"
-      {...handlers}
-    >
+      {...handlers}>
       <div
         className={`flex h-full min-w-max ${
           position === -1
@@ -100,21 +100,18 @@ function Carousel({ imgs }: { imgs: string[] }) {
             : "transition-transform duration-1000 sm:duration-500"
         }`}
         style={{ transform: `translateX(${position * 100 + "vw"})` }}
-        ref={carouselBodyRef}
-      >
+        ref={carouselBodyRef}>
         {[imgs[imagesArray[0]], imgs[imagesArray[1]], imgs[imagesArray[2]]].map(
           (img, i) => (
             <div
               className="relative w-screen h-full text-white shrink-0"
-              key={img}
-            >
+              key={img}>
               <Image
                 src={img}
                 layout="fill"
                 key={img}
                 priority
-                objectFit="cover"
-              ></Image>
+                objectFit="cover"></Image>
             </div>
           )
         )}

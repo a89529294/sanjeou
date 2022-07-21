@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ItemTitle from "../ItemTitle";
 import TopCircle from "../TopCircle";
 
@@ -24,12 +24,15 @@ const AchItem = ({
 }) => {
   const [showLightBox, setShowLightBox] = useState(false);
   useDisableScroll(showLightBox);
+  const lightBoxRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    showLightBox && lightBoxRef.current?.focus();
+  }, [showLightBox]);
   return (
     <div
       className="grid gap-3 cursor-pointer sm:gap-1"
-      onClick={() => setShowLightBox(true)}
-    >
+      onClick={() => setShowLightBox(true)}>
       <div className="aspect-[58/35] relative">
         <Image layout="fill" objectFit="cover" src={img} />
       </div>
@@ -52,16 +55,19 @@ const AchItem = ({
 
       {showLightBox ? (
         <div
+          ref={lightBoxRef}
           className="fixed top-0 left-0 z-10 grid w-full h-full cursor-auto bg-gray-800/80 place-items-center"
           onClick={(e) => {
             setShowLightBox(false);
             e.stopPropagation();
           }}
-        >
+          onKeyDown={(e) => {
+            e.key === "Escape" && setShowLightBox(false);
+          }}
+          tabIndex={0}>
           <div
             className="relative w-5/6 h-5/6"
-            onClick={(e) => e.stopPropagation()}
-          >
+            onClick={(e) => e.stopPropagation()}>
             <Image src={img} layout="fill" objectFit="cover" />
           </div>
         </div>
@@ -74,8 +80,7 @@ function AchievementsList() {
   return (
     <div
       className="relative grid gap-5 px-32 py-7 grid-cols-achievement-grid sm:px-7"
-      id="achievements-all"
-    >
+      id="achievements-all">
       {achievements.map((ach) => (
         <AchItem
           key={ach.id}

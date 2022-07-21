@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Achievement } from "../../data/achievements";
+import { AchievementType, allIcons } from "../../data/types";
+// import { Achievement } from "../../data/achievements";
 import { shimmer, toBase64 } from "../BlurredImage";
 import Circle from "../Circle";
 import { CircleArrowDown, CircleArrowUp } from "../Icons/CircleArrows";
@@ -12,18 +13,19 @@ import VerticalBar from "../VerticalBar";
 function Card({
   year,
   title,
-  icons,
+  productTypeIds,
   desc,
   className = "",
   id,
 }: {
   year: number;
   title: string;
-  icons: string[];
+  productTypeIds: (keyof typeof allIcons)[];
   desc: string;
   className?: string;
   id: number;
 }) {
+  const icons = productTypeIds.map((t) => allIcons[t]);
   return (
     <div className={`flex flex-col justify-end ${className}`}>
       <Link href={`/achievements/${id}`}>
@@ -36,8 +38,7 @@ function Card({
             {icons.map((icon, i) => (
               <div
                 className="relative w-[22px] h-6 sm:w-[10.3px] sm:h-[11.1px]"
-                key={i}
-              >
+                key={i}>
                 <Image
                   layout="fill"
                   objectFit="contain"
@@ -55,7 +56,7 @@ function Card({
   );
 }
 
-function Achievements({ achievements }: { achievements: Achievement[] }) {
+function Achievements({ achievements }: { achievements: AchievementType[] }) {
   const [startingIndex, setStartingIndex] = useState(0);
   const length = achievements.length;
   const firstAch = achievements[startingIndex];
@@ -74,38 +75,38 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
           <Image
             layout="fill"
             objectFit="cover"
-            src={firstAch.img}
+            src={firstAch.imgURL}
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(500, 500)
             )}`}
-            key={firstAch.img}
+            key={firstAch.id}
           />
         </div>
         <Card
           year={firstAch.year}
           title={firstAch.title}
-          icons={firstAch.icons}
-          desc={firstAch.subText}
+          productTypeIds={firstAch.productTypeIds}
+          desc={firstAch.subTitle}
           id={firstAch.id}
         />
         <div className="relative h-80 sm:h-24">
           <Image
             layout="fill"
             objectFit="cover"
-            src={secondAch.img}
+            src={secondAch.imgURL}
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(500, 500)
             )}`}
-            key={firstAch.img}
+            key={firstAch.imgURL}
           />
         </div>
         <Card
           year={secondAch.year}
           title={secondAch.title}
-          icons={secondAch.icons}
-          desc={secondAch.subText}
+          productTypeIds={secondAch.productTypeIds}
+          desc={secondAch.subTitle}
           id={secondAch.id}
         />
         <div className="absolute flex flex-col gap-8 -translate-y-1/2 top-1/2 -translate-x-[200%] sm:-translate-x-full sm:-left-[6px]">

@@ -4,9 +4,9 @@ import SectionTitle from "../SectionTitle";
 import Marquee from "../Marquee";
 import MarqueeImage from "../MarqueeImage";
 
-import { Partners } from "../../pages";
+import { PartnersType } from "../../data/types";
 
-function Partners({ partners }: { partners: Partners }) {
+function Partners({ partners }: { partners: PartnersType }) {
   const partnerKeys = Object.keys(partners);
 
   return (
@@ -18,11 +18,12 @@ function Partners({ partners }: { partners: Partners }) {
         className="pb-6 sm:pb-1"
         withDecoration
       />
-      <div className="grid gap-4">
+      <div className="grid gap-4 sm:my-3">
+        {/* TODO images are way too big on mobile */}
         {partnerKeys.map((p, j) => (
           <Marquee key={p} scrollDir={j % 2 ? "left" : "right"}>
             {partners[p].map((imgStr, i) => (
-              <MarqueeImage src={imgStr} key={i} height="h-16" />
+              <MarqueeImage src={imgStr} key={i} height="h-16 " />
             ))}
           </Marquee>
         ))}

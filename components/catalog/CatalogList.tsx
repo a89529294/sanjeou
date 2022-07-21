@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import { ProductType } from "../../data/types";
 import InPageNavbar from "../InPageNavbar";
 import ItemTitle from "../ItemTitle";
 import Tag from "../Tag";
@@ -56,21 +57,10 @@ const CatalogItem = ({
   </div>
 );
 
-function CatalogList() {
+function CatalogList({ productTypes }: { productTypes: ProductType[] }) {
   return (
     <div id="catalog-all">
-      <InPageNavbar
-        items={[
-          "全部文件",
-          "防火捲門",
-          "防水防洪門系列",
-          "抗風防颱捲門系列",
-          "廠辦管制門系列",
-          "圍牆大門",
-          "機庫門",
-          "客製化",
-        ]}
-      />
+      <InPageNavbar items={["全部文件", ...productTypes.map((t) => t.name)]} />
       <div className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9 sm:px-7 sm:auto-rows-auto sm:gap-4">
         {all.map((item, i) => (
           <CatalogItem

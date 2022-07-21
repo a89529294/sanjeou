@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 
 import type { ProductItem } from "../../data/products";
+import { ProductType } from "../../data/types";
 import { shimmer, toBase64 } from "../BlurredImage";
 import Circle from "../Circle";
 import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
@@ -21,8 +22,7 @@ function Product({
 }) {
   return (
     <div
-      className={`grid grid-cols-[24px_1fr_24px] grid-rows-[318px_auto_auto_auto] flex-1 sm:grid-cols-[8px_170px_10px] sm:grid-rows-[158px_auto_auto_auto] ${className}`}
-    >
+      className={`grid grid-cols-[24px_1fr_24px] grid-rows-[318px_auto_auto_auto] flex-1 sm:grid-cols-[8px_170px_10px] sm:grid-rows-[158px_auto_auto_auto] ${className}`}>
       <div className="relative col-span-2 col-start-2 row-span-2 row-start-1">
         <Image
           layout="fill"
@@ -56,7 +56,7 @@ function helper<T>(arg: T[], start: number, length: number, limit: 2 | 3): T[] {
     : [arg[start], arg[midIdx], arg[endIdx]];
 }
 
-function Products({ products }: { products: ProductItem["items"] }) {
+function Products({ products }: { products: ProductType[] }) {
   const [startingIndex, setStartingIndex] = useState(0);
   const length = products.length;
   const desktopFilteredProducts = helper(products, startingIndex, length, 3);
@@ -67,22 +67,12 @@ function Products({ products }: { products: ProductItem["items"] }) {
       <SectionTitle primary="產品資訊" secondary="Products" withDecoration />
       <div className="flex gap-6 pb-24 pt-9 sm:pt-4 sm:pb-7 sm:hidden">
         {desktopFilteredProducts.map((p) => (
-          <Product
-            imgPath={`https://picsum.photos/id/${p.id}/200`}
-            name={p.name}
-            id={p.id}
-            key={p.id}
-          />
+          <Product imgPath={p.imgURL} name={p.name} id={p.id} key={p.id} />
         ))}
       </div>
       <div className="hidden gap-6 pb-24 pt-9 sm:pt-4 sm:pb-7 sm:flex">
         {mobileFilteredProducts.map((p) => (
-          <Product
-            imgPath={`https://picsum.photos/id/${p.id}/200`}
-            name={p.name}
-            id={p.id}
-            key={p.id}
-          />
+          <Product imgPath={p.imgURL} name={p.name} id={p.id} key={p.id} />
         ))}
       </div>
 

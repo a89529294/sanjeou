@@ -11,29 +11,34 @@ import News from "../components/home/News";
 import Products from "../components/home/Products";
 import Locations from "../components/home/Locations";
 import Partners from "../components/home/Partners";
-import achievements from "../data/achievements";
+// import achievements from "../data/achievements";
 import Head from "next/head";
+import {
+  PartnersType,
+  NewsType,
+  AchievementType,
+  ProductType,
+  allIcons,
+} from "../data/types";
+import getCarouselAndTitleBody from "../utils/data/getCarouselAndTitleBody";
+import getNews from "../utils/data/getNews";
+import getPartners from "../utils/data/getPartners";
+import getAchievements from "../utils/data/getAchievements";
+import getProducts from "../utils/data/getProducts";
 
-export type Partners = {
-  [type: string]: string[];
-};
-export type News = {
-  id: number;
-  title: string;
-  content: string;
-  createdAt: string;
-  imgURL: string;
-};
-
+// TODO think about moving all the data hooks inside of getServerProps, you can't use hooks inside of getServerProps so just refector them into traditional functions
 function HomePage({
   carouselImgArray,
   title,
   body,
-  partners,
-  // index: { about },
   news,
+  partners,
   achievements,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+  products,
+}: //   news,
+InferGetStaticPropsType<typeof getServerSideProps>) {
+  //   const pt = useProductTypes();
+
   return (
     <div>
       <Head>
@@ -43,70 +48,29 @@ function HomePage({
       <Intro title={title} body={body} />
       <Locations />
       <News newsArticles={news} />
-      <Products
-        products={products.reduce<ProductItem["items"]>(
-          (acc, val) => acc.concat(val.items),
-          []
-        )}
-      />
+      <Products products={products} />
       <Achievements achievements={achievements} />
       <Partners partners={partners} />
     </div>
   );
 }
 
-export async function getStaticProps() {
-  const baseURL = process.env.REACT_APP_API_HOST;
+export async function getServerSideProps() {
+  const { carouselImgArray, title, body } = await getCarouselAndTitleBody();
+  const { news } = await getNews();
+  const { partners } = await getPartners();
+  const { achievements } = await getAchievements();
+  const { products } = await getProducts();
 
-  const resArr = await Promise.allSettled([
-    fetch(
-      `${baseURL}/api/homepage?populate[Carousel][populate]=image&populate=partners`
-    ),
-    fetch(`${baseURL}/api/partners?populate=image`),
-    fetch(
-      `${baseURL}/api/informations?populate=*&pagination[start]=0&pagination[limit]=3`
-    ),
-  ]);
+  console.log(products);
 
-  const data =
-    resArr[0].status === "fulfilled" ? await resArr[0].value.json() : {};
-  const partnersData =
-    resArr[1].status === "fulfilled" ? await resArr[1].value.json() : {};
-  const newsData =
-    resArr[2].status === "fulfilled" ? await resArr[2].value.json() : {};
-
-  const carouselImgArray = data.data.attributes.Carousel.map(
-    (img: any) => img.image.data.attributes.url
-  );
-  const title = data.data.attributes.title;
-  const body = data.data.attributes.content;
-
-  const partners: Partners = {};
-  const news: News[] = [];
-
-  partnersData.data.forEach((p: any) => {
-    partners[p.attributes.type] = p.attributes.image.data.map(
-      (i: any) => i.attributes.url
-    );
-  });
-
-  newsData.data.forEach((n: any) => {
-    news.push({
-      id: n.id,
-      title: n.attributes.title,
-      content: n.attributes.content,
-      createdAt: n.attributes.createdAt.slice(0, 10),
-      imgURL: n.attributes.image.data.attributes.url,
-    });
-  });
   return {
     props: {
       carouselImgArray,
       title,
       body,
-      partners,
-      // index,
       news,
+      partners,
       products,
       achievements,
     },
