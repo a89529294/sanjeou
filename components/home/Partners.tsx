@@ -19,7 +19,6 @@ function Partners({ partners }: { partners: PartnersType }) {
         withDecoration
       />
       <div className="grid gap-4 sm:my-3">
-        {/* TODO images are way too big on mobile */}
         {partnerKeys.map((p, j) => (
           <Marquee key={p} scrollDir={j % 2 ? "left" : "right"}>
             {partners[p].map((imgStr, i) => (
@@ -27,26 +26,6 @@ function Partners({ partners }: { partners: PartnersType }) {
             ))}
           </Marquee>
         ))}
-        {/* <Marquee>
-          {row1.map((imgStr, i) => (
-            <MarqueeImage src={imgStr} key={i} height="h-16" />
-          ))}
-        </Marquee>
-        <Marquee scrollDir="right">
-          {row2.map((imgStr, i) => (
-            <MarqueeImage src={imgStr} key={i} height="h-16" />
-          ))}
-        </Marquee>
-        <Marquee>
-          {row3.map((imgStr, i) => (
-            <MarqueeImage src={imgStr} key={i} height="h-16" />
-          ))}
-        </Marquee>
-        <Marquee scrollDir="right">
-          {row4.map((imgStr, i) => (
-            <MarqueeImage src={imgStr} key={i} height="h-16" />
-          ))}
-        </Marquee> */}
       </div>
     </div>
   );
