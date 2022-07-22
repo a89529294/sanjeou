@@ -32,3 +32,18 @@ export type AchievementType = {
   imgURL: string;
   productTypeIds: (keyof typeof allIcons)[];
 };
+
+export type CompanyInfoType = {
+  title: string;
+  content: string;
+  videoURL: string;
+  certs: {
+    id: number;
+    name: string;
+    imgURL: string;
+  }[];
+  milestones: {
+    year: number;
+    texts: string[];
+  }[];
+};

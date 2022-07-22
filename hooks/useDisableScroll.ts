@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 
 function useDisableScroll(shouldDisable: boolean) {
+  // The only reason useEffect here is used is because we need to ensure
+  // document exists otherwise NextJS will complain
   useEffect(() => {
     shouldDisable &&
       document

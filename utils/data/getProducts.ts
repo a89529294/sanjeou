@@ -5,7 +5,6 @@ async function getProducts() {
   const r = await fetch(`${baseURL}/api/products?populate=*`);
   const data = await r.json();
   const products: ProductType[] = [];
-  console.log(data.data);
 
   data.data.forEach((p: any) => {
     const innerP = p.attributes;

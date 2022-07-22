@@ -10,7 +10,7 @@ async function getProductTypes() {
     productTypes.push({
       id: id,
       name: p.attributes.name,
-      imgUrl: allIcons[id],
+      imgURL: allIcons[id],
     });
   });
   console.log("productTypes: " + productTypes);

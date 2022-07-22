@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
+import { CompanyInfoType } from "../../data/types";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { shimmer, toBase64 } from "../BlurredImage";
 import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
@@ -38,7 +39,7 @@ function watchScreen(
   }
 }
 
-function Certifications() {
+function Certifications({ certs }: { certs: CompanyInfoType["certs"] }) {
   const [position, setPosition] = useReducer(reducer, 0);
   const [distance, setDistance] = useState(25);
   const [offset, setOffset] = useState(7);
@@ -68,18 +69,16 @@ function Certifications() {
             transform: `translateX(calc(-${position * distance}% - ${
               position * offset
             }px))`,
-          }}
-        >
-          {imgs.map((img) => (
+          }}>
+          {certs.map((c) => (
             <div
-              key={img[0]}
-              className="basis-[calc((100%-84px)/4)] shrink-0 sm:basis-8/12"
-            >
+              key={c.id}
+              className="basis-[calc((100%-84px)/4)] shrink-0 sm:basis-8/12">
               <div className="relative h-80 sm:aspect-square sm:h-auto sm:w-full">
                 <Image
                   layout="fill"
                   objectFit="cover"
-                  src={img[0]}
+                  src={c.imgURL}
                   placeholder="blur"
                   blurDataURL={`data:image/svg+xml;base64,${toBase64(
                     shimmer(500, 500)
@@ -87,7 +86,7 @@ function Certifications() {
                 />
               </div>
               <h2 className="text-xl font-medium text-bauhaus sm:text-base">
-                {img[1]}
+                {c.name}
               </h2>
             </div>
           ))}
