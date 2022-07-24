@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { ProductType } from "../../data/types";
+import { Product } from "../../data/types";
 import InPageNavbar from "../InPageNavbar";
 import ItemTitle from "../ItemTitle";
 import Tag from "../Tag";
@@ -57,7 +57,7 @@ const CatalogItem = ({
   </div>
 );
 
-function CatalogList({ productTypes }: { productTypes: ProductType[] }) {
+function CatalogList({ productTypes }: { productTypes: Product[] }) {
   return (
     <div id="catalog-all">
       <InPageNavbar items={["全部文件", ...productTypes.map((t) => t.name)]} />

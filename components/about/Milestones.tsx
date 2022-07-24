@@ -1,5 +1,5 @@
 import React from "react";
-import { CompanyInfoType } from "../../data/types";
+import { CompanyInfo } from "../../data/types";
 import SectionTitle from "../SectionTitle";
 import TopCircle from "../TopCircle";
 
@@ -141,13 +141,9 @@ const TimelineItem = ({
   );
 };
 
-function Milestones({
-  milestones,
-}: {
-  milestones: CompanyInfoType["milestones"];
-}) {
-  const leftColumnItems: CompanyInfoType["milestones"] = [];
-  const rightColumnItems: CompanyInfoType["milestones"] = [];
+function Milestones({ milestones }: { milestones: CompanyInfo["milestones"] }) {
+  const leftColumnItems: CompanyInfo["milestones"] = [];
+  const rightColumnItems: CompanyInfo["milestones"] = [];
 
   for (let i = 0; i < milestones.length; i++) {
     if (i % 2) rightColumnItems.push(milestones[i]);
@@ -155,7 +151,7 @@ function Milestones({
   }
 
   const l = Math.max(leftColumnItems.length, rightColumnItems.length);
-  const items: CompanyInfoType["milestones"] = [];
+  const items: CompanyInfo["milestones"] = [];
   new Array(l).fill(0).forEach((item, i) => {
     leftColumnItems[i] && items.push(leftColumnItems[i]);
     rightColumnItems[i] && items.push(rightColumnItems[i]);

@@ -1,10 +1,10 @@
-import { AchievementType, PartnersType } from "../../data/types";
+import { Achievement, Partners } from "../../data/types";
 import { baseURL } from "../urls";
 
 async function getAchievements() {
   const r = await fetch(`${baseURL}/api/performances?populate=*`);
   const data = await r.json();
-  const achievements: AchievementType[] = [];
+  const achievements: Achievement[] = [];
 
   data.data.forEach((a: any) => {
     const innerA = a.attributes;
@@ -23,7 +23,7 @@ async function getAchievements() {
       }),
     });
   });
-  return { achievements };
+  return achievements;
 }
 
 export default getAchievements;

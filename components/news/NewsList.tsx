@@ -1,13 +1,13 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import InPageNavbar from "../InPageNavbar";
 import ItemTitle from "../ItemTitle";
 import MoreInfoButton from "../MoreInfoButton";
 import Tag from "../Tag";
-import news from "../../data/news";
 import TopCircle from "../TopCircle";
 import Link from "next/link";
+import { News, NewsCategory } from "../../data/types";
 
 const ItemDesc = ({
   children,
@@ -26,34 +26,38 @@ const ItemDesc = ({
 };
 
 function NewsItem({
-  item: { mainImg, date, tag, title, desc, id },
+  item: { id, title, content, createdAt, imgURL },
+  tag = "",
 }: {
-  item: typeof news[number];
+  item: News;
+  tag: string | undefined;
 }) {
   const isMobile = useIsMobile();
 
   return (
     <div className="flex py-5 border border-solid border-stonewall-gray px-7 gap-9 sm:flex-col sm:gap-4">
       <div className="relative w-96 aspect-[1.3/1] sm:w-full">
-        <Image layout="fill" objectFit="cover" src={mainImg} />
+        <Image layout="fill" objectFit="cover" src={imgURL} />
       </div>
 
       <ItemDesc to={isMobile ? `/news/${id}` : ""}>
         <div className="flex flex-col justify-start flex-1">
           <div className="flex items-center gap-2">
             <span className="text-lg font-medium text-primary-red sm:text-sm">
-              {date}
+              {createdAt}
             </span>
             <Tag>{tag}</Tag>
           </div>
           <ItemTitle size="large">{title}</ItemTitle>
           <p className="mt-3 text-lg text-iron sm:text-sm sm:truncate-text-3 sm:my-2">
-            {desc}
+            {content}
           </p>
+          {/* TODO Not sure if News inner pages are still necessary */}
           <MoreInfoButton
             color="red"
             className="mt-auto"
             href={`/news/${id}`}
+            disabled
           />
         </div>
       </ItemDesc>
@@ -61,13 +65,35 @@ function NewsItem({
   );
 }
 
-function NewsList() {
+function NewsList({
+  newsCategories,
+  news,
+}: {
+  newsCategories: NewsCategory[];
+  news: News[];
+}) {
+  const [selectedNewsCategory, setSelectedNewsCategory] = useState(0);
+  const filteredNews = news.filter((n) => {
+    if (!selectedNewsCategory) return true;
+    else return n.categoryId === selectedNewsCategory;
+  });
   return (
     <div id="news-all">
-      <InPageNavbar items={["全部", "活動資訊", "操作教學"]} />
+      <InPageNavbar
+        items={[
+          { id: 0, name: "全部" },
+          ...newsCategories.map((v) => ({ id: v.id, name: v.title })),
+        ]}
+        selectedId={selectedNewsCategory}
+        setSelectedId={setSelectedNewsCategory}
+      />
       <div className="relative grid gap-4 px-32 py-7 sm:px-7">
-        {news.map((item, i) => (
-          <NewsItem key={i} item={item} />
+        {filteredNews.map((item) => (
+          <NewsItem
+            key={item.id}
+            item={item}
+            tag={newsCategories.find((c) => c.id === item.categoryId)?.title}
+          />
         ))}
         <TopCircle to="/news" />
       </div>

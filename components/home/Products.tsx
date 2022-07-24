@@ -1,8 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import type { ProductItem } from "../../data/products";
-import { ProductType } from "../../data/types";
+import { Product } from "../../data/types";
 import { shimmer, toBase64 } from "../BlurredImage";
 import Circle from "../Circle";
 import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
@@ -56,7 +55,7 @@ function helper<T>(arg: T[], start: number, length: number, limit: 2 | 3): T[] {
     : [arg[start], arg[midIdx], arg[endIdx]];
 }
 
-function Products({ products }: { products: ProductType[] }) {
+function Products({ products }: { products: Product[] }) {
   const [startingIndex, setStartingIndex] = useState(0);
   const length = products.length;
   const desktopFilteredProducts = helper(products, startingIndex, length, 3);

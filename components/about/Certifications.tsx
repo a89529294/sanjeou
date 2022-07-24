@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
-import { CompanyInfoType } from "../../data/types";
+import { CompanyInfo } from "../../data/types";
 import { useIsMobile } from "../../hooks/useIsMobile";
 import { shimmer, toBase64 } from "../BlurredImage";
 import { CircleArrowLeft, CircleArrowRight } from "../Icons/CircleArrows";
@@ -39,7 +39,7 @@ function watchScreen(
   }
 }
 
-function Certifications({ certs }: { certs: CompanyInfoType["certs"] }) {
+function Certifications({ certs }: { certs: CompanyInfo["certs"] }) {
   const [position, setPosition] = useReducer(reducer, 0);
   const [distance, setDistance] = useState(25);
   const [offset, setOffset] = useState(7);

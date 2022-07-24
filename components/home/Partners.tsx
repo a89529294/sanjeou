@@ -4,9 +4,9 @@ import SectionTitle from "../SectionTitle";
 import Marquee from "../Marquee";
 import MarqueeImage from "../MarqueeImage";
 
-import { PartnersType } from "../../data/types";
+import { Partners } from "../../data/types";
 
-function Partners({ partners }: { partners: PartnersType }) {
+function Partners({ partners }: { partners: Partners }) {
   const partnerKeys = Object.keys(partners);
 
   return (

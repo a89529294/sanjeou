@@ -5,7 +5,7 @@ import Certifications from "../components/about/Certifications";
 import Hero from "../components/about/Hero";
 import Milestones from "../components/about/Milestones";
 import HeroImage from "../components/HeroImage";
-import { CompanyInfoType } from "../data/types";
+import { CompanyInfo } from "../data/types";
 import getCompanyInfo from "../utils/data/getCompanyInfo";
 
 function About({
@@ -31,7 +31,7 @@ function About({
 }
 
 export async function getServerSideProps() {
-  const { title, content, videoURL, certs, milestones }: CompanyInfoType =
+  const { title, content, videoURL, certs, milestones }: CompanyInfo =
     await getCompanyInfo();
 
   return {

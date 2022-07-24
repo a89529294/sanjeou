@@ -1,10 +1,10 @@
-import { ProductType } from "../../data/types";
+import { Product } from "../../data/types";
 import { baseURL } from "../urls";
 
 async function getProducts() {
   const r = await fetch(`${baseURL}/api/products?populate=*`);
   const data = await r.json();
-  const products: ProductType[] = [];
+  const products: Product[] = [];
 
   data.data.forEach((p: any) => {
     const innerP = p.attributes;
@@ -14,7 +14,7 @@ async function getProducts() {
       imgURL: innerP.image.data[0].attributes.url,
     });
   });
-  return { products };
+  return products;
 }
 
 export default getProducts;

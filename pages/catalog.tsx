@@ -3,7 +3,6 @@ import Head from "next/head";
 import React from "react";
 import CatalogList from "../components/catalog/CatalogList";
 import HeroImage from "../components/HeroImage";
-import { ProductType } from "../data/types";
 import getProductTypes from "../utils/data/getProductTypes";
 
 function Catalog({

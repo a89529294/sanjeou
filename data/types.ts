@@ -8,23 +8,24 @@ export const allIcons = {
   7: "/img/icons/product_types/7.svg",
 };
 
-export type ProductType = {
+export type Product = {
   id: number;
   imgURL: string;
   name: string;
 };
 
-export type PartnersType = {
+export type Partners = {
   [type: string]: string[];
 };
-export type NewsType = {
+export type News = {
   id: number;
   title: string;
   content: string;
   createdAt: string;
   imgURL: string;
+  categoryId: number;
 };
-export type AchievementType = {
+export type Achievement = {
   id: number;
   title: string;
   subTitle: string;
@@ -33,7 +34,7 @@ export type AchievementType = {
   productTypeIds: (keyof typeof allIcons)[];
 };
 
-export type CompanyInfoType = {
+export type CompanyInfo = {
   title: string;
   content: string;
   videoURL: string;
@@ -46,4 +47,9 @@ export type CompanyInfoType = {
     year: number;
     texts: string[];
   }[];
+};
+
+export type NewsCategory = {
+  id: number;
+  title: string;
 };

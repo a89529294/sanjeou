@@ -42,10 +42,10 @@ function HomePage({
 export async function getServerSideProps() {
   // add type to each of these, refer to about.tsx
   const { carouselImgArray, title, body } = await getCarouselAndTitleBody();
-  const { news } = await getNews();
-  const { partners } = await getPartners();
-  const { achievements } = await getAchievements();
-  const { products } = await getProducts();
+  const news = await getNews({ limit: 3 });
+  const partners = await getPartners();
+  const achievements = await getAchievements();
+  const products = await getProducts();
 
   return {
     props: {

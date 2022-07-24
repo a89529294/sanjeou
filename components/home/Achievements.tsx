@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { AchievementType, allIcons } from "../../data/types";
+import { Achievement, allIcons } from "../../data/types";
 // import { Achievement } from "../../data/achievements";
 import { shimmer, toBase64 } from "../BlurredImage";
 import Circle from "../Circle";
@@ -56,7 +56,7 @@ function Card({
   );
 }
 
-function Achievements({ achievements }: { achievements: AchievementType[] }) {
+function Achievements({ achievements }: { achievements: Achievement[] }) {
   const [startingIndex, setStartingIndex] = useState(0);
   const length = achievements.length;
   const firstAch = achievements[startingIndex];

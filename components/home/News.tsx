@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { NewsItems } from "../../data/news";
-import { News } from "../../pages/index";
+import { News } from "../../data/types";
 import MoreInfoButton from "../MoreInfoButton";
 import SectionTitle from "../SectionTitle";
 import Circle from "../Circle";
@@ -46,18 +45,15 @@ const Article = ({
       </div>
       <div className="flex flex-col w-5/12 sm:flex-1">
         <h2
-          className={`font-medium text-primary-red ${fontSizes[size].date} sm:text-xs`}
-        >
+          className={`font-medium text-primary-red ${fontSizes[size].date} sm:text-xs`}>
           {date.replaceAll("-", ".")}
         </h2>
         <h1
-          className={`font-medium text-bauhaus truncate ${fontSizes[size].title} ${gap[size]} sm:text-sm`}
-        >
+          className={`font-medium text-bauhaus truncate ${fontSizes[size].title} ${gap[size]} sm:text-sm`}>
           {title}
         </h1>
         <p
-          className={`text-iron truncate-text-2 ${fontSizes[size].body} sm:text-xs`}
-        >
+          className={`text-iron truncate-text-2 ${fontSizes[size].body} sm:text-xs`}>
           {desc}
         </p>
         <MoreInfoButton
