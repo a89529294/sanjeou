@@ -32,12 +32,12 @@ const PDF = ({ title, url }: { title: string; url: string }) => (
   <button
     className="shrink-0 sm:basis-full"
     onClick={() => {
-      //   browser.downloads.download({ url: "https://example.org/image.png" });
-      const link = document.createElement("a");
+      let link: HTMLAnchorElement | null = document.createElement("a");
       link.href = url;
       link.target = "_blank";
       link.rel = "noopener";
       link.click();
+      link = null;
     }}>
     <div className="w-96 aspect-[402/178] grid place-items-center font-open-sans font-bold text-5xl bg-pdf mt-5 mb-2">
       PDF
