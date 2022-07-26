@@ -81,3 +81,9 @@ export type Catalog = {
   pdfURL: string;
   product_type: number;
 };
+
+export type Video = {
+  id: number;
+  name: string;
+  URL: string;
+};

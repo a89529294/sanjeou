@@ -50,9 +50,6 @@ const CatalogItem = ({
   title: string;
 }) => (
   <div className="grid">
-    {/* <div className="relative mb-1 aspect-video">
-      <Image layout="fill" objectFit="cover" src={img} />
-    </div> */}
     <PDF hideTitle url={url} />
     <Tag className="justify-self-start">{tag}</Tag>
     <ItemTitle className="mt-3 sm:mt-1">{title}</ItemTitle>
