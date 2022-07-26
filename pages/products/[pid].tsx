@@ -28,7 +28,15 @@ const ImgGrid = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-const PDF = ({ title, url }: { title: string; url: string }) => (
+export const PDF = ({
+  title,
+  url,
+  hideTitle = false,
+}: {
+  title?: string;
+  url: string;
+  hideTitle?: boolean;
+}) => (
   <button
     className="shrink-0 sm:basis-full"
     onClick={() => {
@@ -42,7 +50,9 @@ const PDF = ({ title, url }: { title: string; url: string }) => (
     <div className="w-96 aspect-[402/178] grid place-items-center font-open-sans font-bold text-5xl bg-pdf mt-5 mb-2">
       PDF
     </div>
-    <h3 className="text-2xl font-medium text-primary sm:text-sm">{title}</h3>
+    {hideTitle ? null : (
+      <h3 className="text-2xl font-medium text-primary sm:text-sm">{title}</h3>
+    )}
   </button>
 );
 function ProductDetails({

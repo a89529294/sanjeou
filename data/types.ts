@@ -79,4 +79,5 @@ export type Catalog = {
   id: number;
   name: string;
   pdfURL: string;
+  product_type: number;
 };
