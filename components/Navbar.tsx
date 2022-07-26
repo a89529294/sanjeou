@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useContext } from "react";
-import { LanguageContext } from "../contexts/languageContext";
 import { useDisableScroll } from "../hooks/useDisableScroll";
 import { useLangContext } from "../hooks/useLangContext";
 import Burger from "./Icons/Burger";
@@ -25,7 +24,6 @@ const IconButton = ({
   className,
   showLang,
   setShowLang,
-  // onClick,
   ...props
 }: IconButtonProps) => {
   const [lang, setLang] = useLangContext();
@@ -39,14 +37,12 @@ const IconButton = ({
         <ul className="absolute flex gap-1 -translate-x-1/2 whitespace-nowrap left-1/2">
           <li
             className={`${isEngSelected ? "text-red-500" : ""}`}
-            onClick={(e) => setLang("en")}
-          >
+            onClick={(e) => setLang("en")}>
             English
           </li>
           <li
             className={`${isCNSelected ? "text-red-500" : ""}`}
-            onClick={() => setLang("cn")}
-          >
+            onClick={() => setLang("cn")}>
             中文
           </li>
         </ul>
@@ -74,8 +70,7 @@ const Tab = ({
     <div className="grid auto-cols-auto auto-rows-auto gap-x-1">
       <Link href={to}>
         <a
-          className={`w-max text-bauhaus text-xl font-medium cursor-pointer xl:text-lg`}
-        >
+          className={`w-max text-bauhaus text-xl font-medium cursor-pointer xl:text-lg`}>
           {children}
         </a>
       </Link>
@@ -92,8 +87,7 @@ const Tab = ({
       <div
         className={`h-5 ${
           selected === 0 ? "border-b-4 border-solid border-primary-red" : ""
-        }`}
-      ></div>
+        }`}></div>
     </div>
   );
 };
@@ -201,8 +195,7 @@ function Navbar() {
       <Modal
         show={showModal}
         setShow={setShowModal}
-        className="hidden sm:block"
-      >
+        className="hidden sm:block">
         <div className="absolute top-0 right-0 flex flex-col h-screen pt-4 bg-white w-44 text-bauhaus max-h-mobile-menu">
           <MobileTab>
             <div className="flex gap-3">
@@ -221,16 +214,14 @@ function Navbar() {
                     objectFit="contain"
                   />
                 </div>
-              )}
-            >
+              )}>
               CN
             </MobileTabLink>
           </MobileTab>
           <MobileTab>
             <MobileTabLink
               to="/search"
-              Icon={({ className }) => <Search className={className} />}
-            >
+              Icon={({ className }) => <Search className={className} />}>
               搜尋...
             </MobileTabLink>
           </MobileTab>

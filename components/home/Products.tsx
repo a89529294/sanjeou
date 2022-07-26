@@ -66,12 +66,22 @@ function Products({ products }: { products: Product[] }) {
       <SectionTitle primary="產品資訊" secondary="Products" withDecoration />
       <div className="flex gap-6 pb-24 pt-9 sm:pt-4 sm:pb-7 sm:hidden">
         {desktopFilteredProducts.map((p) => (
-          <Product imgPath={p.imgURL} name={p.name} id={p.id} key={p.id} />
+          <Product
+            imgPath={p.imgURLs[0] || "https://placehold.jp/500x300.png"}
+            name={p.name}
+            id={p.id}
+            key={p.id}
+          />
         ))}
       </div>
       <div className="hidden gap-6 pb-24 pt-9 sm:pt-4 sm:pb-7 sm:flex">
         {mobileFilteredProducts.map((p) => (
-          <Product imgPath={p.imgURL} name={p.name} id={p.id} key={p.id} />
+          <Product
+            imgPath={p.imgURLs[0] || "https://placehold.jp/500x300.png"}
+            name={p.name}
+            id={p.id}
+            key={p.id}
+          />
         ))}
       </div>
 

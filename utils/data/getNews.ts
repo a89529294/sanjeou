@@ -1,7 +1,6 @@
 import { News } from "../../data/types";
 import { baseURL } from "../urls";
 
-// TODO Getting 100 news by default, need to ask for clarification on how to handle paginations
 async function getNews({ limit = 100, newsCategoryId = 0 }) {
   const r = await fetch(
     `${baseURL}/api/informations?populate=*&pagination[start]=0&pagination[limit]=${limit}${

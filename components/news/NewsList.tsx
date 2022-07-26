@@ -52,7 +52,6 @@ function NewsItem({
           <p className="mt-3 text-lg text-iron sm:text-sm sm:truncate-text-3 sm:my-2">
             {content}
           </p>
-          {/* TODO Not sure if News inner pages are still necessary */}
           <MoreInfoButton
             color="red"
             className="mt-auto"
