@@ -6,6 +6,8 @@ import HeroImage from "../HeroImage";
 import products from "../../data/products";
 import Burger from "../Icons/Burger";
 import Head from "next/head";
+import { Product, ProductCategory } from "../../data/types";
+import Link from "next/link";
 
 const ListItem = ({
   item,
@@ -43,19 +45,18 @@ const ListItem = ({
           className={`text-2xl font-medium ${
             selectedId === item.id ? "text-primary-red" : "text-primary"
           }`}
-          onClick={() => router.push("/products#product-details")}
-        >
+          onClick={() => router.push("/products#product-details")}>
           {item.name}
         </span>
       ) : (
-        <span
-          className={`text-xl ${
-            selectedId === item.id ? "text-primary-red" : "text-bauhaus"
-          }`}
-          onClick={() => router.push(`/products/${item.id}#product-details`)}
-        >
-          {item.name}
-        </span>
+        <Link href={`/products/${item.id}#product-details`} scroll={false}>
+          <a
+            className={`text-xl ${
+              selectedId === item.id ? "text-primary-red" : "text-bauhaus"
+            }`}>
+            {item.name}
+          </a>
+        </Link>
       )}
     </As>
   );
@@ -67,7 +68,7 @@ const MenuList = ({
   icon,
 }: {
   title: string;
-  items: { id: number; name: string }[];
+  items: Product[];
   icon: string;
 }) => (
   <div>
@@ -83,7 +84,22 @@ const MenuList = ({
   </div>
 );
 
-function ProductPageLayout({ children }: { children: React.ReactNode }) {
+function ProductPageLayout({
+  children,
+  productTypes,
+  products,
+}: {
+  children: React.ReactNode;
+  productTypes: ProductCategory[];
+  products: Product[];
+}) {
+  const obj = {} as {
+    [key: number]: Product[];
+  };
+  for (const pt of productTypes) {
+    obj[pt.id] = products.filter((p) => p.product_type === pt.id);
+  }
+
   return (
     <div>
       <Head>
@@ -94,12 +110,12 @@ function ProductPageLayout({ children }: { children: React.ReactNode }) {
         <div className="bg-white">
           <div className="grid pb-24 pl-24 gap-9 pr-9 pt-9">
             <ListItem item={{ id: 0, name: "全部" }} />
-            {products.map((series, i) => (
+            {productTypes.map((pt, i) => (
               <MenuList
-                title={series.series}
-                items={series.items}
-                icon={series.icon}
-                key={i}
+                title={pt.name}
+                items={obj[pt.id]}
+                icon={pt.iconURL}
+                key={pt.id}
               />
             ))}
           </div>

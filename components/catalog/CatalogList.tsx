@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Product } from "../../data/types";
+import { Product, ProductCategory } from "../../data/types";
 import InPageNavbar from "../InPageNavbar";
 import ItemTitle from "../ItemTitle";
 import Tag from "../Tag";
@@ -57,10 +57,17 @@ const CatalogItem = ({
   </div>
 );
 
-function CatalogList({ productTypes }: { productTypes: Product[] }) {
+function CatalogList({ productTypes }: { productTypes: ProductCategory[] }) {
   return (
     <div id="catalog-all">
-      <InPageNavbar items={["全部文件", ...productTypes.map((t) => t.name)]} />
+      <InPageNavbar
+        items={[
+          { id: 0, name: "全部文件" },
+          ...productTypes.map((t) => ({ name: t.name, id: t.id })),
+        ]}
+        selectedId={0}
+        setSelectedId={(id) => {}}
+      />
       <div className="relative grid px-32 py-7 grid-cols-catalog-grid gap-9 sm:px-7 sm:auto-rows-auto sm:gap-4">
         {all.map((item, i) => (
           <CatalogItem

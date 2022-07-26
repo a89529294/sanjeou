@@ -8,10 +8,31 @@ export const allIcons = {
   7: "/img/icons/product_types/7.svg",
 };
 
+export const allWhiteIcons = {
+  1: "/img/icons/product_types/1-white.svg",
+  2: "/img/icons/product_types/2-white.svg",
+  3: "/img/icons/product_types/3-white.svg",
+  4: "/img/icons/product_types/4-white.svg",
+  5: "/img/icons/product_types/5-white.svg",
+  6: "/img/icons/product_types/6-white.svg",
+  7: "/img/icons/product_types/7-white.svg",
+};
+
 export type Product = {
   id: number;
-  imgURL: string;
+  imgURLs: string[];
   name: string;
+  product_type: number;
+  feature: string;
+  spec: string;
+  catalogs: number[];
+};
+
+export type ProductCategory = {
+  id: number;
+  name: string;
+  iconURL: string;
+  whiteIconURL: string;
 };
 
 export type Partners = {
@@ -52,4 +73,10 @@ export type CompanyInfo = {
 export type NewsCategory = {
   id: number;
   title: string;
+};
+
+export type Catalog = {
+  id: number;
+  name: string;
+  pdfURL: string;
 };

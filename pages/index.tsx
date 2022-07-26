@@ -45,7 +45,7 @@ export async function getServerSideProps() {
   const news = await getNews({ limit: 3 });
   const partners = await getPartners();
   const achievements = await getAchievements();
-  const products = await getProducts();
+  const products = await getProducts(10);
 
   return {
     props: {

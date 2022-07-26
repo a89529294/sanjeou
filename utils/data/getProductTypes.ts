@@ -1,8 +1,8 @@
-import { allIcons, Product } from "../../data/types";
+import { allIcons, allWhiteIcons, ProductCategory } from "../../data/types";
 import { baseURL } from "../../utils/urls";
 
 async function getProductTypes() {
-  const productTypes: Product[] = [];
+  const productTypes: ProductCategory[] = [];
   const res = await fetch(`${baseURL}/api/product-types`);
   const productTypesData = await res.json();
   productTypesData.data.forEach((p: any) => {
@@ -10,10 +10,10 @@ async function getProductTypes() {
     productTypes.push({
       id: id,
       name: p.attributes.name,
-      imgURL: allIcons[id],
+      iconURL: allIcons[id],
+      whiteIconURL: allWhiteIcons[id],
     });
   });
-  console.log("productTypes: " + productTypes);
 
   return productTypes;
 }
