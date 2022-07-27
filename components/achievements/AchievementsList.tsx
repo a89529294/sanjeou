@@ -6,6 +6,7 @@ import TopCircle from "../TopCircle";
 
 import achievements from "../../data/achievements";
 import { useDisableScroll } from "../../hooks/useDisableScroll";
+import { Achievement, allIcons } from "../../data/types";
 
 const AchItem = ({
   id,
@@ -76,22 +77,25 @@ const AchItem = ({
   );
 };
 
-function AchievementsList() {
+function AchievementsList({ achievements }: { achievements: Achievement[] }) {
   return (
     <div
       className="relative grid gap-5 px-32 py-7 grid-cols-achievement-grid sm:px-7"
       id="achievements-all">
-      {achievements.map((ach) => (
-        <AchItem
-          key={ach.id}
-          img={ach.img}
-          year={ach.year}
-          icons={ach.icons}
-          title={ach.title}
-          subText={ach.subText}
-          id={ach.id}
-        />
-      ))}
+      {achievements.map((ach) => {
+        const icons = ach.productTypeIds.map((ptid) => allIcons[ptid]);
+        return (
+          <AchItem
+            key={ach.id}
+            img={ach.imgURL}
+            year={ach.year}
+            icons={icons}
+            title={ach.title}
+            subText={ach.subTitle}
+            id={ach.id}
+          />
+        );
+      })}
       <TopCircle to="/achievements" />
     </div>
   );
