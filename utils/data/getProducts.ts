@@ -1,9 +1,11 @@
 import { Product } from "../../data/types";
 import { baseURL } from "../urls";
 
-async function getProducts(limit = 100) {
+async function getProducts(limit = 100, product_type?: number) {
   const r = await fetch(
-    `${baseURL}/api/products?populate=*&pagination[start]=0&pagination[limit]=${limit}`
+    `${baseURL}/api/products?populate=*&pagination[start]=0&pagination[limit]=${limit}${
+      product_type ? `&filters[product_type][id]=${product_type}` : ""
+    }`
   );
   const data = await r.json();
   const products: Product[] = [];
