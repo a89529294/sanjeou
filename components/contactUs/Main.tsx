@@ -10,14 +10,17 @@ import { ProductCategory } from "../../data/types";
 import getProducts from "../../utils/data/getProducts";
 import { DropdownIndicator } from "react-select/dist/declarations/src/components/indicators";
 
-type RegInput = {
+interface GenericFormInput {
+  required?: boolean;
+}
+interface RegInput extends GenericFormInput {
   type: "reg";
   label: string;
   placeholder: string;
   value: string;
   setValue: React.Dispatch<React.SetStateAction<string>>;
-};
-interface SelectStringInput {
+}
+interface SelectStringInput extends GenericFormInput {
   label: string;
   type: "selectString";
   value: string;
@@ -26,7 +29,7 @@ interface SelectStringInput {
   placeholder: string;
 }
 
-interface SelectNumberInput {
+interface SelectNumberInput extends GenericFormInput {
   label: string;
   type: "selectNumber";
   value: number;
@@ -82,11 +85,21 @@ const customStyles = {
 const FormInput = (props: RegInput | SelectNumberInput | SelectStringInput) => {
   const isReg = props.type === "reg";
   const isSelectString = props.type === "selectString";
+  const isRequired = props.required ? props.required : false;
   return (
     <label className="relative grid grid-cols-[auto_1fr] items-center pb-2 text-xl font-medium border-b border-solid text-bauhaus placeholder:text-lg placeholder:text-stonewall-gray border-primary sm:text-base ">
-      <span className="inline-block w-32 sm:w-24">{props.label}</span>
+      <span
+        className={`relative w-32 sm:w-24 ${
+          isRequired ? asteriskCssString : ""
+        }`}>
+        {props.label}
+      </span>
       {isReg ? (
-        <input placeholder={props.placeholder} />
+        <input
+          placeholder={props.placeholder}
+          value={props.value}
+          onChange={(e) => props.setValue(e.target.value)}
+        />
       ) : (
         <>
           {isSelectString ? (
@@ -141,6 +154,13 @@ function Main() {
   );
   const [selectedProduct, setSelectedProduct] = useState(0);
   const [productSelectKey, setProductSelectKey] = useState(0);
+  const disableSubmit =
+    !companyOrUserName.trim() ||
+    !reCaptchaToken ||
+    !phone.trim() ||
+    !email.trim() ||
+    !content.trim() ||
+    !department;
 
   useEffect(() => {
     (async () => {
@@ -167,10 +187,34 @@ function Main() {
     <form
       className="relative grid px-32 pt-6 pb-36 gap-9 sm:px-7 sm:py-6"
       id="contact-us-form"
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        if (!reCaptchaToken) return;
-
+        if (disableSubmit) return;
+        await fetch(
+          process.env.NEXT_PUBLIC_REACT_APP_API_HOST + "/api/contactuses",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              data: {
+                company: companyOrUserName,
+                phone,
+                email,
+                department,
+                content,
+                token: reCaptchaToken,
+                model: [
+                  {
+                    product_type: selectedProductCategory,
+                    product: selectedProduct,
+                  },
+                ],
+              },
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         reRef.current?.reset();
         setReCaptchaToken("");
       }}>
@@ -182,6 +226,7 @@ function Main() {
             value={companyOrUserName}
             setValue={setCompanyOrUserName}
             type="reg"
+            required
           />
           <FormInput
             label="聯絡電話"
@@ -189,6 +234,7 @@ function Main() {
             value={phone}
             setValue={setPhone}
             type="reg"
+            required
           />
           <FormInput
             label="電子信箱"
@@ -196,10 +242,18 @@ function Main() {
             value={email}
             setValue={setEmail}
             type="reg"
+            required
           />
           <div className="grid gap-3 mt-4 sm:mt-0">
-            <h3 className="text-xl font-medium sm:text-base">訊息內容</h3>
-            <textarea className="w-full h-32 border border-solid border-primary" />
+            <h3
+              className={`text-xl font-medium sm:text-base ${asteriskCssString}`}>
+              訊息內容
+            </h3>
+            <textarea
+              className="w-full h-32 border border-solid border-primary"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+            />
           </div>
         </div>
         <div className="flex-1 grid gap-[14px] pl-8 sm:pl-0 sm:w-full sm:pb-2">
@@ -210,6 +264,7 @@ function Main() {
             value={department}
             setValue={setDepartment}
             placeholder="請選擇諮詢部門"
+            required
           />
           <div className="pl-32 mb-14 sm:grid sm:place-content-center sm:pl-0 sm:mb-6">
             <OutlinedButton>新增型號</OutlinedButton>
@@ -241,13 +296,17 @@ function Main() {
       <ReCAPTCHA
         sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
         onChange={(token) => {
+          console.log(token);
           setReCaptchaToken(token ?? "");
         }}
         ref={reRef}
         className="flex justify-center"
       />
 
-      <OutlinedButton className="place-self-center" size="wide">
+      <OutlinedButton
+        className="place-self-center"
+        size="wide"
+        disabled={disableSubmit}>
         送出
       </OutlinedButton>
       <TopCircle to="/contact-us" />
@@ -259,4 +318,6 @@ const departmentOptions = [
   { value: "業務部", label: "業務部" },
   { value: "工務部", label: "工務部" },
 ];
+const asteriskCssString =
+  "before:text-primary-red before:mr-1 before:content-['*']";
 export default Main;
