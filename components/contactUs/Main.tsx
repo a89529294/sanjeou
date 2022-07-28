@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
 import ReCAPTCHA from "react-google-recaptcha";
+import { v4 as uuidv4 } from "uuid";
 import Chevron from "../Icons/Chevron";
 import CirclePlus from "../Icons/CirclePlus";
 import OutlinedButton from "../OutlinedButton";
@@ -8,7 +9,6 @@ import TopCircle from "../TopCircle";
 import getProductTypes from "../../utils/data/getProductTypes";
 import { ProductCategory } from "../../data/types";
 import getProducts from "../../utils/data/getProducts";
-import { DropdownIndicator } from "react-select/dist/declarations/src/components/indicators";
 
 interface GenericFormInput {
   required?: boolean;
@@ -28,6 +28,14 @@ interface SelectStringInput extends GenericFormInput {
   options: { label: string; value: string }[];
   placeholder: string;
 }
+
+type ModelElement = {
+  product_type: number;
+  product: number;
+  fileName: string;
+  attachment: string;
+  id: string;
+};
 
 interface SelectNumberInput extends GenericFormInput {
   label: string;
@@ -145,15 +153,12 @@ function Main() {
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
   const [department, setDepartment] = useState("");
-  const [productCategories, setProductCategories] = useState<
-    { label: string; value: number }[]
-  >([]);
-  const [selectedProductCategory, setSelectedProductCategory] = useState(0);
-  const [products, setProducts] = useState<{ label: string; value: number }[]>(
-    []
-  );
-  const [selectedProduct, setSelectedProduct] = useState(0);
-  const [productSelectKey, setProductSelectKey] = useState(0);
+  //TODO implement a cache for already selected product categories and products
+
+  const [models, setModels] = useState<ModelElement[]>([
+    generateEmptyModelElement(),
+  ]);
+
   const disableSubmit =
     !companyOrUserName.trim() ||
     !reCaptchaToken ||
@@ -161,27 +166,6 @@ function Main() {
     !email.trim() ||
     !content.trim() ||
     !department;
-
-  useEffect(() => {
-    (async () => {
-      const productCategories = await getProductTypes();
-
-      setProductCategories(
-        productCategories.map((pc) => ({ value: pc.id, label: pc.name }))
-      );
-    })();
-  }, []);
-
-  useEffect(() => {
-    setProducts([]);
-    setSelectedProduct(0);
-    setProductSelectKey((k) => ++k);
-    selectedProductCategory &&
-      (async () => {
-        const products = await getProducts(100, selectedProductCategory);
-        setProducts(products.map((p) => ({ label: p.name, value: p.id })));
-      })();
-  }, [selectedProductCategory]);
 
   return (
     <form
@@ -202,12 +186,12 @@ function Main() {
                 department,
                 content,
                 token: reCaptchaToken,
-                model: [
-                  {
-                    product_type: selectedProductCategory,
-                    product: selectedProduct,
-                  },
-                ],
+                // model: [
+                //   {
+                //     product_type: selectedProductCategory,
+                //     product: selectedProduct,
+                //   },
+                // ],
               },
             }),
             headers: {
@@ -267,30 +251,16 @@ function Main() {
             required
           />
           <div className="pl-32 mb-14 sm:grid sm:place-content-center sm:pl-0 sm:mb-6">
-            <OutlinedButton>新增型號</OutlinedButton>
+            <OutlinedButton
+              onClick={() => {
+                setModels((pv) => [...pv, generateEmptyModelElement()]);
+              }}>
+              新增型號
+            </OutlinedButton>
           </div>
-
-          <FormInput
-            label="產品系列"
-            placeholder="請選擇產品系列"
-            options={productCategories}
-            value={selectedProductCategory}
-            setValue={setSelectedProductCategory}
-            type="selectNumber"
-          />
-          <FormInput
-            label="產品"
-            placeholder="請選擇產品"
-            options={products}
-            value={selectedProduct}
-            setValue={setSelectedProduct}
-            type="selectNumber"
-            key={productSelectKey}
-          />
-          <button className="flex items-center pr-3 text-xl font-medium text-bauhaus sm:text-base sm:pr-0">
-            附件檔<span className="ml-1 text-xs">(上限10MB)</span>
-            <CirclePlus className="ml-auto text-primary-red sm:w-6" />
-          </button>
+          {models.map((m) => (
+            <ProductSection key={m.id} setModels={setModels} id={m.id} />
+          ))}
         </div>
       </div>
       <ReCAPTCHA
@@ -314,10 +284,99 @@ function Main() {
   );
 }
 
+function ProductSection({
+  setModels,
+  id,
+}: {
+  setModels: React.Dispatch<React.SetStateAction<ModelElement[]>>;
+  id: string;
+}) {
+  const [productCategories, setProductCategories] = useState<
+    { label: string; value: number }[]
+  >([]);
+  const [selectedProductCategory, setSelectedProductCategory] = useState(0);
+  const [products, setProducts] = useState<{ label: string; value: number }[]>(
+    []
+  );
+  const [selectedProduct, setSelectedProduct] = useState(0);
+  const [productSelectKey, setProductSelectKey] = useState(0);
+
+  useEffect(() => {
+    (async () => {
+      const productCategories = await getProductTypes();
+
+      setProductCategories(
+        productCategories.map((pc) => ({ value: pc.id, label: pc.name }))
+      );
+    })();
+  }, []);
+
+  useEffect(() => {
+    setProducts([]);
+    setSelectedProduct(0);
+    setProductSelectKey((k) => ++k);
+    selectedProductCategory &&
+      (async () => {
+        const products = await getProducts(100, selectedProductCategory);
+        setProducts(products.map((p) => ({ label: p.name, value: p.id })));
+      })();
+    setModels((pm) => {
+      const elementIdx = pm.findIndex((m) => m.id === id);
+      const copyElement = { ...pm[elementIdx] };
+      //   console.log(copyElement);
+      copyElement.product_type = selectedProductCategory;
+      //   console.log(copyElement);
+      const copyArray = pm.slice();
+      copyArray.splice(elementIdx, 1, copyElement);
+      return copyArray;
+    });
+  }, [selectedProductCategory]);
+
+  return (
+    <>
+      <FormInput
+        label="產品系列"
+        placeholder="請選擇產品系列"
+        options={productCategories}
+        value={selectedProductCategory}
+        setValue={setSelectedProductCategory}
+        type="selectNumber"
+      />
+      <FormInput
+        label="產品"
+        placeholder="請選擇產品"
+        options={products}
+        value={selectedProduct}
+        setValue={setSelectedProduct}
+        type="selectNumber"
+        key={productSelectKey}
+      />
+      <button className="flex items-center pr-3 text-xl font-medium text-bauhaus sm:text-base sm:pr-0">
+        附件檔<span className="ml-1 text-xs">(上限10MB)</span>
+        <CirclePlus className="ml-auto text-primary-red sm:w-6" />
+      </button>
+    </>
+  );
+}
+
+// const generateEmptyModelElement = {
+//   product_type: 0,
+//   product: 0,
+//   fileName: "",
+//   attachment: "",
+// };
+const generateEmptyModelElement = () => ({
+  product_type: 0,
+  product: 0,
+  fileName: "",
+  attachment: "",
+  id: uuidv4(),
+});
 const departmentOptions = [
   { value: "業務部", label: "業務部" },
   { value: "工務部", label: "工務部" },
 ];
 const asteriskCssString =
   "before:text-primary-red before:mr-1 before:content-['*']";
+
 export default Main;
