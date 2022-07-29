@@ -111,6 +111,7 @@ export default function ProductSection({
               .catch((e) => console.log(e));
           }}
         />
+        <span className="ml-auto">{fileName}</span>
         <CirclePlus className="ml-auto text-primary-red sm:w-6" />
       </label>
 
