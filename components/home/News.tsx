@@ -75,7 +75,7 @@ function News({ newsArticles = [] }: { newsArticles: News[] }) {
         <div className="grid gap-x-5 gap-y-2 h-72 grid-cols-[.57fr_.43fr] grid-rows-[1fr_1fr] sm:flex-col sm:flex sm:h-auto">
           {newsArticles.map((n, i) => (
             <Article
-              imgPath={n.imgURL}
+              imgPath={n.imgURLs[0]}
               date={n.createdAt}
               title={n.title}
               desc={n.content}

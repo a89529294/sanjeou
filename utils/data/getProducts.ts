@@ -15,7 +15,7 @@ async function getProducts(limit = 100, product_type?: number) {
     products.push({
       id: p.id,
       name: innerP.title,
-      imgURLs: innerP.image.data.map((img: any) => img.attributes.url),
+      imgURLs: innerP.image.data.map((img: any) => img.attributes.url ?? ""),
       product_type: innerP.product_type.data.id,
       feature: innerP.feature,
       spec: innerP.spec,

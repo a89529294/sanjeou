@@ -75,7 +75,7 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
           <Image
             layout="fill"
             objectFit="cover"
-            src={firstAch.imgURL}
+            src={firstAch.imgURLs[0]}
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(500, 500)
@@ -94,12 +94,12 @@ function Achievements({ achievements }: { achievements: Achievement[] }) {
           <Image
             layout="fill"
             objectFit="cover"
-            src={secondAch.imgURL}
+            src={secondAch.imgURLs[0]}
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(500, 500)
             )}`}
-            key={firstAch.imgURL}
+            key={secondAch.id}
           />
         </div>
         <Card

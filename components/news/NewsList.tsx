@@ -26,7 +26,7 @@ const ItemDesc = ({
 };
 
 function NewsItem({
-  item: { id, title, content, createdAt, imgURL },
+  item: { id, title, content, createdAt, imgURLs },
   tag = "",
 }: {
   item: News;
@@ -37,7 +37,7 @@ function NewsItem({
   return (
     <div className="flex py-5 border border-solid border-stonewall-gray px-7 gap-9 sm:flex-col sm:gap-4">
       <div className="relative w-96 aspect-[1.3/1] sm:w-full">
-        <Image layout="fill" objectFit="cover" src={imgURL} />
+        <Image layout="fill" objectFit="cover" src={imgURLs[0]} />
       </div>
 
       <ItemDesc to={isMobile ? `/news/${id}` : ""}>

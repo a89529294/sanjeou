@@ -9,6 +9,8 @@ import TopCircle from "../TopCircle";
 import getProductTypes from "../../utils/data/getProductTypes";
 import { ProductCategory } from "../../data/types";
 import getProducts from "../../utils/data/getProducts";
+import fileToBase64 from "../../utils/fileToBase64";
+import StateManagedSelect from "react-select";
 
 interface GenericFormInput {
   required?: boolean;
@@ -23,9 +25,28 @@ interface RegInput extends GenericFormInput {
 interface SelectStringInput extends GenericFormInput {
   label: string;
   type: "selectString";
-  value: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  value: { label: string; value: string };
+  setValue: React.Dispatch<
+    React.SetStateAction<{
+      value: string;
+      label: string;
+    }>
+  >;
   options: { label: string; value: string }[];
+  placeholder: string;
+}
+
+interface SelectNumberInput extends GenericFormInput {
+  label: string;
+  type: "selectNumber";
+  value: { label: string; value: number };
+  setValue: React.Dispatch<
+    React.SetStateAction<{
+      value: number;
+      label: string;
+    }>
+  >;
+  options: { label: string; value: number }[];
   placeholder: string;
 }
 
@@ -36,15 +57,6 @@ type ModelElement = {
   attachment: string;
   id: string;
 };
-
-interface SelectNumberInput extends GenericFormInput {
-  label: string;
-  type: "selectNumber";
-  value: number;
-  setValue: React.Dispatch<React.SetStateAction<number>>;
-  options: { label: string; value: number }[];
-  placeholder: string;
-}
 
 const customStyles = {
   option: (provided: any, state: any) => {
@@ -94,6 +106,15 @@ const FormInput = (props: RegInput | SelectNumberInput | SelectStringInput) => {
   const isReg = props.type === "reg";
   const isSelectString = props.type === "selectString";
   const isRequired = props.required ? props.required : false;
+  //   const selectInputRef = useRef<any>(null);
+
+  //   useEffect(
+  //     () =>
+  //       !props.value &&
+  //       selectInputRef.current?.setValue({ label: "", value: "" }),
+  //     [props.value]
+  //   );
+
   return (
     <label className="relative grid grid-cols-[auto_1fr] items-center pb-2 text-xl font-medium border-b border-solid text-bauhaus placeholder:text-lg placeholder:text-stonewall-gray border-primary sm:text-base ">
       <span
@@ -117,27 +138,28 @@ const FormInput = (props: RegInput | SelectNumberInput | SelectStringInput) => {
               styles={customStyles}
               placeholder={props.placeholder}
               onChange={(e) => {
-                props.setValue(e?.value ?? "");
+                props.setValue(e!);
               }}
-
+              //   ref={selectInputRef}
+              value={props.value}
               //   menuIsOpen={true}
             />
           ) : (
             <Select
               isDisabled={!props.options.length}
-              instanceId={"aaaa"}
+              instanceId={"bbbb"}
               options={props.options}
               styles={customStyles}
               placeholder={props.placeholder}
               onChange={(e) => {
-                props.setValue(e?.value ?? 0);
+                props.setValue(e!);
               }}
               // menuIsOpen={true}
             />
           )}
           <Chevron
             type="down"
-            className="absolute right-0 ml-auto pointer-events-none stroke-primary-red"
+            className="absolute ml-auto pointer-events-none right-1 stroke-primary-red"
           />
         </>
       )}
@@ -152,7 +174,9 @@ function Main() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [content, setContent] = useState("");
-  const [department, setDepartment] = useState("");
+  const [department, setDepartment] = useState<
+    typeof departmentOptions[number]
+  >({ label: "", value: "" });
   //TODO implement a cache for already selected product categories and products
 
   const [models, setModels] = useState<ModelElement[]>([
@@ -165,7 +189,8 @@ function Main() {
     !phone.trim() ||
     !email.trim() ||
     !content.trim() ||
-    !department;
+    !department ||
+    models.some((m) => m.product_type && !m.product);
 
   return (
     <form
@@ -174,36 +199,45 @@ function Main() {
       onSubmit={async (e) => {
         e.preventDefault();
         if (disableSubmit) return;
-        await fetch(
-          process.env.NEXT_PUBLIC_REACT_APP_API_HOST + "/api/contactuses",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              data: {
-                company: companyOrUserName,
-                phone,
-                email,
-                department,
-                content,
-                token: reCaptchaToken,
-                // model: [
-                //   {
-                //     product_type: selectedProductCategory,
-                //     product: selectedProduct,
-                //   },
-                // ],
+        try {
+          await fetch(
+            process.env.NEXT_PUBLIC_REACT_APP_API_HOST + "/api/contactuses",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                data: {
+                  company: companyOrUserName,
+                  phone,
+                  email,
+                  department,
+                  content,
+                  token: reCaptchaToken,
+                  model: models.map((m) => ({
+                    product_type: m.product_type,
+                    product: m.product,
+                    fileName: m.fileName,
+                    attachment: m.attachment,
+                  })),
+                },
+              }),
+              headers: {
+                "Content-Type": "application/json",
               },
-            }),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        reRef.current?.reset();
-        setReCaptchaToken("");
+            }
+          );
+          reRef.current?.reset();
+          setReCaptchaToken("");
+          setCompanyOrUserName("");
+          setPhone("");
+          setEmail("");
+          setContent("");
+          //   setDepartment("");
+        } catch (e) {
+          console.log(e);
+        }
       }}>
       <div className="flex items-start px-8 border border-solid border-stonewall-gray py-7 sm:flex-col sm:p-0 sm:px-2 sm:gap-8">
-        <div className="grid flex-1 gap-[14px] pr-8 border-r border-solid border-stonewall-gray sm:pr-0 sm:w-full sm:pt-[14px] sm:border-0">
+        <div className="grid flex-1 gap-3.5 pr-8 border-r border-solid border-stonewall-gray sm:pr-0 sm:w-full sm:pt-[14px] sm:border-0">
           <FormInput
             label="公司 / 姓名"
             placeholder="請輸入公司 / 姓名"
@@ -234,9 +268,10 @@ function Main() {
               訊息內容
             </h3>
             <textarea
-              className="w-full h-32 border border-solid border-primary"
+              className="w-full h-32 p-4 text-xl border border-solid border-primary"
               value={content}
               onChange={(e) => setContent(e.target.value)}
+              placeholder="請輸入內容"
             />
           </div>
         </div>
@@ -253,7 +288,8 @@ function Main() {
           <div className="pl-32 mb-14 sm:grid sm:place-content-center sm:pl-0 sm:mb-6">
             <OutlinedButton
               onClick={() => {
-                setModels((pv) => [...pv, generateEmptyModelElement()]);
+                setDepartment({ label: "", value: "" });
+                // setModels((pv) => [...pv, generateEmptyModelElement()]);
               }}>
               新增型號
             </OutlinedButton>
@@ -294,11 +330,19 @@ function ProductSection({
   const [productCategories, setProductCategories] = useState<
     { label: string; value: number }[]
   >([]);
-  const [selectedProductCategory, setSelectedProductCategory] = useState(0);
+  const [selectedProductCategory, setSelectedProductCategory] = useState({
+    label: "",
+    value: 0,
+  });
   const [products, setProducts] = useState<{ label: string; value: number }[]>(
     []
   );
-  const [selectedProduct, setSelectedProduct] = useState(0);
+  const [selectedProduct, setSelectedProduct] = useState({
+    label: "",
+    value: 0,
+  });
+  const [fileName, setFileName] = useState("");
+  const [fileContent, setFileContent] = useState("");
   const [productSelectKey, setProductSelectKey] = useState(0);
 
   useEffect(() => {
@@ -313,27 +357,43 @@ function ProductSection({
 
   useEffect(() => {
     setProducts([]);
-    setSelectedProduct(0);
+    setSelectedProduct({ label: "", value: 0 });
     setProductSelectKey((k) => ++k);
     selectedProductCategory &&
       (async () => {
-        const products = await getProducts(100, selectedProductCategory);
+        const products = await getProducts(100, selectedProductCategory.value);
         setProducts(products.map((p) => ({ label: p.name, value: p.id })));
       })();
+    updateModels("product_type", selectedProductCategory.value);
+  }, [selectedProductCategory]);
+
+  useEffect(() => {
+    updateModels("product", selectedProduct.value);
+  }, [selectedProduct]);
+
+  useEffect(() => {
+    updateModels("fileName", fileName);
+  }, [fileName]);
+
+  useEffect(() => {
+    updateModels("attachment", fileContent);
+  }, [fileContent]);
+
+  function updateModels(prop: string, value: number | string) {
     setModels((pm) => {
       const elementIdx = pm.findIndex((m) => m.id === id);
-      const copyElement = { ...pm[elementIdx] };
-      //   console.log(copyElement);
-      copyElement.product_type = selectedProductCategory;
-      //   console.log(copyElement);
+      const copyElement = {
+        ...pm[elementIdx],
+        [prop]: value,
+      };
       const copyArray = pm.slice();
       copyArray.splice(elementIdx, 1, copyElement);
       return copyArray;
     });
-  }, [selectedProductCategory]);
+  }
 
   return (
-    <>
+    <div className="grid gap-3.5 relative">
       <FormInput
         label="產品系列"
         placeholder="請選擇產品系列"
@@ -351,20 +411,48 @@ function ProductSection({
         type="selectNumber"
         key={productSelectKey}
       />
-      <button className="flex items-center pr-3 text-xl font-medium text-bauhaus sm:text-base sm:pr-0">
-        附件檔<span className="ml-1 text-xs">(上限10MB)</span>
+      {/* <button className="flex items-center text-xl font-medium text-bauhaus sm:text-base sm:pr-0">
+        附件檔<span className="ml-1 text-xs">(上限100MB)</span>
+       
+      </button> */}
+      <label className="flex items-center text-xl font-medium cursor-pointer text-bauhaus sm:text-base sm:pr-0">
+        附件檔<span className="ml-1 text-xs">(上限100MB)</span>
+        <input
+          type="file"
+          className="hidden"
+          onChange={(e) => {
+            if (!e.target.files) return;
+            const file = e.target.files[0];
+            setFileName(file.name);
+            fileToBase64(file)
+              .then((r) => setFileContent(r))
+              .catch((e) => console.log(e));
+          }}
+        />
         <CirclePlus className="ml-auto text-primary-red sm:w-6" />
+      </label>
+
+      <button
+        className="text-primary-red"
+        onClick={() => {
+          setModels((pm) => pm.filter((m) => m.id !== id));
+        }}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-8 h-8 stroke-current hover-hover:hover:fill-primary-red fill-transparent hover-hover:hover:stroke-white"
+          viewBox="0 0 24 24"
+          strokeWidth={1}>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
       </button>
-    </>
+    </div>
   );
 }
 
-// const generateEmptyModelElement = {
-//   product_type: 0,
-//   product: 0,
-//   fileName: "",
-//   attachment: "",
-// };
 const generateEmptyModelElement = () => ({
   product_type: 0,
   product: 0,

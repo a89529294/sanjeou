@@ -13,7 +13,7 @@ async function getAchievements() {
       title: innerA.title,
       subTitle: innerA.content,
       year: innerA.year,
-      imgURL: innerA.image.data.attributes.url,
+      imgURLs: innerA.image.data.map((img: any) => img.attributes.url ?? ""),
       productTypeIds: innerA.product_types.data.map((e: any) => {
         e.id > 7 &&
           console.warn(

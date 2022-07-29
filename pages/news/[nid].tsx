@@ -42,7 +42,7 @@ function NewsInnerPage({
       <NewsArticle
         title={foundNews.title}
         content={foundNews.content}
-        imgURL={foundNews.imgURL}
+        imgURLs={foundNews.imgURLs}
         createdAt={foundNews.createdAt}
         category={categoryName}
         prevNews={prevNews}

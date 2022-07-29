@@ -1,6 +1,6 @@
 import { InferGetStaticPropsType } from "next";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect } from "react";
 import Certifications from "../components/about/Certifications";
 import Hero from "../components/about/Hero";
 import Milestones from "../components/about/Milestones";
@@ -15,6 +15,10 @@ function About({
   certs,
   milestones,
 }: InferGetStaticPropsType<typeof getServerSideProps>) {
+  console.log(Date.now() + ": " + title);
+  useEffect(() => {
+    console.log("In About Function: " + Date.now());
+  }, []);
   return (
     <div>
       <Head>
@@ -33,6 +37,12 @@ function About({
 export async function getServerSideProps() {
   const { title, content, videoURL, certs, milestones }: CompanyInfo =
     await getCompanyInfo();
+  try {
+    // console.log(window);
+  } catch (e) {
+    console.log(Date.now());
+    console.log(e);
+  }
 
   return {
     props: {

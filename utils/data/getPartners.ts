@@ -8,7 +8,7 @@ async function getPartners() {
 
   data.data.forEach((p: any) => {
     partners[p.attributes.type] = p.attributes.image.data.map(
-      (i: any) => i.attributes.url
+      (i: any) => i.attributes.url ?? ""
     );
   });
   return partners;

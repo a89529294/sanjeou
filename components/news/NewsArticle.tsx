@@ -71,7 +71,7 @@ const BottomNavbar = ({
 function NewsArticle({
   title,
   content,
-  imgURL,
+  imgURLs,
   createdAt,
   category,
   prevNews,
@@ -79,7 +79,7 @@ function NewsArticle({
 }: {
   title: string;
   content: string;
-  imgURL: string;
+  imgURLs: string[];
   createdAt: string;
   category: string;
   prevNews: News;
@@ -95,9 +95,11 @@ function NewsArticle({
 
       <div className="grid gap-8 pb-5 text-lg border-t border-b border-solid pt-7 border-silver-spoon text-iron sm:text-xs sm:leading-5">
         <div className="grid gap-6 grid-cols-3 auto-rows-[290px] sm:grid-cols-none sm:auto-rows-[200px]">
-          <div className="relative">
-            <Image src={imgURL} layout="fill" objectFit="cover" />
-          </div>
+          {imgURLs.map((url) => (
+            <div className="relative">
+              <Image src={url} layout="fill" objectFit="cover" />
+            </div>
+          ))}
         </div>
         <p>{content}</p>
       </div>

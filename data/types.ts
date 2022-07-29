@@ -43,7 +43,7 @@ export type News = {
   title: string;
   content: string;
   createdAt: string;
-  imgURL: string;
+  imgURLs: string[];
   categoryId: number;
 };
 export type Achievement = {
@@ -51,7 +51,7 @@ export type Achievement = {
   title: string;
   subTitle: string;
   year: number;
-  imgURL: string;
+  imgURLs: string[];
   productTypeIds: (keyof typeof allIcons)[];
 };
 

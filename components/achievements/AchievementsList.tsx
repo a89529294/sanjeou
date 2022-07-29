@@ -87,7 +87,7 @@ function AchievementsList({ achievements }: { achievements: Achievement[] }) {
         return (
           <AchItem
             key={ach.id}
-            img={ach.imgURL}
+            img={ach.imgURLs[0]}
             year={ach.year}
             icons={icons}
             title={ach.title}

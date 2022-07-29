@@ -10,8 +10,8 @@ async function getProductTypes() {
     productTypes.push({
       id: id,
       name: p.attributes.name,
-      iconURL: allIcons[id],
-      whiteIconURL: allWhiteIcons[id],
+      iconURL: allIcons[id] ?? "",
+      whiteIconURL: allWhiteIcons[id] ?? "",
     });
   });
 

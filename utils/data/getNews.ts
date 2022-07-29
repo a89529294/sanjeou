@@ -18,7 +18,9 @@ async function getNews({ limit = 100, newsCategoryId = 0 }) {
       title: n.attributes.title,
       content: n.attributes.content,
       createdAt: n.attributes.createdAt.slice(0, 10),
-      imgURL: n.attributes.image.data.attributes.url,
+      imgURLs: n.attributes.image.data.map(
+        (img: any) => img.attributes.url ?? ""
+      ),
       categoryId: n.attributes.information_type.data.id,
     });
   });

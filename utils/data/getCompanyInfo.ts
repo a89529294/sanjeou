@@ -13,7 +13,7 @@ async function getCompanyInfo() {
   const certs = attr.Certification.map((c: any) => ({
     id: c.id,
     name: c.name,
-    imgURL: c.image.data[0].attributes.url,
+    imgURL: c.image.data[0].attributes.url ?? "",
   }));
   const sortedTL = attr.Company_Timeline.sort(
     (a: any, b: any) => a.year - b.year
