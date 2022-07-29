@@ -77,7 +77,7 @@ const customStyles = {
     return { ...provided, opacity, transition };
   },
   input: (provided: any) => {
-    return { ...provided, border: "none" };
+    return { ...provided, border: "none", color: "transparent" };
   },
   indicatorsContainer: () => {
     return { display: "none" };
@@ -182,6 +182,7 @@ function Main() {
   const [models, setModels] = useState<ModelElement[]>([
     generateEmptyModelElement(),
   ]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const disableSubmit =
     !companyOrUserName.trim() ||
@@ -192,6 +193,19 @@ function Main() {
     !department ||
     models.some((m) => m.product_type && !m.product);
 
+  //   useEffect(() => {
+  //     fetch(
+  //       process.env.NEXT_PUBLIC_REACT_APP_API_HOST +
+  //         "/api/contactuses?populate[model][populate]=*&sort[createdAt]=desc",
+  //       {
+  //         headers: {
+  //           Authorization:
+  //             "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU2OTg5MjA3LCJleHAiOjE2NTk1ODEyMDd9.EDpG2za73NsPGRaeKn883IPWUkstej1m8cLuDL8hljA",
+  //         },
+  //       }
+  //     );
+  //   }, []);
+
   return (
     <form
       className="relative grid px-32 pt-6 pb-36 gap-9 sm:px-7 sm:py-6"
@@ -200,6 +214,7 @@ function Main() {
         e.preventDefault();
         if (disableSubmit) return;
         try {
+          setIsSubmitting(true);
           await fetch(
             process.env.NEXT_PUBLIC_REACT_APP_API_HOST + "/api/contactuses",
             {
@@ -209,7 +224,7 @@ function Main() {
                   company: companyOrUserName,
                   phone,
                   email,
-                  department,
+                  department: department.value,
                   content,
                   token: reCaptchaToken,
                   model: models.map((m) => ({
@@ -225,13 +240,15 @@ function Main() {
               },
             }
           );
+          setIsSubmitting(false);
           reRef.current?.reset();
           setReCaptchaToken("");
           setCompanyOrUserName("");
           setPhone("");
           setEmail("");
           setContent("");
-          //   setDepartment("");
+          setDepartment(emptyDepartmentValue);
+          setModels([generateEmptyModelElement()]);
         } catch (e) {
           console.log(e);
         }
@@ -288,8 +305,8 @@ function Main() {
           <div className="pl-32 mb-14 sm:grid sm:place-content-center sm:pl-0 sm:mb-6">
             <OutlinedButton
               onClick={() => {
-                setDepartment({ label: "", value: "" });
-                // setModels((pv) => [...pv, generateEmptyModelElement()]);
+                // setDepartment({ label: "", value: "" });
+                setModels((pv) => [...pv, generateEmptyModelElement()]);
               }}>
               新增型號
             </OutlinedButton>
@@ -312,7 +329,7 @@ function Main() {
       <OutlinedButton
         className="place-self-center"
         size="wide"
-        disabled={disableSubmit}>
+        disabled={disableSubmit || isSubmitting}>
         送出
       </OutlinedButton>
       <TopCircle to="/contact-us" />
@@ -359,7 +376,7 @@ function ProductSection({
     setProducts([]);
     setSelectedProduct({ label: "", value: 0 });
     setProductSelectKey((k) => ++k);
-    selectedProductCategory &&
+    selectedProductCategory.value &&
       (async () => {
         const products = await getProducts(100, selectedProductCategory.value);
         setProducts(products.map((p) => ({ label: p.name, value: p.id })));
@@ -464,6 +481,8 @@ const departmentOptions = [
   { value: "業務部", label: "業務部" },
   { value: "工務部", label: "工務部" },
 ];
+const emptyDepartmentValue = { value: "", label: "" };
+const emptyProductOrProductTypeValue = { value: 0, label: "" };
 const asteriskCssString =
   "before:text-primary-red before:mr-1 before:content-['*']";
 
